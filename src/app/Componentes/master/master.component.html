@@ -1,1 +1,7 @@
-<h2>Soy la página Master</h2>
+<input type="text" [(ngModel)]="searchText" (keyup.enter)="search()">
+<h2>Alumnos de la EOI</h2>
+<ul> 
+<li *ngFor="let alumn of alumns, index as i">
+    {{alumn.name}}
+</li> 
+</ul>

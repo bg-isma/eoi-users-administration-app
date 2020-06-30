@@ -1,0 +1,10 @@
+<form>
+    <label for="email" >Correo</label>
+    <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail"] required>
+    <label for="pass">Contraseña</label>
+    <input id="pass" type="text"  [(ngModel)]="newAlumn.password"] requiered>
+    <button (click)="createNewAlumn()">Dar de Alta</button>
+    <select>
+        <option *ngFor="let course of courses" [value]="default">{{default}}</option>
+    </select>  
+</form>
