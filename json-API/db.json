@@ -1,39 +1,35 @@
 {
-    "alumns": [
-      {
-          "id": "43adaw212",
-          "name": "Ismael Bola",
-          "courses": [
-              {
-                  "name": "Angular EOI",
-                  "img": "",
-                  "hours": 320,
-                  "description": "",
-                  "skils": [
-
-                  ],
-                  "professors": [
-
-                  ],
-                  "area": "",
-                  "year": "",
-                  "modality": ""
-              }
-          ],
-          "birthday": "12/08/1999",
-          "isUnemployed": true,
-          "phone": "23523145",
-          "city": "Las Palmas",
-          "contactEmail": "ismaelbg_99@hotmail.com",
-          "experiences": [
-            {
-                "company": "TAC7",
-                "time": "64"
-            }
-        ],
-        "password" : "12345",
-        "loginEmail" : "ismaelbg_99@hotmail.com",
-        "mainCourse": "Angular EOI"
-      }
-    ]
+  "alumns": [
+    {
+      "id": "43adaw212",
+      "name": "Ismael Bola",
+      "courses": [
+        {
+          "name": "Angular EOI",
+          "img": "",
+          "hours": 320,
+          "description": "",
+          "skils": [],
+          "professors": [],
+          "area": "",
+          "year": "",
+          "modality": ""
+        }
+      ],
+      "birthday": "12/08/1999",
+      "isUnemployed": true,
+      "phone": "23523145",
+      "city": "Las Palmas",
+      "contactEmail": "ismaelbg_99@hotmail.com",
+      "experiences": [
+        {
+          "company": "TAC7",
+          "time": "64"
+        }
+      ],
+      "password": "12345",
+      "loginEmail": "ismaelbg_99@hotmail.com",
+      "mainCourse": "Angular EOI"
+    }
+  ]
 }

@@ -1,15 +1,11 @@
-export type Course = = {
+export type Course =  {
     name: string,
-    img: "",
+    img?: string,
     hours: number,
     description: string,
-    skils": [
-
-        ],
-        "professors": [
-
-        ],
-        "area": "",
-        "year": "",
-        "modality": ""
+    skill : string[],
+    professors : string [],
+    area : string,
+    year : string,
+    modality : string
 }
