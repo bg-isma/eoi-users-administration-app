@@ -7,15 +7,27 @@ import { Alumn } from './Interfaces/alumn'
 })
 export class AlumnsService {
 
-  url = "http://localhost:3000/alumns/"
+  url = "http://localhost:3000/alumns"
 
   constructor() {
 
   }
 
   // getAll-Aisha
-  getAll(): Promise<Alumn[]> {
-    return axios.get(this.url)
+  getAll(page: number): Promise<Alumn[]> {
+    return axios.get(`${this.url}?_page=${page}&_limit=20`)
+      .then(alumn => alumn.data)
+      .catch(err => console.log(`Hay un error ${err}`))
+  }
+
+  getAllByCourse(text: string, page: number): Promise<Alumn[]> {
+    return axios.get(`${this.url}?mainCourse_like=${text}&_page=${page}&_limit=20`)
+      .then(alumn => alumn.data)
+      .catch(err => console.log(`Hay un error ${err}`))
+  }
+
+  getAllByName(text: string, page: number): Promise<Alumn[]> {
+    return axios.get(`${this.url}?name_like=${text}&_page=${page}&_limit=20`)
       .then(alumn => alumn.data)
       .catch(err => console.log(`Hay un error ${err}`))
   }
@@ -39,12 +51,6 @@ export class AlumnsService {
         console.log(`Algo salio mal ${err}`)
       })
   }
-
-  /*constructor(private route : ActivatedRoute) {
-  const id : string = this.route.snapshot.paramMap.get('id');
-  //Usamos esta id para poder hacer peticiones y 
-  //pedir el resto de información del usuario.
-}*/
 
   /* 
     Recoge un alumno por id 

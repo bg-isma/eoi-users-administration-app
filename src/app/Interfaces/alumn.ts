@@ -1,13 +1,16 @@
+import { Course } from "./course";
+
 export type Alumn = {
     id: string,
+    img?: string,
     name?: string,
-    courses?: object[],
+    courses?: Course[],
     birthday?: string,
-    isUnemployed?: true,
+    laborSituation?: string,
     phone?: string,
     city?: string,
     contactEmail?: string,
-    experiences?: object[]
+    experiences?: any[]
     password : string,
     loginEmail: string ,
     mainCourse: string

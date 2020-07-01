@@ -1,1 +1,40 @@
 <h2>Soy la página Details</h2>
+
+<button *ngIf="userLogged">Editar</button>
+
+<div *ngIf="!editMode" >
+    <h2>{{alumn.name}}</h2>
+    <img [src]="alumn.img" alt="Foto de perfil">
+    <ul>
+        <li *ngFor="let course of alumn.courses">
+            <img height="60px" width="60px" [src]="course.img" alt="Logo del curso">
+            <p *ngIf="course.name.length >= 0">Nombre del curso: {{course.name}}</p>
+            <p *ngIf="course.hours >= 0">Número de horas: {{course.hours}}</p>
+            <p *ngIf="course.professors.length >= 0">Descripción de curso: {{course.description}}</p>
+            <p> Habilidades obtenidas durante el curso: {{course.skills}}</p>
+            <p >Profesores que lo imparte: {{course.professors}}</p>
+        </li>
+    </ul>
+    <ul >
+        <li *ngFor="let experience of alumn.experiences">
+            Nombre de la compañia: {{experience.company}}
+            Tiempo contratado: {{experience.time}}
+        </li>
+    </ul>
+    <p>Año de nacimiento: {{alumn.birthday}}</p>
+    <p>Número de telefono: {{alumn.phone}}</p>
+    <p>{{ alumn.laborSituation }}</p>
+</div>
+
+<div *ngIf="editMode" >
+    <form>
+        <input type="text" name="" id="" [(ngModel)]="decription">
+        <input type="text" name="" id="" [(ngModel)]="phone">
+        <input type="text" name="" id="" [(ngModel)]="city">
+        <input type="text" name="" id="" [(ngModel)]="contactEmail">
+        <input type="text" name="" id="">
+        <select name="" id="">
+            <option *ngFor="let situation of laborSituations">{{ situation }}</option>
+        </select>
+    </form>
+</div>

@@ -22,14 +22,21 @@ export class MasterComponent implements OnInit {
     Recoge todos los alumnos de la base de datos 
   */
   loadAlumns() {
-    this.alumnsService.getAll().then( alumns => {
+    this.alumnsService.getAll(0).then( alumns => {
       console.log(alumns);
       this.alumns = alumns
     })
   }
 
   search() {
-    
+    this.alumns = []
+    if (this.searchText !== '') {
+      this.alumnsService.getAllByCourse(this.searchText, 0).then( alumns => alumns.forEach( alumn => {this.alumns.push(alumn)}))
+      this.alumnsService.getAllByName(this.searchText, 0).then( alumns => alumns.forEach( alumn => {this.alumns.push(alumn)}))
+    } else {
+      this.loadAlumns()
+    }
+
   }
 
 

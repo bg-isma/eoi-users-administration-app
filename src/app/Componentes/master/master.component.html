@@ -1,7 +1,10 @@
 <input type="text" [(ngModel)]="searchText" (keyup.enter)="search()">
 <h2>Alumnos de la EOI</h2>
 <ul> 
-<li *ngFor="let alumn of alumns, index as i">
-    {{alumn.name}}
-</li> 
+    <li *ngFor="let alumn of alumns, index as i" >
+        <a routerLink="details/{{alumn.id}}">
+            <img src="{{alumn.img}}" alt=""><br>
+            {{alumn.name}}
+        </a>
+    </li> 
 </ul>

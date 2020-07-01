@@ -3,6 +3,7 @@ import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
 import { NgModel } from '@angular/forms';
+import { ValidationErrors, AbstractControl } from '@angular/forms';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit {
     name: "Desarrollo Web Angular",
     hours: 250, 
     description: "Aprendizaje profundo de Angular",
-    skill: ["html", "Css", "Angular", "TypeScript"],
+    skills: ["html", "Css", "Angular", "TypeScript"],
     professors : ["Jose Luis", "Alcibiades", "Alejandro de Juan", "Fernando Martín"],
     area : "Desarrollo Web",
     year : "2020",
@@ -29,7 +30,7 @@ export class AdminComponent implements OnInit {
     name: "Marketing Digital",
     hours: 300, 
     description: "Conceptos Básicos de Marketing aplicados a la era Digital",
-    skill: ["Diseño", "Redes Sociales"],
+    skills: ["Diseño", "Redes Sociales"],
     professors : ["Lola Flores", "Elisabet Cañas"],
     area : "Marketing y diseño",
     year : "2020",
@@ -39,7 +40,7 @@ export class AdminComponent implements OnInit {
   name: "Sonido directo y diseño sonoro",
   hours: 20, 
   description: "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
-  skill: ["Efectos de sonido", "Pre-producción"],
+  skills: ["Efectos de sonido", "Pre-producción"],
   professors : ["Joaquin Pachón"],
   area : "Audiovisual",
   year : "2020",
@@ -57,16 +58,29 @@ export class AdminComponent implements OnInit {
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   createNewAlumn(){
+    //if(){
     this.newAlumn.id = this.generateId();
+
     /*this.alumnService.addOne(this.newAlumn)
       .then(newAlumn => {
         this.alumns.push(this.newAlumn);
         this.newAlumn = { id: "", password: "", loginEmail: "", mainCourse:""}
       });*/
+    //}  
     console.log(this.newAlumn)  
   }
 
-  ngOnInit(): void {
-  }
- 
+  ngOnInit(): void {}
 }
+
+export class UserRegistrationFormValidators {
+  static emailValidation(control: AbstractControl): ValidationErrors | null {
+      if((control.value as string).match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+          return{ shouldMatchPattern: true };
+      }
+      // If there is no validation failure, return null
+      return null;
+  }
+}
+
+

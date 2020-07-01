@@ -3,7 +3,7 @@ export type Course =  {
     img?: string,
     hours: number,
     description: string,
-    skill : string[],
+    skills : string[],
     professors : string [],
     area : string,
     year : string,

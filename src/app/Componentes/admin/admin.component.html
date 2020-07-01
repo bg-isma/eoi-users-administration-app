@@ -1,6 +1,20 @@
 <div>
     <label for="email">Correo</label>
-    <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" >
+    <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" minlength="10" UserRegistrationFormValidators.emailValidation required>
+    
+    <div *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
+
+        <div *ngIf="loginEmail.errors.required">
+            <p>Email is required.</p>
+        </div>
+        <div *ngIf="loginEmail.errors.minlength">
+           <p> Email must be at least 10 characters long.</p>
+        </div>
+        <!--<div *ngIf="emailValidation">
+            <p>Email debe contener un dominio válido</p>
+        </div>-->
+
+    </div>  
     <label for="pass">Contraseña</label>
     <input id="pass" type="text"  [(ngModel)]="newAlumn.password" name="password">
     <label for="course">Curso al que pertenece:</label>
