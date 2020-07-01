@@ -11,8 +11,15 @@
             <p *ngIf="course.name.length >= 0">Nombre del curso: {{course.name}}</p>
             <p *ngIf="course.hours >= 0">Número de horas: {{course.hours}}</p>
             <p *ngIf="course.professors.length >= 0">Descripción de curso: {{course.description}}</p>
-            <p> Habilidades obtenidas durante el curso: {{course.skills}}</p>
-            <p >Profesores que lo imparte: {{course.professors}}</p>
+            <ul>Habilidades:
+                <li *ngFor="let skill of skills">{{skill}}</li>
+            </ul>
+            <ul>Profesores que imparten el curso:
+                <li *ngFor="let professor of professors">{{professor}}</li>
+            </ul>
+            <p >Área del curso: {{course.area}}</p>
+            <p >Año del curso: {{course.year}}</p>
+            <p >Modalidad del curso: {{course.modality}}</p>
         </li>
     </ul>
     <ul >
@@ -23,6 +30,8 @@
     </ul>
     <p>Año de nacimiento: {{alumn.birthday}}</p>
     <p>Número de telefono: {{alumn.phone}}</p>
+    <p>Dirección de correo eléctronico: {{alumn.contactEmail}}</p>
+    <p>Ciudad: {{alumn.city}}</p>
     <p>{{ alumn.laborSituation }}</p>
 </div>
 
