@@ -12,10 +12,10 @@
             <p *ngIf="course.hours >= 0">Número de horas: {{course.hours}}</p>
             <p *ngIf="course.professors.length >= 0">Descripción de curso: {{course.description}}</p>
             <ul>Habilidades:
-                <li *ngFor="let skill of skills">{{skill}}</li>
+                <li *ngFor="let skill of course.skills">{{skill}}</li>
             </ul>
             <ul>Profesores que imparten el curso:
-                <li *ngFor="let professor of professors">{{professor}}</li>
+                <li *ngFor="let professor of course.professors">{{professor}}</li>
             </ul>
             <p >Área del curso: {{course.area}}</p>
             <p >Año del curso: {{course.year}}</p>
