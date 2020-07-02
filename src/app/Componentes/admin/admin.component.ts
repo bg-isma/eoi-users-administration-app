@@ -58,20 +58,17 @@ export class AdminComponent implements OnInit {
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   createNewAlumn(myForm: NgForm){
-    //if(){
-    this.newAlumn.id = this.generateId();
-
-    /*this.alumnService.addOne(this.newAlumn)
-      .then(newAlumn => {
-        this.alumns.push(this.newAlumn);
-        this.newAlumn = { id: "", password: "", loginEmail: "", mainCourse:""}
-      });*/
-    //}  
-    console.log(myForm);
-    console.log(this.newAlumn) ;
-     
+    if(myForm.valid){
+      this.newAlumn.id = this.generateId();
+      this.alumnService.addOne(this.newAlumn)
+      .then( newAlumn => {
+        this.alumns.push(newAlumn);
+        this.newAlumn = { id: "", password: "", loginEmail: "", mainCourse:""};
+        myForm.reset();
+      });
+    }  
   }
-
+  
   ngOnInit(): void {}
 }
 

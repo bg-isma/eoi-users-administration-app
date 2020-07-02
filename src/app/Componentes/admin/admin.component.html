@@ -3,20 +3,31 @@
     <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" appEmailValidator>
     
     <div *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
-
         <div *ngIf="loginEmail.errors.cus_required">
             <p>Se require el campo email.</p>
         </div>
         <div *ngIf="loginEmail.errors.shouldMatchPattern">
             <p>Email debe tener un formato de dominio válido</p>
         </div>
-
     </div>  
     <label for="pass">Contraseña</label>
-    <input id="pass" type="text"  [(ngModel)]="newAlumn.password" name="password">
+    <input id="pass" type="password" minlength="6" [(ngModel)]="newAlumn.password" name="password" #password="ngModel" required>
+    <div *ngIf="password.invalid && (password.dirty || password.touched)"> 
+        <div *ngIf="password.errors.required">
+            <p>Se require el campo contraseña.</p>
+        </div>
+        <div *ngIf="password.errors.minlength">
+            <p>Contraseña mayor de 6 caracteres.</p>
+        </div>
+    </div>   
     <label for="course">Curso al que pertenece:</label>
-    <select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName" >
+    <select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName"  #course = "ngModel" required>
         <option *ngFor="let course of courses" [value]="course.name">{{course.name}}</option>
     </select> 
+    <div *ngIf="course.invalid && (course.dirty || course.touched)">
+        <div *ngIf="course.errors.required">
+            <p>Elige una opción de curso</p>
+        </div>    
+    </div>
     <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
 </form>

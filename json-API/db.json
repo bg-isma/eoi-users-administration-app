@@ -18,8 +18,8 @@
         }
       ],
       "birthday": "12/08/1999",
-      "laborSituation": "",
-      "phone": "23523145",
+      "laborSituation": "Desempleado",
+      "phone": "3653546",
       "city": "Las Palmas",
       "contactEmail": "ismaelbg_99@hotmail.com",
       "experiences": [
@@ -30,7 +30,8 @@
       ],
       "password": "12345",
       "loginEmail": "ismaelbg_99@hotmail.com",
-      "mainCourse": "Angular EOI"
+      "mainCourse": "Angular EOI",
+      "description": ""
     },
     {
       "id": "43adaw213",
@@ -77,7 +78,7 @@
         }
       ],
       "birthday": "4/09/1998",
-      "laborSituation": "",
+      "laborSituation": "Desempleado",
       "phone": "23573235",
       "city": "Las Palmas",
       "contactEmail": "Anita.valde@hotmail.com",
@@ -115,7 +116,7 @@
         }
       ],
       "birthday": "17/01/1998",
-      "laborSituation": "",
+      "laborSituation": "Estudiante",
       "phone": "23573457",
       "city": "Las Palmas",
       "contactEmail": "Aisha.ynz@hotmail.com",
@@ -123,6 +124,36 @@
       "password": "12345",
       "loginEmail": "Anita.ynz@hotmail.com",
       "mainCourse": "Angular EOI"
+    },
+    {
+      "id": "_wlwbuaaic",
+      "password": "123456",
+      "loginEmail": "yunior@squaads.com",
+      "mainCourse": "Desarrollo Web Angular"
+    },
+    {
+      "id": "_oncrxwxay",
+      "password": "12435325",
+      "loginEmail": "isma@hotmail.com",
+      "mainCourse": "Desarrollo Web Angular"
+    },
+    {
+      "id": "_g325uf9ky",
+      "password": "12433252123",
+      "loginEmail": "isma@hotmail.com",
+      "mainCourse": "Marketing Digital"
+    },
+    {
+      "id": "_qwilgp3vh",
+      "password": "w435346",
+      "loginEmail": "isma@hotmail.com",
+      "mainCourse": "Marketing Digital"
+    },
+    {
+      "id": "_xmaw46llk",
+      "password": "12345656",
+      "loginEmail": "ana@gmail.es",
+      "mainCourse": "Marketing Digital"
     }
   ]
 }

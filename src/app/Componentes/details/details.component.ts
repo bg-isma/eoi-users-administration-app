@@ -9,7 +9,6 @@ import { Alumn } from 'src/app/Interfaces/alumn';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
-
   alumnID = ''
   alumn: Alumn = { id: '', name: '', password: '', mainCourse: '', loginEmail: '' }
   editMode: boolean = false
@@ -20,9 +19,11 @@ export class DetailsComponent implements OnInit {
     "Desempleado",
     "Trabajando"
   ]
-  phone= ''
+  phone = ''
   contactEmail = ''
-  city: ''
+  city = ''
+  description = ''
+  laborSituationSelected = ""; // awdawdsa
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
@@ -35,5 +36,26 @@ export class DetailsComponent implements OnInit {
   loadAlumn() {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => this.alumn = alumn )
   }
-
+  dataAlumn(){
+      console.log(this.phone);
+      this.alumn.laborSituation = this.laborSituationSelected;
+      this.alumn.phone = this.phone;
+      this.alumn.city = this.city;
+      this.alumn.description = this.description;
+      this.alumn.contactEmail = this.contactEmail;
+    this.alumnsService.updateAlumn(this.alumnID, this.alumn)
+    .then( res => console.log("Se han modificado correctamente"))
+    .catch( err => console.log("No se ha podido modificar los datos correctamente"));
+    this.laborSituations = [
+      "Estudiante",
+      "Desempleado",
+      "Trabajando"
+    ]
+  }
+  enterEditMode(){
+      this.editMode = true;
+  }
+  exitEditMode(){
+    this.editMode = false;
+  }
 }

@@ -1,16 +1,19 @@
 <h2>Soy la página Details</h2>
 
-<button *ngIf="userLogged">Editar</button>
-
+<div>
+    <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
+    <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
+</div>
 <div *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
     <img [src]="alumn.img" alt="Foto de perfil">
+    <p >{{decription}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">
             <img height="60px" width="60px" [src]="course.img" alt="Logo del curso">
-            <p *ngIf="course.name.length >= 0">Nombre del curso: {{course.name}}</p>
-            <p *ngIf="course.hours >= 0">Número de horas: {{course.hours}}</p>
-            <p *ngIf="course.professors.length >= 0">Descripción de curso: {{course.description}}</p>
+            <p>Nombre del curso: {{course.name}}</p>
+            <p>Número de horas: {{course.hours}}</p>
+            <p>Descripción de curso: {{course.description}}</p>
             <ul>Habilidades:
                 <li *ngFor="let skill of course.skills">{{skill}}</li>
             </ul>
@@ -32,18 +35,17 @@
     <p>Número de telefono: {{alumn.phone}}</p>
     <p>Dirección de correo eléctronico: {{alumn.contactEmail}}</p>
     <p>Ciudad: {{alumn.city}}</p>
-    <p>{{ alumn.laborSituation }}</p>
+    <p>{{alumn.laborSituation}}</p>
 </div>
 
-<div *ngIf="editMode" >
-    <form>
-        <input type="text" name="" id="" [(ngModel)]="decription">
-        <input type="text" name="" id="" [(ngModel)]="phone">
-        <input type="text" name="" id="" [(ngModel)]="city">
-        <input type="text" name="" id="" [(ngModel)]="contactEmail">
-        <input type="text" name="" id="">
-        <select name="" id="">
-            <option *ngFor="let situation of laborSituations">{{ situation }}</option>
-        </select>
-    </form>
+<div  *ngIf="editMode">
+    <input type="text" name="" id="" [(ngModel)]="decription">
+    <input type="text" name="" id="" [(ngModel)]="phone">
+    <input type="text" name="" id="" [(ngModel)]="city">
+    <input type="text" name="" id="" [(ngModel)]="contactEmail">
+    <input type="text" name="" id="">
+    <select name="" id="" [(ngModel)]="laborSituationSelected">
+        <option [value]="situation" *ngFor="let situation of laborSituations">{{ situation }}</option>
+    </select>
+    <button (click)="dataAlumn()">Modificar</button>
 </div>

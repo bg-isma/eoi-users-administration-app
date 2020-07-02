@@ -1,4 +1,19 @@
 <input type="text" [(ngModel)]="searchText" (keyup.enter)="search()">
+<section class="filters-content">
+    <label for="">Location</label>
+    <select name="miselect1" id="miselect1" [(ngModel)]="locationSelected" >
+        <option [value]="location" *ngFor="let location of locations">{{ location }}</option>
+    </select>
+    <label for="">Courses</label>
+    <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected" >
+        <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
+    </select>
+    <label for="">laborSituation</label>
+    <select name="miselect3" id="miselect3" [(ngModel)]="laborSituationSelected" >
+        <option [value]="laborSituation"  *ngFor="let laborSituation of laborSituations" >{{ laborSituation }}</option>
+    </select>
+    <button (click)="filterAlumns()">Guardar Filtros</button>
+</section>
 <h2>Alumnos de la EOI</h2>
 <ul> 
     <li *ngFor="let alumn of alumns, index as i" >

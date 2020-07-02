@@ -4,6 +4,7 @@ export type Alumn = {
     id: string,
     img?: string,
     name?: string,
+    description?: string,
     courses?: Course[],
     birthday?: string,
     laborSituation?: string,

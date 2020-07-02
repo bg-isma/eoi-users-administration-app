@@ -10,8 +10,34 @@ export class MasterComponent implements OnInit {
 
   alumns = []
   searchText = ""
+  locations = [
+    "none",
+    "Las Palmas",
+    "Madrid",
+    "Barcelona"
+  ]
+  courses = [
+    "none",
+    "Desarrollo Web Angular",
+    "Marketing Digital",
+    "Sonido directo y diseño sonoro",
+  ]
+  laborSituations = [
+    "none",
+    "Desempleado",
+    "Estudiante",
+    "Trabajando"
+  ]
 
-  constructor( private alumnsService: AlumnsService ) { }
+
+  /* Variables en caliente de los selects del filtro */
+  locationSelected = "none"
+  courseSelected = "none"
+  laborSituationSelected = "none"
+
+
+
+  constructor(private alumnsService: AlumnsService) { }
 
   ngOnInit(): void {
     this.loadAlumns()
@@ -22,22 +48,60 @@ export class MasterComponent implements OnInit {
     Recoge todos los alumnos de la base de datos 
   */
   loadAlumns() {
-    this.alumnsService.getAll(0).then( alumns => {
-      console.log(alumns);
-      this.alumns = alumns
-    })
+    this.alumnsService.getAll(0).then(alumns => this.alumns = alumns)
   }
 
   search() {
     this.alumns = []
+
+    this.courseSelected = 'none'
+    this.laborSituationSelected = 'none'
+    this.locationSelected = 'none'
+
+    const words = this.searchText.split(' ')
+
     if (this.searchText !== '') {
-      this.alumnsService.getAllByCourse(this.searchText, 0).then( alumns => alumns.forEach( alumn => {this.alumns.push(alumn)}))
-      this.alumnsService.getAllByName(this.searchText, 0).then( alumns => alumns.forEach( alumn => {this.alumns.push(alumn)}))
+      words.forEach( word => {
+        this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { 
+          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn) 
+        }))
+        this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { 
+          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn) 
+        }))
+      }) 
     } else {
       this.loadAlumns()
     }
-
   }
 
+  filterAlumns() {
+  
+    this.alumns = []
+    
+    if (this.courseSelected == 'none' && this.locationSelected == 'none' && this.laborSituationSelected == 'none') {
+      this.loadAlumns()
+    } else {
+      
+      if (this.courseSelected != 'none') {
+        this.alumnsService.getAllByCourse(this.courseSelected, 0).then(alumns => alumns.forEach(alumn => { 
+          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+        }))
+      }
+  
+      if (this.laborSituationSelected != 'none') {
+        this.alumnsService.getAllByLaborSituation(this.laborSituationSelected, 0).then(alumns => alumns.forEach(alumn => { 
+          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+        }))
+      }
+  
+      if (this.locationSelected != 'none') {
+        this.alumnsService.getAllByLocation(this.locationSelected, 0).then(alumns => alumns.forEach(alumn => { 
+          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+        }))
+      }
+
+    }
+
+  }
 
 }

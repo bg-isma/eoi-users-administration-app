@@ -26,6 +26,18 @@ export class AlumnsService {
       .catch(err => console.log(`Hay un error ${err}`))
   }
 
+  getAllByLocation(text: string, page: number): Promise<Alumn[]> {
+    return axios.get(`${this.url}?city_like=${text}&_page=${page}&_limit=20`)
+      .then(alumn => alumn.data)
+      .catch(err => console.log(`Hay un error ${err}`))
+  }
+
+  getAllByLaborSituation(text: string, page: number): Promise<Alumn[]> {
+    return axios.get(`${this.url}?laborSituation_like=${text}&_page=${page}&_limit=20`)
+      .then(alumn => alumn.data)
+      .catch(err => console.log(`Hay un error ${err}`))
+  }
+
   getAllByName(text: string, page: number): Promise<Alumn[]> {
     return axios.get(`${this.url}?name_like=${text}&_page=${page}&_limit=20`)
       .then(alumn => alumn.data)
