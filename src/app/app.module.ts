@@ -8,6 +8,7 @@ import { LoginComponent } from './Componentes/login/login.component';
 import { MasterComponent } from './Componentes/master/master.component';
 import { DetailsComponent } from './Componentes/details/details.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
+import { EmailValidatorDirective } from './directivas/email-validator.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AdminComponent } from './Componentes/admin/admin.component';
     LoginComponent,
     MasterComponent,
     DetailsComponent,
-    AdminComponent
+    AdminComponent,
+    EmailValidatorDirective
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
-import { NgModel } from '@angular/forms';
-import { ValidationErrors, AbstractControl } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
+
 
 
 @Component({
@@ -57,7 +57,7 @@ export class AdminComponent implements OnInit {
   
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
-  createNewAlumn(){
+  createNewAlumn(myForm: NgForm){
     //if(){
     this.newAlumn.id = this.generateId();
 
@@ -67,20 +67,14 @@ export class AdminComponent implements OnInit {
         this.newAlumn = { id: "", password: "", loginEmail: "", mainCourse:""}
       });*/
     //}  
-    console.log(this.newAlumn)  
+    console.log(myForm);
+    console.log(this.newAlumn) ;
+     
   }
 
   ngOnInit(): void {}
 }
 
-export class UserRegistrationFormValidators {
-  static emailValidation(control: AbstractControl): ValidationErrors | null {
-      if((control.value as string).match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
-          return{ shouldMatchPattern: true };
-      }
-      // If there is no validation failure, return null
-      return null;
-  }
-}
+
 
 

@@ -1,18 +1,15 @@
-<div>
+<form #myForm="ngForm">
     <label for="email">Correo</label>
-    <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" minlength="10" UserRegistrationFormValidators.emailValidation required>
+    <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" appEmailValidator>
     
     <div *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
 
-        <div *ngIf="loginEmail.errors.required">
-            <p>Email is required.</p>
+        <div *ngIf="loginEmail.errors.cus_required">
+            <p>Se require el campo email.</p>
         </div>
-        <div *ngIf="loginEmail.errors.minlength">
-           <p> Email must be at least 10 characters long.</p>
+        <div *ngIf="loginEmail.errors.shouldMatchPattern">
+            <p>Email debe tener un formato de dominio válido</p>
         </div>
-        <!--<div *ngIf="emailValidation">
-            <p>Email debe contener un dominio válido</p>
-        </div>-->
 
     </div>  
     <label for="pass">Contraseña</label>
@@ -21,5 +18,5 @@
     <select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName" >
         <option *ngFor="let course of courses" [value]="course.name">{{course.name}}</option>
     </select> 
-    <button (click)="createNewAlumn()">Dar de Alta</button>
-</div>
+    <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
+</form>
