@@ -18,8 +18,8 @@
 <ul> 
     <li *ngFor="let alumn of alumns, index as i" >
         <a routerLink="details/{{alumn.id}}">
-            <img src="{{alumn.img}}" alt=""><br>
-            {{alumn.name}}
+            <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}" alt=""><br>
+            {{alumn.name || 'Nombre por defecto'}}
         </a>
     </li> 
 </ul>

@@ -63,10 +63,10 @@ export class MasterComponent implements OnInit {
     if (this.searchText !== '') {
       words.forEach( word => {
         this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn) 
+          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn) 
         }))
         this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn) 
+          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn) 
         }))
       }) 
     } else {
@@ -84,19 +84,19 @@ export class MasterComponent implements OnInit {
       
       if (this.courseSelected != 'none') {
         this.alumnsService.getAllByCourse(this.courseSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
         }))
       }
   
       if (this.laborSituationSelected != 'none') {
         this.alumnsService.getAllByLaborSituation(this.laborSituationSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
         }))
       }
   
       if (this.locationSelected != 'none') {
         this.alumnsService.getAllByLocation(this.locationSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.name == alumn.name) ? true : this.alumns.push(alumn)
+          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
         }))
       }
 
