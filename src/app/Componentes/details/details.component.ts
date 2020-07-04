@@ -23,7 +23,14 @@ export class DetailsComponent implements OnInit {
   contactEmail = ''
   city = ''
   description = ''
-  laborSituationSelected = ""; // awdawdsa
+  laborSituationSelected = ""
+  name = '' // awdawdsa
+  birthday = '';
+  experiences = {
+    company: '',
+    time: ''
+  }
+  newexperiences: [];
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
@@ -37,12 +44,27 @@ export class DetailsComponent implements OnInit {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => this.alumn = alumn )
   }
   dataAlumn(){
-      console.log(this.phone);
+    if (this.name.length != 0){
+      this.alumn.name = this.name;
+    };
+    if (this.birthday.length != 0){
+      this.alumn.birthday = this.birthday;
+    };
+    if (this.laborSituationSelected.length != 0){
       this.alumn.laborSituation = this.laborSituationSelected;
+    };
+    if (this.phone.length != 0){
       this.alumn.phone = this.phone;
+    };
+    if (this.city.length != 0){
       this.alumn.city = this.city;
+    };
+    if (this.decription.length != 0){
       this.alumn.description = this.description;
+    };
+    if (this.contactEmail.length != 0){
       this.alumn.contactEmail = this.contactEmail;
+    };
     this.alumnsService.updateAlumn(this.alumnID, this.alumn)
     .then( res => console.log("Se han modificado correctamente"))
     .catch( err => console.log("No se ha podido modificar los datos correctamente"));
