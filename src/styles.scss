@@ -18,9 +18,10 @@ body, html {
     background-size: cover;
 }
 
-h2, form, a, P, li, ul, h3, h4, h1, span, label, input {
+h2, form, a, P, li, ul, h3, h4, h1, span, label, input, button {
     list-style: none;
     margin: 0px;
     padding: 0px;
     text-decoration: none;
+    border: none;
 }

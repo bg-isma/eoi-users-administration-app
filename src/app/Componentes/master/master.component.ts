@@ -28,12 +28,13 @@ export class MasterComponent implements OnInit {
     "Estudiante",
     "Trabajando"
   ]
-
+  isFilterOpen = false;
 
   /* Variables en caliente de los selects del filtro */
   locationSelected = "none"
   courseSelected = "none"
   laborSituationSelected = "none"
+  isFilterBtnDisabled = false;
 
 
 
@@ -117,6 +118,14 @@ export class MasterComponent implements OnInit {
 
     }
 
+  }
+
+  openFilters () {
+    this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
+  }
+
+  onResize(event) {
+    event.target.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
   }
 
 }
