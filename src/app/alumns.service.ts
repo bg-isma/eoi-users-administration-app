@@ -70,4 +70,10 @@ export class AlumnsService {
   */
   getAlumnByID = (id: string): Promise<Alumn> => axios.get(`${this.url}/${id}`).then(alumn => alumn.data).catch(err => console.log('isma la cago en el by id '));
 
+  isRepeatedAlumn(email:string) : Promise<Alumn[]> {
+    return axios.get(`${this.url}?loginEmail=${email}`)
+      .then(response => response.data)
+      .catch( err => console.log(`Algo salio mal ${err}`))
+
+  }
 }

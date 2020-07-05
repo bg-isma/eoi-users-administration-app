@@ -58,8 +58,6 @@ export class DetailsComponent implements OnInit {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => this.alumn = alumn )
   }
   dataAlumn(){
-    
-
     if (this.name.length != 0){
       this.alumn.name = this.name;
     };
