@@ -21,11 +21,13 @@ export class DetailsComponent implements OnInit {
     "Desempleado",
     "Trabajando"
   ]
+  modalities: string[] = ["On-line", "Presencial", "Semi-presencial"]
   phone = ''
   contactEmail = ''
   city = ''
   description = ''
   laborSituationSelected = ""
+  modalitySelected = ""
   name = '' // awdawdsa
   birthday = '';
   experience: Experience = {
@@ -47,7 +49,17 @@ export class DetailsComponent implements OnInit {
     company: '',
     time: 0
   };
-  newcourse: Course[]
+  newcourse: Course = {
+    name: '',
+    img: '',
+    hours: undefined,
+    description: '',
+    skills : [],
+    professors : [],
+    area : '',
+    year : '',
+    modality : ''
+  }
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
@@ -69,33 +81,50 @@ export class DetailsComponent implements OnInit {
     };
     if (this.laborSituationSelected.length != 0){
       this.alumn.laborSituation = this.laborSituationSelected;
-    };
+    }
     if (this.phone.length != 0){
       this.alumn.phone = this.phone;
-    };
+    }
     if (this.city.length != 0){
       this.alumn.city = this.city;
-    };
+    }
     if (this.decription.length != 0){
       this.alumn.description = this.description;
-    };
+    }
     if (this.contactEmail.length != 0){
       this.alumn.contactEmail = this.contactEmail;
-    };
+    }
     if (this.experience.time > 0 && this.experience.company.length != 0) {
       this.newexperience.time = this.experience.time;
       this.newexperience.company = this.experience.company;
       this.alumn.experiences.push(this.newexperience);
       this.newexperience = {company: '', time: undefined};
     }
+    if (this.course.name.length != 0) {
+      this.newcourse.name = this.course.name;
+      this.newcourse.hours = this.course.hours;
+      this.newcourse.description = this.course.description;
+      this.newcourse.area = this.course.area;
+      this.newcourse.year = this.course.year;
+      this.newcourse.modality = this.modalitySelected;
+      this.alumn.courses.push(this.newcourse)
+      this.newcourse = {
+        name: '',
+        img: '',
+        hours: undefined,
+        description: '',
+        skills : [],
+        professors : [],
+        area : '',
+        year : '',
+        modality : ''
+    }
+    }
     this.alumnsService.updateAlumn(this.alumnID, this.alumn)
     .then( res => console.log("Se han modificado correctamente"))
     .catch( err => console.log("No se ha podido modificar los datos correctamente"));
-    this.laborSituations = [
-      "Estudiante",
-      "Desempleado",
-      "Trabajando"
-    ]
+    this.laborSituations = ["Estudiante", "Desempleado", "Trabajando"];
+    this.modalities = ["On-line", "Presencial", "Semi-presencial"];
   }
   enterEditMode(){
       this.editMode = true;
