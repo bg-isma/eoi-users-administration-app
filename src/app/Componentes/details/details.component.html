@@ -56,6 +56,13 @@
     <div>
         <h3>Datos de los cursos</h3>
         <input placeholder="Nombre del curso" type="text" name="" id="" [(ngModel)]="course.name"><br>
+        <input placeholder="Duración del curso" type="text" name="" id="" [(ngModel)]="course.hours"><br>
+        <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.decription"><br>
+        <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
+        <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year">
+        <select name="" id="" [(ngModel)]="modalitySelected">
+            <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
+        </select><br>
     </div>
     <button (click)="dataAlumn()">Modificar</button>
 </div>
