@@ -49,6 +49,7 @@ export class AdminComponent implements OnInit {
 
   default = "";
   newAlumn : Alumn = {
+    name : "",
     id: "",
     password: "",
     loginEmail: "",
@@ -57,13 +58,14 @@ export class AdminComponent implements OnInit {
   
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
-  createNewAlumn(myForm: NgForm){
-    if(myForm.valid){
+  async createNewAlumn(myForm: NgForm){
+    let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(this.newAlumn.loginEmail);
+    if(myForm.valid && listRepeatedAlumn.length == 0 ){
       this.newAlumn.id = this.generateId();
       this.alumnService.addOne(this.newAlumn)
       .then( newAlumn => {
         this.alumns.push(newAlumn);
-        this.newAlumn = { id: "", password: "", loginEmail: "", mainCourse:""};
+        this.newAlumn = { name:"", id: "", password: "", loginEmail: "", mainCourse:""};
         myForm.reset();
       });
     }  

@@ -3,7 +3,7 @@ import { Course } from "./course";
 export type Alumn = {
     id: string,
     img?: string,
-    name?: string,
+    name: string,
     description?: string,
     courses?: Course[],
     birthday?: string,

@@ -4,9 +4,10 @@
     <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
     <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
 </div>
-<div *ngIf="!editMode" >
+<div  class="card" *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
-    <img [src]="alumn.img" alt="Foto de perfil">
+    
+    <img class="card-image" [src]="alumn.img" alt="Foto de perfil">
     <p >{{decription}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">

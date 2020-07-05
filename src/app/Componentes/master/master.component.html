@@ -1,4 +1,5 @@
-<input type="text" [(ngModel)]="searchText" (keyup.enter)="search()">
+
+<!--
 <section class="filters-content">
     <label for="">Location</label>
     <select name="miselect1" id="miselect1" [(ngModel)]="locationSelected" >
@@ -13,13 +14,31 @@
         <option [value]="laborSituation"  *ngFor="let laborSituation of laborSituations" >{{ laborSituation }}</option>
     </select>
     <button (click)="filterAlumns()">Guardar Filtros</button>
+</section>-->
+
+<section class="alumns-list-content">
+    <div class="search" >
+        <input type="text" [(ngModel)]="searchText" (keyup.enter)="search()">
+        <img src="assets/busqueda.svg" alt="">
+    </div>
+    <h2 class="alumns-title">Alumnos</h2>
+    <ul class="alumns-list"> 
+        <li *ngFor="let alumn of alumns, index as i" >
+            <a routerLink="details/{{alumn.id}}">
+                <div class="course-info">
+                    <img src="" alt="">
+                    <div>
+                        <h2>Angular developer</h2>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div></div>
+                    <div>
+                        <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}" alt=""><br>
+                        {{alumn.name || 'Nombre por defecto'}}
+                    </div>
+                </div>
+            </a>
+        </li> 
+    </ul>
 </section>
-<h2>Alumnos de la EOI</h2>
-<ul> 
-    <li *ngFor="let alumn of alumns, index as i" >
-        <a routerLink="details/{{alumn.id}}">
-            <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}" alt=""><br>
-            {{alumn.name || 'Nombre por defecto'}}
-        </a>
-    </li> 
-</ul>
