@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router'
 import { AlumnsService } from 'src/app/alumns.service';
 import { Alumn } from 'src/app/Interfaces/alumn';
+import { Course } from 'src/app/Interfaces/course';
+import { Experience } from 'src/app/Interfaces/experience';
 
 @Component({
   selector: 'app-details',
@@ -26,11 +28,23 @@ export class DetailsComponent implements OnInit {
   laborSituationSelected = ""
   name = '' // awdawdsa
   birthday = '';
-  experiences = {
+  experience = {
     company: '',
     time: ''
   }
-  newexperiences: [];
+  course = {
+    name: '',
+    img: '',
+    hours: '',
+    description: '',
+    skills : [],
+    professors : [],
+    area : '',
+    year : '',
+    modality : ''
+  }
+  newexperience: Experience[];
+  newcourse: Course[]
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
@@ -44,6 +58,8 @@ export class DetailsComponent implements OnInit {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => this.alumn = alumn )
   }
   dataAlumn(){
+    
+
     if (this.name.length != 0){
       this.alumn.name = this.name;
     };

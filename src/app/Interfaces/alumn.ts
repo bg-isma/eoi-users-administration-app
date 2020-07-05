@@ -1,4 +1,5 @@
 import { Course } from "./course";
+import { Experience } from "./experience";
 
 export type Alumn = {
     id: string,
@@ -11,7 +12,7 @@ export type Alumn = {
     phone?: string,
     city?: string,
     contactEmail?: string,
-    experiences?: any[]
+    experiences?: Experience[]
     password : string,
     loginEmail: string ,
     mainCourse: string

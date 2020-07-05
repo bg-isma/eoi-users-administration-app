@@ -39,14 +39,23 @@
 </div>
 
 <div  *ngIf="editMode">
-    <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="name"><br>
-    <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="birthday"><br>
-    <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="decription"><br>
-    <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="phone"><br>
-    <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="city"><br>
-    <input placeholder="Email" type="text" name="" id="" [(ngModel)]="contactEmail"><br>
-    <select name="" id="" [(ngModel)]="laborSituationSelected">
-        <option [value]="situation" *ngFor="let situation of laborSituations">{{ situation }}</option>
-    </select><br>
+    <div>
+        <h3>Datos del usuario</h3>
+        <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="name"><br>
+        <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="birthday"><br>
+        <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="decription"><br>
+        <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="phone"><br>
+        <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="city"><br>
+        <input placeholder="Email" type="text" name="" id="" [(ngModel)]="contactEmail"><br>
+        <input placeholder="Nombre de la empresa" type="text" name="" id="" [(ngModel)]="experience.company"><br>
+        <input placeholder="Tiempo trabajado" type="text" name="" id="" [(ngModel)]="experience.time"><br>
+        <select name="" id="" [(ngModel)]="laborSituationSelected">
+            <option [value]="situation" *ngFor="let situation of laborSituations">{{ situation }}</option>
+        </select><br>
+    </div>
+    <div>
+        <h3>Datos de los cursos</h3>
+        <input placeholder="Nombre del curso" type="text" name="" id="" [(ngModel)]="course.name"><br>
+    </div>
     <button (click)="dataAlumn()">Modificar</button>
 </div>
