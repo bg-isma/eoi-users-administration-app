@@ -28,14 +28,14 @@ export class DetailsComponent implements OnInit {
   laborSituationSelected = ""
   name = '' // awdawdsa
   birthday = '';
-  experience = {
+  experience: Experience = {
     company: '',
-    time: ''
+    time: undefined,
   }
-  course = {
+  course: Course = {
     name: '',
     img: '',
-    hours: '',
+    hours: undefined,
     description: '',
     skills : [],
     professors : [],
@@ -43,7 +43,10 @@ export class DetailsComponent implements OnInit {
     year : '',
     modality : ''
   }
-  newexperience: Experience[];
+  newexperience: Experience = {
+    company: '',
+    time: 0
+  };
   newcourse: Course[]
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
@@ -79,6 +82,12 @@ export class DetailsComponent implements OnInit {
     if (this.contactEmail.length != 0){
       this.alumn.contactEmail = this.contactEmail;
     };
+    if (this.experience.time > 0 && this.experience.company.length != 0) {
+      this.newexperience.time = this.experience.time;
+      this.newexperience.company = this.experience.company;
+      this.alumn.experiences.push(this.newexperience);
+      this.newexperience = {company: '', time: undefined};
+    }
     this.alumnsService.updateAlumn(this.alumnID, this.alumn)
     .then( res => console.log("Se han modificado correctamente"))
     .catch( err => console.log("No se ha podido modificar los datos correctamente"));
