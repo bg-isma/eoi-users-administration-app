@@ -4,10 +4,9 @@
     <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
     <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
 </div>
-<div  class="card" *ngIf="!editMode" >
+<div *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
-    
-    <img class="card-image" [src]="alumn.img" alt="Foto de perfil">
+    <img [src]="alumn.img" alt="Foto de perfil">
     <p >{{decription}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">
@@ -40,13 +39,14 @@
 </div>
 
 <div  *ngIf="editMode">
-    <input type="text" name="" id="" [(ngModel)]="decription">
-    <input type="text" name="" id="" [(ngModel)]="phone">
-    <input type="text" name="" id="" [(ngModel)]="city">
-    <input type="text" name="" id="" [(ngModel)]="contactEmail">
-    <input type="text" name="" id="">
+    <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="name"><br>
+    <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="birthday"><br>
+    <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="decription"><br>
+    <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="phone"><br>
+    <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="city"><br>
+    <input placeholder="Email" type="text" name="" id="" [(ngModel)]="contactEmail"><br>
     <select name="" id="" [(ngModel)]="laborSituationSelected">
         <option [value]="situation" *ngFor="let situation of laborSituations">{{ situation }}</option>
-    </select>
+    </select><br>
     <button (click)="dataAlumn()">Modificar</button>
 </div>
