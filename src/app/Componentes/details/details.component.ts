@@ -21,13 +21,16 @@ export class DetailsComponent implements OnInit {
     "Desempleado",
     "Trabajando"
   ]
-  modalities: string[] = ["On-line", "Presencial", "Semi-presencial"]
-  phone = ''
-  contactEmail = ''
-  city = ''
-  description = ''
-  laborSituationSelected = ""
-  modalitySelected = ""
+  modalities: string[] = ["Presencial", "On-line", "Semi-presencial"]
+  courses = [
+    "Desarrollo Web Angular",
+    "Marketing Digital",
+    "Sonido directo y diseño sonoro",
+  ]
+  
+  laborSituationSelected = "Estudiante"
+  modalitySelected = "Presencial"
+  courseSelected = "Desarrollo Web Angular"
   name = '' // awdawdsa
   birthday = '';
   experience: Experience = {
@@ -60,46 +63,40 @@ export class DetailsComponent implements OnInit {
     year : '',
     modality : ''
   }
+  thisAlumn: any = {
+    name: '',
+    phone : '',
+    contactEmail : '',
+    city :'',
+    description : '',
+    birthday: '',
+    laborSituation: ''
+  }
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadAlumn()
   }
 
   loadAlumn() {
-    this.alumnsService.getAlumnByID(this.alumnID).then( alumn => this.alumn = alumn )
+    this.alumnsService.getAlumnByID(this.alumnID).then( alumn => { 
+      this.alumn = alumn 
+      this.thisAlumn = alumn
+      this.laborSituationSelected = alumn.laborSituation
+    })
   }
-  dataAlumn(){
-    if (this.name.length != 0){
-      this.alumn.name = this.name;
-    };
-    if (this.birthday.length != 0){
-      this.alumn.birthday = this.birthday;
-    };
-    if (this.laborSituationSelected.length != 0){
-      this.alumn.laborSituation = this.laborSituationSelected;
-    }
-    if (this.phone.length != 0){
-      this.alumn.phone = this.phone;
-    }
-    if (this.city.length != 0){
-      this.alumn.city = this.city;
-    }
-    if (this.decription.length != 0){
-      this.alumn.description = this.description;
-    }
-    if (this.contactEmail.length != 0){
-      this.alumn.contactEmail = this.contactEmail;
-    }
+  addExperience(){
     if (this.experience.time > 0 && this.experience.company.length != 0) {
       this.newexperience.time = this.experience.time;
       this.newexperience.company = this.experience.company;
-      this.alumn.experiences.push(this.newexperience);
+      this.thisAlumn.experiences.push(this.newexperience);
       this.newexperience = {company: '', time: undefined};
     }
+  }
+  addCourse(){
     if (this.course.name.length != 0) {
       this.newcourse.name = this.course.name;
       this.newcourse.hours = this.course.hours;
@@ -107,7 +104,7 @@ export class DetailsComponent implements OnInit {
       this.newcourse.area = this.course.area;
       this.newcourse.year = this.course.year;
       this.newcourse.modality = this.modalitySelected;
-      this.alumn.courses.push(this.newcourse)
+      this.thisAlumn.courses.push(this.newcourse)
       this.newcourse = {
         name: '',
         img: '',
@@ -118,18 +115,25 @@ export class DetailsComponent implements OnInit {
         area : '',
         year : '',
         modality : ''
+      }
     }
-    }
-    this.alumnsService.updateAlumn(this.alumnID, this.alumn)
+  this.modalities = ["Presencial", "On-line", "Semi-presencial"];
+  }
+  dataAlumn(){
+    this.thisAlumn.laborSituation = this.laborSituationSelected
+    this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn)
     .then( res => console.log("Se han modificado correctamente"))
     .catch( err => console.log("No se ha podido modificar los datos correctamente"));
     this.laborSituations = ["Estudiante", "Desempleado", "Trabajando"];
-    this.modalities = ["On-line", "Presencial", "Semi-presencial"];
   }
   enterEditMode(){
       this.editMode = true;
   }
   exitEditMode(){
     this.editMode = false;
+  }
+
+  onFileChange(event) {
+    const file = event.target.files[0];
   }
 }

@@ -72,9 +72,9 @@
         <li *ngFor="let alumn of alumns, index as i">
             <a routerLink="details/{{alumn.id}}">
                 <div class="course-info">
-                    <img src="https://picsum.photos/id/640/536/354.jpg" alt="">
+                    <img src="{{ alumn.courseImg }}" alt="">
                     <div class="course-name">
-                        <h2>Angular developer</h2>
+                        <h2>{{ alumn.mainCourse || 'wtf' }}</h2>
                     </div>
                 </div>
                 <div class="user-info-content">
@@ -84,8 +84,8 @@
                                 alt="">
                         </div>
                         <div class="name-age-content">
-                            <h2>{{alumn.name || 'Nombre por defecto'}}</h2>
-                            <h3>Desempleado, 20</h3>
+                            <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
+                            <h3>{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
                         </div>
                     </div>
                 </div>

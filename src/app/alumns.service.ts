@@ -76,4 +76,11 @@ export class AlumnsService {
       .catch( err => console.log(`Algo salio mal ${err}`))
 
   }
+
+  uploadUserPhoto(file) {
+    const fs = new FormData();
+    fs.append('image', file, file.name)
+    axios.post('https://<API_KEY>:<API_SECRET>@api.cloudinary.com/v1_1/<CLOUD_NAME>/resources/image', fs)
+  }
+
 }

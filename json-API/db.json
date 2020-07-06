@@ -19,19 +19,32 @@
       ],
       "birthday": "12/08/1999",
       "laborSituation": "Desempleado",
-      "phone": "3653546",
+      "phone": "365354632",
       "city": "Las Palmas",
       "contactEmail": "ismaelbg_99@hotmail.com",
       "experiences": [
         {
           "company": "TAC7",
           "time": "64"
+        },
+        {
+          "company": "TAC24",
+          "time": "89"
+        },
+        {
+          "company": "TAC nº3",
+          "time": "700"
+        },
+        {
+          "company": "TAC nº3",
+          "time": "700"
         }
       ],
       "password": "12345",
       "loginEmail": "ismaelbg_99@hotmail.com",
       "mainCourse": "Angular EOI",
-      "description": ""
+      "description": "NADA",
+      "decription": "NADA"
     },
     {
       "id": "43adaw213",
@@ -50,7 +63,7 @@
           "modality": ""
         }
       ],
-      "birthday": "12/08/1890",
+      "birthday": "12/08/1991",
       "laborSituation": "",
       "phone": "235243486",
       "city": "Las Palmas",
@@ -58,7 +71,8 @@
       "experiences": [],
       "password": "1234567",
       "loginEmail": "manu@hotmail.com",
-      "mainCourse": "Angular EOI"
+      "mainCourse": "Angular EOI",
+      "description": "awdwad"
     },
     {
       "id": "43adaw214",
@@ -124,30 +138,12 @@
       "password": "12345",
       "loginEmail": "Anita.ynz@hotmail.com",
       "mainCourse": "Angular EOI"
-    },
+    }
+  ],
+  "administrators": [
     {
-      "id": "_wlwbuaaic",
-      "password": "123456",
-      "loginEmail": "yunior@squaads.com",
-      "mainCourse": "Desarrollo Web Angular"
-    },
-    {
-      "id": "_oncrxwxay",
-      "password": "12435325",
-      "loginEmail": "isma@hotmail.com",
-      "mainCourse": "Desarrollo Web Angular"
-    },
-    {
-      "id": "_g325uf9ky",
-      "password": "12433252123",
-      "loginEmail": "isma@hotmail.com",
-      "mainCourse": "Marketing Digital"
-    },
-    {
-      "id": "_qwilgp3vh",
-      "password": "w435346",
-      "loginEmail": "isma@hotmail.com",
-      "mainCourse": "Marketing Digital"
+      "email": "admin",
+      "password": "1234"
     }
   ]
 }

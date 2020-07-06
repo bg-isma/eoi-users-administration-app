@@ -6,8 +6,11 @@
 </div>
 <div *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
-    <img [src]="alumn.img" alt="Foto de perfil">
-    <p >{{decription}}</p>
+    <label for="img">
+        <img id="img" [src]="alumn.img" alt="Foto de perfil">
+        <input type="file" (change)="onFileChange($event)" >
+    </label>
+    <p >Descripción: {{alumn.description}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">
             <img height="60px" width="60px" [src]="course.img" alt="Logo del curso">
@@ -41,28 +44,36 @@
 <div  *ngIf="editMode">
     <div>
         <h3>Datos del usuario</h3>
-        <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="name"><br>
-        <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="birthday"><br>
-        <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="decription"><br>
-        <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="phone"><br>
-        <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="city"><br>
-        <input placeholder="Email" type="text" name="" id="" [(ngModel)]="contactEmail"><br>
-        <input placeholder="Nombre de la empresa" type="text" name="" id="" [(ngModel)]="experience.company"><br>
-        <input placeholder="Tiempo trabajado" type="text" name="" id="" [(ngModel)]="experience.time">
+        <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="thisAlumn.name"><br>
+        <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="thisAlumn.birthday"><br>
+        <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="thisAlumn.description"><br>
+        <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="thisAlumn.phone"><br>
+        <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="thisAlumn.city"><br>
+        <input placeholder="Email" type="text" name="" id="" [(ngModel)]="thisAlumn.contactEmail"><br>
         <select name="" id="" [(ngModel)]="laborSituationSelected">
-            <option [value]="situation" *ngFor="let situation of laborSituations">{{ situation }}</option>
+            <option [value]="situation" *ngFor="let situation of laborSituations">
+                {{situation}}
+            </option>
         </select><br>
+        
+        <!-- -------------- -->
+        <input placeholder="Nombre de la empresa" type="text" name="" id="" [(ngModel)]="experience.company"><br>
+        <input placeholder="Tiempo trabajado" type="text" name="" id="" [(ngModel)]="experience.time"><br>
+        <button (click)="addExperience()">Añadir experiencia</button>
+        <button (click)="dataAlumn()">Modificar perfil</button>
     </div>
     <div>
         <h3>Datos de los cursos</h3>
-        <input placeholder="Nombre del curso" type="text" name="" id="" [(ngModel)]="course.name"><br>
+        <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
+            <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
+        </select><br>
         <input placeholder="Duración del curso" type="text" name="" id="" [(ngModel)]="course.hours"><br>
-        <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.decription"><br>
+        <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
         <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
-        <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year">
+        <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year"><br>
         <select name="" id="" [(ngModel)]="modalitySelected">
             <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
         </select><br>
+        <button (click)="addCourse()">Añadir curso</button>
     </div>
-    <button (click)="dataAlumn()">Modificar</button>
 </div>
