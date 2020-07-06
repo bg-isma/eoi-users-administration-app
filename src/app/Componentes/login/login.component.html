@@ -1,7 +1,7 @@
 <form action="">
     <label for="email">Correo</label>
-    <input id ="email" type="text" [(ngModel)]="currentSession.email" name="email">
+    <input id ="email" type="text" [(ngModel)]="dataLogin.email" name="email">
     <label for="pass">Contraseña</label>
-    <input id ="pass" type="password" [(ngModel)] = "currentSession.password" name="password" >
+    <input id ="pass" type="password" [(ngModel)] = "dataLogin.password" name="password" >
     <button (click)="login()">Iniciar sesión</button>
 </form>
