@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Alumn } from './Interfaces/alumn'
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class AlumnsService {
 
   url = "http://localhost:3000/alumns"
 
-  constructor() {
+  constructor(private storage: AngularFireStorage) {
 
   }
 
@@ -77,10 +78,8 @@ export class AlumnsService {
 
   }
 
-  uploadUserPhoto(file) {
-    const fs = new FormData();
-    fs.append('image', file, file.name)
-    axios.post('https://<API_KEY>:<API_SECRET>@api.cloudinary.com/v1_1/<CLOUD_NAME>/resources/image', fs)
+  uploadUserPhoto(file: File, id:string ) {
+    this.storage.upload(`upload/${id}.${file.type}`, file)
   }
 
 }

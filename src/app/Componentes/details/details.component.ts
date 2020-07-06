@@ -135,5 +135,6 @@ export class DetailsComponent implements OnInit {
 
   onFileChange(event) {
     const file = event.target.files[0];
+    this.alumnsService.uploadUserPhoto(file, this.alumn.id)
   }
 }
