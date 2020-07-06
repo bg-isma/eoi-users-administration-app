@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
-import { NgModel, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
+import { Session } from 'src/app/Interfaces/session';
+import { Router } from "@angular/router"
 
 
 
@@ -12,8 +15,17 @@ import { NgModel, NgForm } from '@angular/forms';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
-  constructor(private alumnService: AlumnsService) {}
+  session : Session; 
+  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {
+    let session = JSON.parse(window.localStorage.getItem('currentSession'));
+    //if(session) this.isAdministrator(session);
+    if (session && Object.keys(session).includes('email') ) {
+      this.session = session;
+    } else {
+      this.router.navigate(['/']);
+    }
+      
+  }
 
   alumns = [];
   courses: Course[] = [{
@@ -37,15 +49,15 @@ export class AdminComponent implements OnInit {
     modality : "presencial"
   },
   {
-  name: "Sonido directo y diseño sonoro",
-  hours: 20, 
-  description: "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
-  skills: ["Efectos de sonido", "Pre-producción"],
-  professors : ["Joaquin Pachón"],
-  area : "Audiovisual",
-  year : "2020",
-  modality : "online"
-}];
+    name: "Sonido directo y diseño sonoro",
+    hours: 20, 
+    description: "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
+    skills: ["Efectos de sonido", "Pre-producción"],
+    professors : ["Joaquin Pachón"],
+    area : "Audiovisual",
+    year : "2020",
+    modality : "online"
+  }];
 
   default = "";
   newAlumn : Alumn = {
@@ -72,6 +84,14 @@ export class AdminComponent implements OnInit {
   }
   
   ngOnInit(): void {}
+
+  /*async isAdministrator(session){
+    
+    let admnistrator = await this.loginService.validateAdmin(session);
+    if (admnistrator.length == 1){
+
+    }
+  }*/
 }
 
 

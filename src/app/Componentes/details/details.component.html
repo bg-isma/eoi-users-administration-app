@@ -6,10 +6,6 @@
 </div>
 <div *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
-    <label for="img">
-        <img id="img" [src]="alumn.img" alt="Foto de perfil">
-        <input type="file" (change)="onFileChange($event)" >
-    </label>
     <p >Descripción: {{alumn.description}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">
@@ -43,6 +39,10 @@
 
 <div  *ngIf="editMode">
     <div>
+        <label for="img">
+            <img id="img" [src]="alumn.img" alt="Foto de perfil">
+            <input type="file" (change)="onFileChange($event)" >
+        </label>
         <h3>Datos del usuario</h3>
         <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="thisAlumn.name"><br>
         <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="thisAlumn.birthday"><br>

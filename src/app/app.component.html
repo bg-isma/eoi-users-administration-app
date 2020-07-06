@@ -3,7 +3,7 @@
     <div></div>
     <div class="user-menu-content">
         <div class="user-menu">
-            <div><img src="{{ 'https://image.flaticon.com/icons/svg/2742/2742473.svg' }}" alt=""></div>
+            <div><a href="{{ user.id ? ('http://localhost:4200/details/' + user.id) : 'http://localhost:4200/login' }}"><img async src="{{ user.img }}" alt=""></a></div>
             <div class="menu-btn">
                 <div></div>
                 <div class="short"></div>

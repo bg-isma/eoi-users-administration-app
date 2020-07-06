@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Alumn } from './Interfaces/alumn'
 import { AngularFireStorage } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -57,12 +58,20 @@ export class AlumnsService {
   }
 
   // update
-  updateAlumn(id: string, alumno: Alumn) {
-    return axios.put(`${this.url}/${id}`, alumno)
-      .then(response => console.log(response))
-      .catch(err => {
-        console.log(`Algo salio mal ${err}`)
-      })
+  updateAlumn(id: string, alumno: Alumn, file: File) {
+
+    const path = `upload/${id}.${file.name.split('.')[1]}`;
+    this.storage.ref(path).getDownloadURL().subscribe( res => {
+
+      this.uploadUserPhoto(file, alumno.id, path).then( resp => {
+
+        alumno.img = res;
+        return axios.put(`${this.url}/${id}`, alumno).then(response => response).catch(err => {console.log(`Algo salio mal ${err}`)})
+
+      }).catch(err => {console.log(`Algo salio mal ${err}`)})
+
+    })
+
   }
 
   /* 
@@ -78,8 +87,10 @@ export class AlumnsService {
 
   }
 
-  uploadUserPhoto(file: File, id:string ) {
-    this.storage.upload(`upload/${id}.${file.type}`, file)
+  uploadUserPhoto(file: File, id:string, path: string) : Promise<UploadTaskSnapshot> {
+    return this.storage.upload(path, file).then( res => {
+      console.log(res);
+    })
   }
 
 }

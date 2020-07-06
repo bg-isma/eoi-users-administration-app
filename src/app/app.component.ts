@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'eoi-users-administration-app';
+
+  user = { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
+
+  constructor () {
+  }
+
+  ngOnInit(): void {
+    this.user = JSON.parse(window.localStorage.getItem('currentSession')) || { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
+  }
+
 }

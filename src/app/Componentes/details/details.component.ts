@@ -73,6 +73,8 @@ export class DetailsComponent implements OnInit {
     laborSituation: ''
   }
 
+  file: File = null;
+
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
   }
@@ -121,9 +123,7 @@ export class DetailsComponent implements OnInit {
   }
   dataAlumn(){
     this.thisAlumn.laborSituation = this.laborSituationSelected
-    this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn)
-    .then( res => console.log("Se han modificado correctamente"))
-    .catch( err => console.log("No se ha podido modificar los datos correctamente"));
+    this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn, this.file)
     this.laborSituations = ["Estudiante", "Desempleado", "Trabajando"];
   }
   enterEditMode(){
@@ -134,7 +134,6 @@ export class DetailsComponent implements OnInit {
   }
 
   onFileChange(event) {
-    const file = event.target.files[0];
-    this.alumnsService.uploadUserPhoto(file, this.alumn.id)
+    this.file = event.target.files[0];
   }
 }
