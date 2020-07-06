@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Session } from 'src/app/Interfaces/session';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { Session } from 'src/app/Interfaces/session';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   currentSession : Session  = {email: "", password: ""}; 
 
@@ -16,8 +17,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    //Comprobar si nos estamos logueando como administrador y como usuario
+    //Comprobar si nos estamos logueando como administrador 
     
 
+    //Comprobar si nos logueamos como usuario
+
+    
   }
 }
