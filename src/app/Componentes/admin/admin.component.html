@@ -1,4 +1,4 @@
-<div *ngIf="session">
+<div class="add-user-from-content" *ngIf="session">
     <form #myForm="ngForm">
         <label for="name">Nombre del Alumno</label>
         <input id="name" type="text" [(ngModel)]="newAlumn.name" name="name" #name="ngModel" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ]{2,}\s[a-zA-ZáéíóúÁÉÍÓÚ]{4,}\s*[a-zA-ZáéíóúÁÉÍÓÚ]*$" required>
@@ -44,3 +44,40 @@
         <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
     </form>
 <div>
+<div class="drop-zone">
+    <label for="img" (dragover)="isDraging = true" (dragleave)="isDraging = false" [ngStyle]="{ 'background-color': isDraging ? '' : 'rgb(221, 221, 221)' }" >
+        <input type="file" multiple="false" accept=".xls,.xlsx,.ods" id="img" (change)="onFileChange($event)" >
+        <div class="upload-file">
+            <button>Subir archivo</button>
+            <span>Arrastra el archivo aqui</span>
+        </div>
+    </label>
+    <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+<h1>Alumnos Cargados</h1>
+<ul class="excel-alumn-list">
+    <li *ngFor="let excelAlumn of excelAlumnList">
+        <div>
+            <div class="img-content">
+                <img src="{{ excelAlumn.mainCourse.img }}" alt="">
+                <div>{{ excelAlumn.mainCourse.img }}</div>
+            </div>
+            <div class="user-info-content">
+                <div>
+                    <div class="user-img-icon">
+                        <img src="../../../assets/usuario.svg" alt="">
+                    </div>
+                    <div class="user-info">
+                        <h2 class="fucking-angular">{{ excelAlumn.name }}</h2>
+                        <h3 class="fucking-angular">{{ excelAlumn.loginEmail }}</h3>
+                    </div>
+                </div>
+                <div></div>
+                <div>
+                    <button class="delete">eliminar</button>
+                    <button class="create">crear</button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

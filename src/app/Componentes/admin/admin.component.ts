@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { Session } from 'src/app/Interfaces/session';
 import { Router } from "@angular/router"
+import * as xlsx from 'xlsx';
 
 
 
@@ -15,17 +16,7 @@ import { Router } from "@angular/router"
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  session : Session; 
-  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {
-    let session = JSON.parse(window.localStorage.getItem('currentSession'));
-    //if(session) this.isAdministrator(session);
-    if (session && Object.keys(session).includes('email') ) {
-      this.session = session;
-    } else {
-      this.router.navigate(['/']);
-    }
-      
-  }
+
 
   alumns = [];
   courses: Course[] = [{
@@ -68,6 +59,40 @@ export class AdminComponent implements OnInit {
     mainCourse: ""
   }; 
   
+  excelAlumnList = [
+    {
+      id: 'string',
+      name: 'Ismael Bola',
+      password : 'string',
+      loginEmail: 'ismaelbg_99@hotmail.com',
+      mainCourse: {
+        img: 'https://picsum.photos/id/640/536/354.jpg'
+      }
+    },
+    {
+      id: 'string',
+      name: 'Ismael Bola',
+      password : 'string',
+      loginEmail: 'ismaelbg_99@hotmail.com',
+      mainCourse: {
+        img: 'https://picsum.photos/id/640/536/354.jpg'
+      }
+    }
+  ]
+  isDraging=false;
+
+  session : Session; 
+  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {
+    let session = JSON.parse(window.localStorage.getItem('currentSession'));
+    //if(session) this.isAdministrator(session);
+    if (session && Object.keys(session).includes('email') ) {
+      this.session = session;
+    } else {
+      this.router.navigate(['/']);
+    }
+      
+  }
+
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   async createNewAlumn(myForm: NgForm){
@@ -85,13 +110,20 @@ export class AdminComponent implements OnInit {
   
   ngOnInit(): void {}
 
-  /*async isAdministrator(session){
-    
-    let admnistrator = await this.loginService.validateAdmin(session);
-    if (admnistrator.length == 1){
+  onFileChange(event) {
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
 
-    }
-  }*/
+      const wb = xlsx.read(e.target.result, {type: 'binary'});
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const data = (xlsx.utils.sheet_to_json(ws, {header: 1}));
+      console.log(data);
+      
+    };
+    reader.readAsBinaryString(event.target.files[0]);
+
+  }
+
 }
 
 
