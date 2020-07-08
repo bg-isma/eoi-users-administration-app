@@ -1,0 +1,74 @@
+.login-form-bar {
+    height: 100%;
+    width: 300px;
+    background-color: white;
+    margin: 0px 16px;
+}
+
+.login-form-bar h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin: 40px 0px;
+    text-align: center;
+}
+
+.login-form-bar a {
+    color: black;
+}
+
+.login-form-bar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-bar label {
+    margin: 7px 0px;
+    font-weight: 700;
+    color: rgb(97, 97, 97);
+    font-size: 0.8rem;
+    margin-top: 16px;
+}
+
+.login-form-bar button {
+    margin-top: 20px;
+    padding: 12px 0px;
+    background-color: black;
+    color: rgb(255, 255, 255);
+    font-size: 0.9rem;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.login-form-bar input {
+    height: 30px;
+    border: 1px solid rgb(228, 228, 228);
+    padding: 0px 7px;
+}
+
+.login-img {
+    width: 100%;
+    overflow: hidden;
+    background-image: url("https://account.mongodb.com/static/images/auth/layout_pattern.png"), linear-gradient(226deg, rgb(51, 122, 183), 48%, var(--blue) 100%);
+}
+
+.login-img img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-content {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+
+    .login-form-bar {
+        width: 100%;
+    }
+
+    .login-img {
+        display: none;
+    }
+}

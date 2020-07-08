@@ -9,8 +9,16 @@ export class AppComponent {
   title = 'eoi-users-administration-app';
 
   user = { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
+  isLogin = true;
 
   constructor () {
+
+    console.log(window.location);
+    
+
+    if ( window.location.pathname === '/login' ) {
+      this.isLogin = false;
+    }
   }
 
   ngOnInit(): void {

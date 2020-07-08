@@ -24,22 +24,38 @@
         <div class="filtrar" *ngIf="isFilterBtnDisabled">
             <button (click)="openFilters()"><img src="assets/filtrar.svg" alt=""></button>
         </div>
-        <section class="filters-content" *ngIf="isFilterOpen">
-            <div class="filters">
-                <label for="">Location</label>
-                <select name="miselect1" id="miselect1" [(ngModel)]="locationSelected">
-                    <option [value]="location" *ngFor="let location of locations">{{ location }}</option>
-                </select>
-                <label for="">Courses</label>
-                <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
-                    <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
-                </select>
-                <label for="">laborSituation</label>
-                <select name="miselect3" id="miselect3" [(ngModel)]="laborSituationSelected">
-                    <option [value]="laborSituation" *ngFor="let laborSituation of laborSituations">{{ laborSituation }}
-                    </option>
-                </select>
-                <button (click)="filterAlumns()">Guardar Filtros</button>
+        <section class="filters-content">
+            <div class="filters" [@openClose]="state">
+                <div class="selects-content">
+                    <label for="">Location</label>
+                    <mat-form-field >
+                        <mat-select [(ngModel)]="locationSelected">
+                          <mat-option *ngFor="let location of locations" [value]="location">
+                            {{ location }}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <label for="">Courses</label>
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="courseSelected">
+                          <mat-option *ngFor="let course of courses" [value]="course">
+                            {{ course }}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <label for="">laborSituation</label>
+                    <mat-form-field>
+                        <mat-select  class="select md-no-underline" [(ngModel)]="laborSituationSelected">
+                          <mat-option *ngFor="let laborSituation of laborSituations" [value]="laborSituation">
+                            {{ laborSituation }}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <button (click)="filterAlumns()">Guardar Filtros</button>
+                </div>
             </div>
         </section>
     </div>
@@ -50,18 +66,29 @@
         <div class="filters-pc">
             <div class="filters-content-pc">
                 <label for="">Localizacion</label>
-                <select name="miselect1" id="miselect1" [(ngModel)]="locationSelected">
-                    <option [value]="location" *ngFor="let location of locations">{{ location }}</option>
-                </select>
+                <mat-form-field >
+                    <mat-select [(ngModel)]="locationSelected">
+                      <mat-option *ngFor="let location of locations" [value]="location">
+                        {{ location }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <label for="">Cursos</label>
-                <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
-                    <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
-                </select>
+                <mat-form-field>
+                    <mat-select [(ngModel)]="courseSelected">
+                      <mat-option *ngFor="let course of courses" [value]="course">
+                        {{ course }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <label for="">Situacion Laboral</label>
-                <select name="miselect3" id="miselect3" [(ngModel)]="laborSituationSelected">
-                    <option [value]="laborSituation" *ngFor="let laborSituation of laborSituations">{{ laborSituation }}
-                    </option>
-                </select>
+                <mat-form-field>
+                    <mat-select  class="select md-no-underline" [(ngModel)]="laborSituationSelected">
+                      <mat-option *ngFor="let laborSituation of laborSituations" [value]="laborSituation">
+                        {{ laborSituation }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="btn-content">
                 <button (click)="filterAlumns()"><img src="assets/filtrar.svg" alt=""></button>
@@ -69,7 +96,7 @@
         </div>
     </div>
     <ul class="alumns-list">
-        <li *ngFor="let alumn of alumns, index as i">
+        <li *ngFor="let alumn of alumns, index as i" [@enter]="">
             <a routerLink="details/{{alumn.id}}">
                 <div class="course-info">
                     <img src="{{ alumn.courseImg }}" alt="">
@@ -85,7 +112,7 @@
                         </div>
                         <div class="name-age-content">
                             <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                            <h3>{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
+                            <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
                         </div>
                     </div>
                 </div>

@@ -43,47 +43,73 @@ input {
 .filtrar button {
     padding: 7px;
     margin-left: 10px;
-    margin-right: 12px;
+    margin-right: 0px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2px;
     background-color: var(--dark);
+    cursor: pointer;
 }
 
 .filters-content {
     position: absolute;
-    top: -7px;
+    top: 0px;
     left: 0;
-    background-color: var(--dark);
     z-index: 2;
     display: flex;
     flex-direction: column;
     width: 100%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
+    padding: 0px;
+
+    ::ng-deep .mat-select-arrow {
+        color: white;
+    }
+    
+    ::ng-deep .mat-select-value {
+        color: white;
+    }
+    
+    ::ng-deep div.mat-form-field-infix {
+        border-bottom: 1px solid white;
+    }
 }
 
 
 .filters {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    padding-top: 50px;
+    margin-right: 53px;
+    background-color: var(--dark);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    overflow: hidden;
 }
+
+.selects-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .filters label {
     color: white;
     margin: 7px 0px;
+    font-size: 0.8rem;
+    margin-top: 16px;
+}
+
+.filters label:first-child {
+    margin-top: 0px;
 }
 
 .filters button {
     background-color: var(--blue);
-    margin-top: 16px;
+    margin-top: 10px;
     padding: 7px 0px;
     color: white;
     border-radius: 2px;
     cursor: pointer;
 }
-
 
 .filtrar img {
     width:30px;
@@ -124,6 +150,7 @@ input {
 
 .alumns-list a {
     width: 100%;
+    height: 100%;
 }
 
 .user-info-content {
@@ -165,13 +192,17 @@ input {
 
     h2 {
         font-size: 1rem;
-        
+        margin: 0px;
+        line-height: 0.9rem;
+        padding-bottom: 5px;
     }
 
-    h3 {
+    h3.puto-angular {
         font-size: 0.8rem;
         font-weight: 400;
         color: rgb(214, 214, 214);
+        margin: 0px;
+        line-height: 0.9rem;
     }
 
 }
@@ -199,16 +230,27 @@ input {
     display: flex;
     justify-content: flex-end;
     margin: 10px;
+
+    h2 {
+        background-color: var(--blue);
+        border-radius: 2px;
+        padding: 5px 10px;
+        color: white;
+        font-weight: 400;
+        font-size: 1rem;
+        margin: 0px;
+        line-height: 1rem;
+    }
 }
 
-.course-name h2 {
-    background-color: var(--blue);
-    height: max-content;
-    border-radius: 2px;
-    padding: 3px 10px;
-    color: white;
-    font-weight: 400;
-    font-size: 1rem;
+.filters-content-pc {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+div.filters-pc {
+    justify-content: flex-start;
+    padding-left: 20px;
 }
 
 @media (min-width: 768px) {
@@ -282,11 +324,19 @@ input {
         background-color: var(--blue);
         color: white;
         border-radius: 2px;
-        margin: 7px 0px;
         margin-left: 10px;
-        width: 29px;
+        width: 50px;
         height: 29px;
         padding: 5px;
+        cursor: pointer;
+    }
+
+    .filters-pc img {
+        height: 20px;
+    }
+
+    ::ng-deep .mat-form-field-wrapper {
+        width: 120px;
     }
 }
 

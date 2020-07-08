@@ -1,7 +1,14 @@
-<form action="">
-    <label for="email">Correo</label>
-    <input id ="email" type="text" [(ngModel)]="dataLogin.email" name="email">
-    <label for="pass">Contraseña</label>
-    <input id ="pass" type="password" [(ngModel)] = "dataLogin.password" name="password" >
-    <button (click)="login()">Iniciar sesión</button>
-</form>
+<div class="login-form-bar">
+    <h1><a href="/">spegc Jobs</a></h1>
+    <form action="">
+        <label for="email">Correo</label>
+        <input id="email" type="text" [(ngModel)]="dataLogin.email" name="email">
+        <label for="pass">Contraseña</label>
+        <input id="pass" type="password" [(ngModel)]="dataLogin.password" name="password">
+        <button (click)="login()">Log In</button>
+    </form>
+</div>
+<div class="login-img">
+    <img src=""
+        alt="">
+</div>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "../environments/environment";
+import { MatSelectModule } from '@angular/material/select'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { MasterComponent } from './Componentes/master/master.component';
 import { DetailsComponent } from './Componentes/details/details.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { EmailValidatorDirective } from './directivas/email-validator.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { EmailValidatorDirective } from './directivas/email-validator.directive'
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     FormsModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

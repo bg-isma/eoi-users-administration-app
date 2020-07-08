@@ -24,4 +24,21 @@ h2, form, a, P, li, ul, h3, h4, h1, span, label, input, button {
     padding: 0px;
     text-decoration: none;
     border: none;
+    height: max-content;
+}
+
+app-root {
+    height: 100%;
+}
+
+app-login {
+    display: flex;
+    height: 100%;
+    background-color: white;
+}
+
+app-master {
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px;
 }

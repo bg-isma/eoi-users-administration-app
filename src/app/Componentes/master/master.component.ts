@@ -1,10 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnsService } from "../../alumns.service";
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-master',
   templateUrl: './master.component.html',
-  styleUrls: ['./master.component.scss']
+  styleUrls: ['./master.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        height: '355px',
+        opacity: 1,
+      })),
+      state('closed', style({
+        height: '0px',
+        opacity: 0,
+      })),
+      transition('closed => open', 
+        animate('0.5s')
+      ),
+      transition('open => closed', 
+        animate('0.5s')
+      )
+    ]),
+    trigger('enter', [
+      state('void', style({
+        transform: 'translateX(-100%)',
+        opacity:1
+      })),
+      transition(':enter', 
+        animate('0.3s', style({
+          transform: 'translateX(0)',
+          opacity:1
+        }))
+      ),
+    ])
+  ]
 })
 export class MasterComponent implements OnInit {
 
@@ -35,11 +66,12 @@ export class MasterComponent implements OnInit {
   courseSelected = "Todos"
   laborSituationSelected = "Todos"
   isFilterBtnDisabled = false;
+  state = 'closed'
 
   year = new Date().getFullYear();
 
   constructor(private alumnsService: AlumnsService) { 
-
+    window.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
   }
 
   ngOnInit(): void {
@@ -52,12 +84,15 @@ export class MasterComponent implements OnInit {
   */
   loadAlumns() {
     this.alumnsService.getAll(0).then(alumns => { 
-      this.alumns = alumns.map( alumn => {
-        return {
-          ...alumn,
-          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
-        }
+      alumns.forEach( (alumn, idx )=> {
+        setTimeout(() => {
+          this.alumns.push({
+            ...alumn,
+            courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+          })
+        }, idx * 500)
       })
+
     })
   }
 
@@ -129,8 +164,12 @@ export class MasterComponent implements OnInit {
 
   }
 
+
   openFilters () {
+    this.isFilterOpen == true ? this.state = 'closed' : this.state = 'open'
     this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
+    console.log(this.state);
+    
   }
 
   onResize(event) {
