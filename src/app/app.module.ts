@@ -14,6 +14,7 @@ import { DetailsComponent } from './Componentes/details/details.component';
 import { AdminComponent } from './Componentes/admin/admin.component';
 import { EmailValidatorDirective } from './directivas/email-validator.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     MatSelectModule,
     BrowserAnimationsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

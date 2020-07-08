@@ -24,7 +24,8 @@ h2, form, a, P, li, ul, h3, h4, h1, span, label, input, button {
     padding: 0px;
     text-decoration: none;
     border: none;
-    height: max-content;
+    //Los inputs no se ven cuando está propiedad esta activa
+    //height: max-content;
 }
 
 app-root {

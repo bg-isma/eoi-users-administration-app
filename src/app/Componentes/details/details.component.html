@@ -1,9 +1,42 @@
-<h2>Soy la página Details</h2>
+<section class="details-content"  *ngIf="!editMode">
+    <div class="user-content">
+        <div class="course-info">
+            <img src="{{ alumn.courseImg }}" alt="">
+            <div class="course-name">
+                <h2>{{ alumn.mainCourse || 'wtf' }}</h2>
+            </div>
+        </div>
+        <div class="user-info-content">
+            <div class="user-info">
+                <div>
+                    <div class="img-main-position">
+                        <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
+                            alt="">
+                    </div>
+                <div class="name-age-content">
+                    <div>
+                        <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
+                        <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
+                    </div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div>
+<section class="details-edit-content" *ngIf="editMode">
+
+</section>
+
+<div *ngIf="sessionAlumn && sessionAlumn.id == alumn.id || sessionAdmin">
     <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
     <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
 </div>
+
 <div *ngIf="!editMode" >
     <h2>{{alumn.name}}</h2>
     <p >Descripción: {{alumn.description}}</p>
@@ -38,18 +71,19 @@
 </div>
 
 <div  *ngIf="editMode">
+    <h2>Esto lo ve usuario y administrador</h2>
     <div>
         <label for="img">
             <img id="img" [src]="alumn.img" alt="Foto de perfil">
             <input type="file" (change)="onFileChange($event)" >
         </label>
         <h3>Datos del usuario</h3>
-        <input placeholder="Nombre" type="text" name="" id="" [(ngModel)]="thisAlumn.name"><br>
-        <input placeholder="Año de nacimiento" type="text" name="" id="" [(ngModel)]="thisAlumn.birthday"><br>
-        <input placeholder="Descripción" type="text" name="" id="" [(ngModel)]="thisAlumn.description"><br>
-        <input placeholder="Número de telefono" type="text" name="" id="" [(ngModel)]="thisAlumn.phone"><br>
-        <input placeholder="Ciudad" type="text" name="" id="" [(ngModel)]="thisAlumn.city"><br>
-        <input placeholder="Email" type="text" name="" id="" [(ngModel)]="thisAlumn.contactEmail"><br>
+        <input placeholder="Nombre" type="text" name="name" id="" [(ngModel)]="thisAlumn.name"><br>
+        <input placeholder="Año de nacimiento" type="text" name="birthday" id="" [(ngModel)]="thisAlumn.birthday"><br>
+        <input placeholder="Descripción" type="text" name="description" id="" [(ngModel)]="thisAlumn.description"><br>
+        <input placeholder="Número de telefono" type="text" name="phone" id="" [(ngModel)]="thisAlumn.phone"><br>
+        <input placeholder="Ciudad" type="text" name="city" id="" [(ngModel)]="thisAlumn.city"><br>
+        <input placeholder="Email" type="text" name="contactEmail" id="" [(ngModel)]="thisAlumn.contactEmail"><br>
         <select name="" id="" [(ngModel)]="laborSituationSelected">
             <option [value]="situation" *ngFor="let situation of laborSituations">
                 {{situation}}
@@ -62,7 +96,9 @@
         <button (click)="addExperience()">Añadir experiencia</button>
         <button (click)="dataAlumn()">Modificar perfil</button>
     </div>
-    <div>
+    
+    <div  *ngIf="sessionAdmin">
+        <h2>Esto lo ve el administrador</h2>
         <h3>Datos de los cursos</h3>
         <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
             <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
@@ -71,9 +107,19 @@
         <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
         <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
         <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year"><br>
+        <mat-form-field>
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let skill of skills">{{skill}}</mat-chip>
+            </mat-chip-list>
+            <input #skillInput placeholder="Habilidades"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-form-field>
+
         <select name="" id="" [(ngModel)]="modalitySelected">
             <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
         </select><br>
         <button (click)="addCourse()">Añadir curso</button>
     </div>
 </div>
+

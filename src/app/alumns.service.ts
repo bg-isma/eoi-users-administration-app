@@ -58,8 +58,8 @@ export class AlumnsService {
   }
 
   // update
-  updateAlumn(id: string, alumno: Alumn, file: File) {
-
+  async updateAlumn(id: string, alumno: Alumn, file ?: File) {
+    if(file){
     const path = `upload/${id}.${file.name.split('.')[1]}`;
     this.storage.ref(path).getDownloadURL().subscribe( res => {
 
@@ -71,6 +71,13 @@ export class AlumnsService {
       }).catch(err => {console.log(`Algo salio mal ${err}`)})
 
     })
+  }else{
+    console.log("El fichero de foto es nulo, solo actualizamos datos");
+    return axios.put(`${this.url}/${id}`, alumno)
+      .then(response => console.log(response))
+      .catch(err => {console.log(`Algo salio mal ${err}`)});
+
+  }
 
   }
 

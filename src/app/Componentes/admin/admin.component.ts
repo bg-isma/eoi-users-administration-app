@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild} from '@angular/core';
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
@@ -84,9 +84,9 @@ export class AdminComponent implements OnInit {
   session : Session; 
   constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {
     let session = JSON.parse(window.localStorage.getItem('currentSession'));
-    //if(session) this.isAdministrator(session);
     if (session && Object.keys(session).includes('email') ) {
       this.session = session;
+
     } else {
       this.router.navigate(['/']);
     }

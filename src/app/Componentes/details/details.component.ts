@@ -4,6 +4,17 @@ import { AlumnsService } from 'src/app/alumns.service';
 import { Alumn } from 'src/app/Interfaces/alumn';
 import { Course } from 'src/app/Interfaces/course';
 import { Experience } from 'src/app/Interfaces/experience';
+import { Session } from 'src/app/Interfaces/session';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {ElementRef, ViewChild} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
+
+
 
 @Component({
   selector: 'app-details',
@@ -11,8 +22,9 @@ import { Experience } from 'src/app/Interfaces/experience';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
-  alumn: Alumn = { id: '', name: '', password: '', mainCourse: '', loginEmail: '' }
+  alumn:any= { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
   editMode: boolean = false
   userLogged: boolean = false
   decription: string = '';
@@ -72,11 +84,15 @@ export class DetailsComponent implements OnInit {
     birthday: '',
     laborSituation: ''
   }
-
+  skills: string[];
+  year = new Date().getFullYear();
   file: File = null;
+  sessionAdmin : Session; 
+  sessionAlumn : Alumn; 
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
+    this.isSomeoneLogged();
   }
 
   ngOnInit() {
@@ -122,18 +138,40 @@ export class DetailsComponent implements OnInit {
   this.modalities = ["Presencial", "On-line", "Semi-presencial"];
   }
   dataAlumn(){
-    this.thisAlumn.laborSituation = this.laborSituationSelected
-    this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn, this.file)
+    //console.log(this.thisAlumn);
+    this.thisAlumn.laborSituation = this.laborSituationSelected;
+    if(this.file == null ){
+      console.log("File es nullo");
+      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
+    }else{
+      console.log(this.file);
+      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn, this.file);
+    }
     this.laborSituations = ["Estudiante", "Desempleado", "Trabajando"];
   }
-  enterEditMode(){
+
+  enterEditMode (){
+    if( (this.sessionAdmin || this.sessionAlumn.id == this.alumn.id) ){
       this.editMode = true;
+   }
   }
+
   exitEditMode(){
     this.editMode = false;
   }
 
   onFileChange(event) {
     this.file = event.target.files[0];
+  }
+
+  isSomeoneLogged(){
+    let session = JSON.parse(window.localStorage.getItem('currentSession'));
+    if(session && Object.keys(session).includes('email') ){
+      this.sessionAdmin = session;
+      console.log(this.sessionAdmin);
+    } else if (session && Object.keys(session).includes('loginEmail')){
+      this.sessionAlumn = session;
+      console.log(this.sessionAlumn);
+    }
   }
 }

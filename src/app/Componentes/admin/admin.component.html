@@ -1,5 +1,5 @@
 <div class="add-user-from-content" *ngIf="session">
-    <form #myForm="ngForm">
+    <form #myForm="ngForm" class="add-from">
         <label for="name">Nombre del Alumno</label>
         <input id="name" type="text" [(ngModel)]="newAlumn.name" name="name" #name="ngModel" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ]{2,}\s[a-zA-ZáéíóúÁÉÍÓÚ]{4,}\s*[a-zA-ZáéíóúÁÉÍÓÚ]*$" required>
         <div *ngIf="name.invalid && (name.dirty || name.touched)">
@@ -33,9 +33,13 @@
             </div>
         </div>   
         <label for="course">Curso al que pertenece:</label>
-        <select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName"  #course = "ngModel" required>
-            <option *ngFor="let course of courses" [value]="course.name">{{course.name}}</option>
-        </select> 
+        <mat-form-field >
+            <mat-select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName"  #course = "ngModel" required>
+              <mat-option *ngFor="let course of courses" [value]="course.name" [value]="course">
+                {{ course.name }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
         <div *ngIf="course.invalid && (course.dirty || course.touched)">
             <div *ngIf="course.errors.required">
                 <p>Elige una opción de curso</p>
