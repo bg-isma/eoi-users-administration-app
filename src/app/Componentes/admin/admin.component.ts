@@ -64,26 +64,8 @@ export class AdminComponent implements OnInit {
   }; 
  
   alumnos : Alumn[];
-  excelAlumnList = [
-    {
-      id: 'string',
-      name: 'Ismael Bola',
-      password : 'string',
-      loginEmail: 'ismaelbg_99@hotmail.com',
-      mainCourse: {
-        img: 'https://picsum.photos/id/640/536/354.jpg'
-      }
-    },
-    {
-      id: 'string',
-      name: 'Ismael Bola',
-      password : 'string',
-      loginEmail: 'ismaelbg_99@hotmail.com',
-      mainCourse: {
-        img: 'https://picsum.photos/id/640/536/354.jpg'
-      }
-    }
-  ]
+  excelAlumn: Alumn;
+  excelAlumnList : Alumn[]; 
   isDraging=false;
 
   session : Session; 
@@ -126,20 +108,21 @@ export class AdminComponent implements OnInit {
       const ws = wb.Sheets[wb.SheetNames[0]];
       const data = (xlsx.utils.sheet_to_json(ws, {header: 1}));
       console.log(data);
-      this.createAlumnFromExcell( data.slice(1).map( fila => {
+      this.excelAlumnList = data.slice(1).map( fila => {
           return {
-            name: fila[0],
+            name : fila[0],
             loginEmail: fila[1],
             password: fila[2],
             mainCourse: fila[3],
             courses : []
           }
         
-      }));
+      });
+      console.log(this.excelAlumnList);
     };
    
   }
-
+/*Falta que te llame desde un botón*/
   createAlumnFromExcell(alumnos : any){
      alumnos.forEach(async (alumno) => {
       let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(alumno.loginEmail);
@@ -147,12 +130,20 @@ export class AdminComponent implements OnInit {
         let course = this.courses.find(course => course.name == alumno.mainCourse);
         alumno.courses.push(course);  
         alumno.id = this.generateId;
-        this.alumnService.addOne(alumno)
-          .then( excelAlumn => this.excelAlumnList.push(alumno) )
+        this.excelAlumnList.push(alumno);
+        /*this.alumnService.addOne(alumno)
+          .then(  )
           .catch (err => console.log(`Hay un error ${err}`))
+      }*/
       }
-      
     });
+  }
+  deleteAlumn(){
+    console.log("Estamos borrando");
+  }
+
+  addAlumnToDB(){
+    console.log("Estamos borrando");
   }
 
 }

@@ -164,61 +164,6 @@
           "modality": "presencial"
         }
       ]
-    },
-    {
-      "name": "Lola perez",
-      "loginEmail": "lolalita@gmail.com",
-      "password": 12345,
-      "mainCourse": "Marketing Digital",
-      "courses": [
-        {
-          "name": "Marketing Digital",
-          "hours": 300,
-          "img": "https://d3t4nwcgmfrp9x.cloudfront.net/upload/cinco-errores-comunes-las-empresas-espanolas-marketing-digital.jpg",
-          "description": "Conceptos Básicos de Marketing aplicados a la era Digital",
-          "skills": [
-            "Diseño",
-            "Redes Sociales"
-          ],
-          "professors": [
-            "Lola Flores",
-            "Elisabet Cañas"
-          ],
-          "area": "Marketing y diseño",
-          "year": "2020",
-          "modality": "presencial"
-        }
-      ],
-      "id": "qAjMxjN"
-    },
-    {
-      "name": "pepa mijaaa",
-      "loginEmail": "pepa@gmail.com",
-      "password": 12345,
-      "mainCourse": "Desarrollo Web Angular",
-      "courses": [
-        {
-          "name": "Desarrollo Web Angular",
-          "hours": 250,
-          "description": "Aprendizaje profundo de Angular",
-          "skills": [
-            "html",
-            "Css",
-            "Angular",
-            "TypeScript"
-          ],
-          "professors": [
-            "Jose Luis",
-            "Alcibiades",
-            "Alejandro de Juan",
-            "Fernando Martín"
-          ],
-          "area": "Desarrollo Web",
-          "year": "2020",
-          "modality": "online"
-        }
-      ],
-      "id": "AuLEkhX"
     }
   ],
   "administrators": [

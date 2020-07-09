@@ -2,7 +2,7 @@ import { Course } from "./course";
 import { Experience } from "./experience";
 
 export type Alumn = {
-    id: string,
+    id?: string,
     img?: string,
     name: string,
     description?: string,
