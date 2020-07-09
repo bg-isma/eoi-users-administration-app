@@ -92,6 +92,7 @@ export class DetailsComponent implements OnInit {
     this.alumnID = this.route.snapshot.paramMap.get('id');
     this.isSomeoneLogged();
   }
+  
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;

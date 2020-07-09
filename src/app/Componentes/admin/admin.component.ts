@@ -69,21 +69,12 @@ export class AdminComponent implements OnInit {
   isDraging=false;
 
   session : Session; 
-  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {
-    let session = JSON.parse(window.localStorage.getItem('currentSession'));
-    if (session && Object.keys(session).includes('email') ) {
-      this.session = session;
-
-    } else {
-      this.router.navigate(['/']);
-    }
-      
-  }
+  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {}
 
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   async createNewAlumn(myForm: NgForm){
-    let course = this.courses.find(course => course.name == this.newAlumn.mainCourse)
+    let course = this.courses.find(course => course.name == this.newAlumn.mainCourse);
     this.newAlumn.courses.push(course);  
     let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(this.newAlumn.loginEmail);
     if(myForm.valid && listRepeatedAlumn.length == 0 ){
@@ -97,7 +88,9 @@ export class AdminComponent implements OnInit {
     }  
   }
   
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+    this.session = JSON.parse(window.localStorage.getItem('currentSession')); 
+  }
 
   onFileChange(event) {
     const reader: FileReader = new FileReader();
@@ -112,7 +105,7 @@ export class AdminComponent implements OnInit {
           return {
             name : fila[0],
             loginEmail: fila[1],
-            password: fila[2],
+            password: fila[2].toString(),
             mainCourse: fila[3],
             courses : []
           }
@@ -122,28 +115,24 @@ export class AdminComponent implements OnInit {
     };
    
   }
-/*Falta que te llame desde un botón*/
-  createAlumnFromExcell(alumnos : any){
-     alumnos.forEach(async (alumno) => {
-      let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(alumno.loginEmail);
-      if(listRepeatedAlumn.length == 0 ){
-        let course = this.courses.find(course => course.name == alumno.mainCourse);
-        alumno.courses.push(course);  
-        alumno.id = this.generateId;
-        this.excelAlumnList.push(alumno);
-        /*this.alumnService.addOne(alumno)
-          .then(  )
-          .catch (err => console.log(`Hay un error ${err}`))
-      }*/
-      }
-    });
-  }
-  deleteAlumn(){
-    console.log("Estamos borrando");
+
+  deleteAlumn(alumno: Alumn){
+    this.excelAlumnList = this.excelAlumnList.filter(alumn => alumn.name != alumno.name);
   }
 
-  addAlumnToDB(){
-    console.log("Estamos borrando");
+  async addAlumnToDB(alumno: Alumn){
+    let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(alumno.loginEmail);
+    if(listRepeatedAlumn.length == 0 ){
+      let course = this.courses.find(course => course.name == alumno.mainCourse);
+      alumno.courses.push(course); 
+      alumno.id = this.generateId();
+      this.alumnService.addOne(alumno)
+        .then( newAlumn => {
+          this.alumns.push(newAlumn);
+          this.deleteAlumn(newAlumn);
+        });
+      console.log("Estamos añadiendo a la BD");
+    }
   }
 
 }

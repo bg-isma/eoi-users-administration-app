@@ -34,7 +34,6 @@
 
 <div *ngIf="sessionAlumn && sessionAlumn.id == alumn.id || sessionAdmin">
     <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
-    <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
 </div>
 
 <div *ngIf="!editMode" >
@@ -71,12 +70,12 @@
 </div>
 
 <div  *ngIf="editMode">
-    <h2>Esto lo ve usuario y administrador</h2>
     <div>
         <label for="img">
             <img id="img" [src]="alumn.img" alt="Foto de perfil">
             <input type="file" (change)="onFileChange($event)" >
         </label>
+        <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
         <h3>Datos del usuario</h3>
         <input placeholder="Nombre" type="text" name="name" id="" [(ngModel)]="thisAlumn.name"><br>
         <input placeholder="Año de nacimiento" type="text" name="birthday" id="" [(ngModel)]="thisAlumn.birthday"><br>
@@ -100,12 +99,20 @@
     <div  *ngIf="sessionAdmin">
         <h2>Esto lo ve el administrador</h2>
         <h3>Datos de los cursos</h3>
-        <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
-            <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
-        </select><br>
+        <form #myCourseForm="ngForm">
+        <mat-form-field>     
+            <mat-select name="miselect2" id="miselect2" [(ngModel)]="courseSelected" #courseRef = "ngModel" required>
+                <mat-option [value]="course" *ngFor="let course of courses">{{ course }}</mat-option>
+            </mat-select>
+        </mat-form-field><br>
+        <div *ngIf="courseRef.invalid && (courseRef.dirty || courseRef.touched)">
+            <div *ngIf="courseRef.errors.required">
+                <p>Elige una opción de curso</p>
+            </div>    
+        </div>
         <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
-        <input placeholder="Duración del curso" type="text" name="" id="" [(ngModel)]="course.hours"><br>
-        <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
+        <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours"><br>
+        <input placeholder="Descripción del curso" type="text" name="description" id="" [(ngModel)]="course.description"><br>
         <mat-form-field class="example-chip-list">
             <mat-chip-list #chipListProf aria-label="Professor selection">
               <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
@@ -119,9 +126,9 @@
                      [matChipInputAddOnBlur]="addOnBlur"
                      (matChipInputTokenEnd)="addProf($event)">
             </mat-chip-list>
-          </mat-form-field>
-        <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
-        <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year"><br>
+          </mat-form-field><br>
+        <input placeholder="Area del curso" type="text" name="area" id="" [(ngModel)]="course.area" /><br>
+        <input placeholder="Año de realización" type="text" name="year" id="" [(ngModel)]="course.year" /><br>
         <mat-form-field class="example-chip-list">
             <mat-chip-list #chipList aria-label="Skill selection">
               <mat-chip *ngFor="let skill of newcourse.skills" [selectable]="selectable"
@@ -135,10 +142,14 @@
                      [matChipInputAddOnBlur]="addOnBlur"
                      (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
-          </mat-form-field>
-        <select name="" id="" [(ngModel)]="modalitySelected">
+          </mat-form-field><br>
+
+        <mat-form-field>
+        <mat-select name="" id="" [(ngModel)]="modalitySelected">
             <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
-        </select><br>
+        </mat-select><br>
+    </mat-form-field>
         <button (click)="addCourse()">Añadir curso</button>
+        </form>
     </div>
 </div>
