@@ -98,70 +98,55 @@ export class MasterComponent implements OnInit {
 
   search() {
     this.alumns = []
-
-    this.courseSelected = 'Todos'
-    this.laborSituationSelected = 'Todos'
-    this.locationSelected = 'Todos'
-
+    const newAlumns = []
     const words = this.searchText.split(' ')
 
     if (this.searchText !== '') {
       words.forEach( word => {
         this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn) 
+          newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push(alumn) 
         }))
         this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn) 
+          newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push(alumn) 
         }))
-      }) 
+      })
+
+      this.filterAlumns()
+
     } else {
       this.loadAlumns()
     }
   }
 
   filterAlumns() {
-  
     this.alumns = []
-    let p1, p2, p3
-    
-    if (this.courseSelected == 'Todos' && this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos') {
-      this.loadAlumns()
+    this.alumnsService.getAll(0).then(alumns => this.filterAndFill(alumns))
+  }
+
+  filterAndFill (newAlumns) {
+
+    if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') {
+      this.alumns = newAlumns
     } else {
-      
-      if (this.courseSelected != 'Todos') {
-        p1 = this.alumnsService.getAllByCourse(this.courseSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
-        }))
-      }
-  
-      if (this.laborSituationSelected != 'Todos') {
-        p2 = this.alumnsService.getAllByLaborSituation(this.laborSituationSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
-        }))
-      }
-  
-      if (this.locationSelected != 'Todos') {
-        p3 = this.alumnsService.getAllByLocation(this.locationSelected, 0).then(alumns => alumns.forEach(alumn => { 
-          this.alumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : this.alumns.push(alumn)
-        }))
-      }
 
-      
-      Promise.all([p1, p2, p3]).then( values => {
-        if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos' && this.courseSelected != 'Todos') {
-          this.alumns = this.alumns.filter( alumn => alumn.city == this.locationSelected && alumn.mainCourse == this.courseSelected && alumn.laborSituation == this.laborSituationSelected)
-        } else if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos')  {
-          this.alumns = this.alumns.filter( alumn => alumn.city == this.locationSelected  && alumn.laborSituation == this.laborSituationSelected)
-        } else if (this.laborSituationSelected != 'Todos' && this.courseSelected != 'Todos') {
-          this.alumns = this.alumns.filter( alumn => alumn.mainCourse == this.courseSelected && alumn.laborSituation == this.laborSituationSelected)
-        } else if (this.locationSelected != 'Todos' && this.courseSelected != 'Todos') {
-          this.alumns = this.alumns.filter( alumn => alumn.city == this.locationSelected  && alumn.mainCourse == this.courseSelected)
-        }
-      });
-
+      if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected  && alumn.laborSituation == this.laborSituationSelected && alumn.mainCourse == this.courseSelected)
+      } else if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos')  {
+        this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected  && alumn.laborSituation == this.laborSituationSelected)
+      } else if (this.laborSituationSelected != 'Todos' && this.courseSelected != 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.mainCourse == this.courseSelected && alumn.laborSituation == this.laborSituationSelected)
+      } else if (this.locationSelected != 'Todos' && this.courseSelected != 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected && alumn.mainCourse == this.courseSelected)
+      } else if (this.courseSelected != 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.mainCourse == this.courseSelected)
+      } else if (this.laborSituationSelected != 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.laborSituation == this.laborSituationSelected )
+      } else if (this.locationSelected != 'Todos') {
+        this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected )
+      }
 
     }
-
+    
   }
 
 

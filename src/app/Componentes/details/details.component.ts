@@ -21,7 +21,7 @@ export class DetailsComponent implements OnInit {
   addOnBlur = true;
   selectable = true;
   removable = true;
-  skills: string[];
+  skills: string[] = [ 'awdwa' ];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
   alumn:any= { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
     img: '',
     hours: undefined,
     description: '',
-    skills : [],
+    skills : [ 'wad' ],
     professors : [],
     area : '',
     year : '',

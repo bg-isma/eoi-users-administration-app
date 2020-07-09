@@ -49,7 +49,7 @@ export class AlumnsService {
   // addOne  - Manu
   async addOne(alumn: Alumn): Promise<Alumn> {
     return axios.post(this.url, alumn)
-    .then( alumn => alumn.data )
+      .then(alumn => alumn.data)
   }
 
   // delete - Ana
@@ -58,26 +58,23 @@ export class AlumnsService {
   }
 
   // update
-  async updateAlumn(id: string, alumno: Alumn, file ?: File) {
-    if(file){
-    const path = `upload/${id}.${file.name.split('.')[1]}`;
-    this.storage.ref(path).getDownloadURL().subscribe( res => {
+  async updateAlumn(id: string, alumno: Alumn, file?: File) {
+    if (file) {
+      const path = `upload/${id}.${file.name.split('.')[1]}`;
+      this.storage.ref(path).getDownloadURL().subscribe(res => {
 
-      this.uploadUserPhoto(file, alumno.id, path).then( resp => {
+        this.uploadUserPhoto(file, alumno.id, path).then(resp => {
 
-        alumno.img = res;
-        return axios.put(`${this.url}/${id}`, alumno).then(response => response).catch(err => {console.log(`Algo salio mal ${err}`)})
+          alumno.img = res;
+          return axios.put(`${this.url}/${id}`, alumno).then(response => response).catch(err => { console.log(`Algo salio mal ${err}`) })
 
-      }).catch(err => {console.log(`Algo salio mal ${err}`)})
+        }).catch(err => { console.log(`Algo salio mal ${err}`) })
 
-    })
-  }else{
-    console.log("El fichero de foto es nulo, solo actualizamos datos");
-    return axios.put(`${this.url}/${id}`, alumno)
-      .then(response => response)
-      .catch(err => {console.log(`Algo salio mal ${err}`)});
-
-  }
+      })
+    } else {
+      console.log("El fichero de foto es nulo, solo actualizamos datos");
+      return axios.put(`${this.url}/${id}`, alumno).then(response => response).catch(err => { console.log(`Algo salio mal ${err}`) });
+    }
 
   }
 
@@ -87,15 +84,15 @@ export class AlumnsService {
   */
   getAlumnByID = (id: string): Promise<Alumn> => axios.get(`${this.url}/${id}`).then(alumn => alumn.data).catch(err => console.log('isma la cago en el by id '));
 
-  isRepeatedAlumn(email:string) : Promise<Alumn[]> {
+  isRepeatedAlumn(email: string): Promise<Alumn[]> {
     return axios.get(`${this.url}?loginEmail=${email}`)
       .then(response => response.data)
-      .catch( err => console.log(`Algo salio mal ${err}`))
+      .catch(err => console.log(`Algo salio mal ${err}`))
 
   }
 
-  uploadUserPhoto(file: File, id:string, path: string) : Promise<UploadTaskSnapshot> {
-    return this.storage.upload(path, file).then( res => {
+  uploadUserPhoto(file: File, id: string, path: string): Promise<UploadTaskSnapshot> {
+    return this.storage.upload(path, file).then(res => {
       console.log(res);
     })
   }

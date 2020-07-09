@@ -22,6 +22,7 @@ export class AdminComponent implements OnInit {
   courses: Course[] = [{
     name: "Desarrollo Web Angular",
     hours: 250, 
+    img: "https://www.spegc.org/wp-content/uploads/2020/02/desarrolloweb-angular9-cursos2020-marzo-1024x525.jpg",
     description: "Aprendizaje profundo de Angular",
     skills: ["html", "Css", "Angular", "TypeScript"],
     professors : ["Jose Luis", "Alcibiades", "Alejandro de Juan", "Fernando Martín"],
@@ -61,7 +62,8 @@ export class AdminComponent implements OnInit {
     mainCourse: "", 
     courses : []
   }; 
-  
+ 
+  alumnos : Alumn[];
   excelAlumnList = [
     {
       id: 'string',
@@ -117,16 +119,40 @@ export class AdminComponent implements OnInit {
 
   onFileChange(event) {
     const reader: FileReader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
     reader.onload = (e: any) => {
 
       const wb = xlsx.read(e.target.result, {type: 'binary'});
       const ws = wb.Sheets[wb.SheetNames[0]];
       const data = (xlsx.utils.sheet_to_json(ws, {header: 1}));
       console.log(data);
-      
+      this.createAlumnFromExcell( data.slice(1).map( fila => {
+          return {
+            name: fila[0],
+            loginEmail: fila[1],
+            password: fila[2],
+            mainCourse: fila[3],
+            courses : []
+          }
+        
+      }));
     };
-    reader.readAsBinaryString(event.target.files[0]);
+   
+  }
 
+  createAlumnFromExcell(alumnos : any){
+     alumnos.forEach(async (alumno) => {
+      let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(alumno.loginEmail);
+      if(listRepeatedAlumn.length == 0 ){
+        let course = this.courses.find(course => course.name == alumno.mainCourse);
+        alumno.courses.push(course);  
+        alumno.id = this.generateId;
+        this.alumnService.addOne(alumno)
+          .then( excelAlumn => this.excelAlumnList.push(alumno) )
+          .catch (err => console.log(`Hay un error ${err}`))
+      }
+      
+    });
   }
 
 }

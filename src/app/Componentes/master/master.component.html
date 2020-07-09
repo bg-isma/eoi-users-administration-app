@@ -111,10 +111,9 @@
                                 alt="">
                         </div>
                         <div class="name-age-content">
-                            <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                <!-- Me parece conveniente encerrar este h3 en un div condicional para que no de undefined cuando se introduce a un alumno nuevo, y todavia no tiene edad-->            
-                        <div *ngIf="alumn.birthday">
-                            <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
+                            <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>       
+                        <div>
+                            <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}{{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
                         </div>
                         </div>
                     </div>
