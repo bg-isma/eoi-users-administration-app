@@ -23,19 +23,19 @@
             </div>
         </div>  
         <label for="pass">Contraseña</label>
-        <input id="pass" type="password" minlength="6" [(ngModel)]="newAlumn.password" name="password" #password="ngModel" required>
+        <input id="pass" type="password" minlength="5" [(ngModel)]="newAlumn.password" name="password" #password="ngModel" required>
         <div *ngIf="password.invalid && (password.dirty || password.touched)"> 
             <div *ngIf="password.errors.required">
                 <p>Se require el campo contraseña.</p>
             </div>
             <div *ngIf="password.errors.minlength">
-                <p>Contraseña mayor de 6 caracteres.</p>
+                <p>Contraseña mayor de 5 caracteres.</p>
             </div>
         </div>   
         <label for="course">Curso al que pertenece:</label>
         <mat-form-field >
             <mat-select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName"  #course = "ngModel" required>
-              <mat-option *ngFor="let course of courses" [value]="course.name" [value]="course">
+              <mat-option *ngFor="let course of courses" [value]="course.name">
                 {{ course.name }}
               </mat-option>
             </mat-select>

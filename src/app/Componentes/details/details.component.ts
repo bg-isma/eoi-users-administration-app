@@ -122,7 +122,8 @@ export class DetailsComponent implements OnInit {
       this.newcourse.area = this.course.area;
       this.newcourse.year = this.course.year;
       this.newcourse.modality = this.modalitySelected;
-      this.thisAlumn.courses.push(this.newcourse)
+      this.thisAlumn.courses.push(this.newcourse);
+      console.log(this.thisAlumn);
       this.newcourse = {
         name: '',
         img: '',

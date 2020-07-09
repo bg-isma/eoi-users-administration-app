@@ -103,6 +103,7 @@
         <select name="miselect2" id="miselect2" [(ngModel)]="courseSelected">
             <option [value]="course" *ngFor="let course of courses">{{ course }}</option>
         </select><br>
+        <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
         <input placeholder="Duración del curso" type="text" name="" id="" [(ngModel)]="course.hours"><br>
         <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
         <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>

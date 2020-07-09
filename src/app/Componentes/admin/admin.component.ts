@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit {
   {
     name: "Marketing Digital",
     hours: 300, 
+    img : "https://d3t4nwcgmfrp9x.cloudfront.net/upload/cinco-errores-comunes-las-empresas-espanolas-marketing-digital.jpg",
     description: "Conceptos Básicos de Marketing aplicados a la era Digital",
     skills: ["Diseño", "Redes Sociales"],
     professors : ["Lola Flores", "Elisabet Cañas"],
@@ -42,6 +43,7 @@ export class AdminComponent implements OnInit {
   {
     name: "Sonido directo y diseño sonoro",
     hours: 20, 
+    img: "https://blog.edx.org/wp-content/uploads/2018/01/Produccion-musical-.jpg" ,
     description: "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
     skills: ["Efectos de sonido", "Pre-producción"],
     professors : ["Joaquin Pachón"],
@@ -56,7 +58,8 @@ export class AdminComponent implements OnInit {
     id: "",
     password: "",
     loginEmail: "",
-    mainCourse: ""
+    mainCourse: "", 
+    courses : []
   }; 
   
   excelAlumnList = [
@@ -96,6 +99,8 @@ export class AdminComponent implements OnInit {
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   async createNewAlumn(myForm: NgForm){
+    let course = this.courses.find(course => course.name == this.newAlumn.mainCourse)
+    this.newAlumn.courses.push(course);  
     let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(this.newAlumn.loginEmail);
     if(myForm.valid && listRepeatedAlumn.length == 0 ){
       this.newAlumn.id = this.generateId();

@@ -47,7 +47,7 @@ export class AlumnsService {
   }
 
   // addOne  - Manu
-  addOne(alumn: Alumn): Promise<Alumn> {
+  async addOne(alumn: Alumn): Promise<Alumn> {
     return axios.post(this.url, alumn)
     .then( alumn => alumn.data )
   }
@@ -74,7 +74,7 @@ export class AlumnsService {
   }else{
     console.log("El fichero de foto es nulo, solo actualizamos datos");
     return axios.put(`${this.url}/${id}`, alumno)
-      .then(response => console.log(response))
+      .then(response => response)
       .catch(err => {console.log(`Algo salio mal ${err}`)});
 
   }
