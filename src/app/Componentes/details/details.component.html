@@ -106,28 +106,39 @@
         <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
         <input placeholder="Duración del curso" type="text" name="" id="" [(ngModel)]="course.hours"><br>
         <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipListProf aria-label="Professor selection">
+              <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
+                       [removable]="removable" (removed)="removed(professor)">
+                {{professor}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Profesores:"
+                     [matChipInputFor]="chipListProf"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="addProf($event)">
+            </mat-chip-list>
+          </mat-form-field>
         <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
         <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year"><br>
-        
-
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList aria-label="Skill selection">
+              <mat-chip *ngFor="let skill of newcourse.skills" [selectable]="selectable"
+                       [removable]="removable" (removed)="remove(skill)">
+                {{skill}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Habilidades:"
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+          </mat-form-field>
         <select name="" id="" [(ngModel)]="modalitySelected">
             <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
         </select><br>
         <button (click)="addCourse()">Añadir curso</button>
     </div>
 </div>
-
-<mat-form-field class="example-chip-list">
-    <mat-chip-list #chipList aria-label="Fruit selection">
-      <mat-chip *ngFor="let fruit of skills" [selectable]="selectable"
-               [removable]="removable" (removed)="remove(fruit)">
-        {{fruit}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-      <input placeholder="New fruit..."
-             [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-             [matChipInputAddOnBlur]="addOnBlur"
-             (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-  </mat-form-field>

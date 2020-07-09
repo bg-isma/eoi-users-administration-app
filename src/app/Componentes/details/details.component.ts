@@ -21,7 +21,6 @@ export class DetailsComponent implements OnInit {
   addOnBlur = true;
   selectable = true;
   removable = true;
-  skills: string[] = [ 'awdwa' ];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
   alumn:any= { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
@@ -69,7 +68,7 @@ export class DetailsComponent implements OnInit {
     img: '',
     hours: undefined,
     description: '',
-    skills : [ 'wad' ],
+    skills : [],
     professors : [],
     area : '',
     year : '',
@@ -96,9 +95,9 @@ export class DetailsComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-    // Add our fruit
+
     if (value || '') {
-      this.skills.push(value);
+      this.newcourse.skills.push(value);
     }
 
     // Reset the input value
@@ -108,10 +107,31 @@ export class DetailsComponent implements OnInit {
   }
 
   remove(skill): void {
-    const index = this.skills.indexOf(skill);
+    const index = this.newcourse.skills.indexOf(skill);
 
     if (index >= 0) {
-      this.skills.splice(index, 1);
+      this.newcourse.skills.splice(index, 1);
+    }
+  }
+  addProf(event: MatChipInputEvent): void {
+    const put = event.input;
+    const valor = event.value;
+
+    if (valor || '') {
+      this.newcourse.professors.push(valor);
+    }
+
+    // Reset the input value
+    if (put) {
+      put.value = '';
+    }
+  }
+
+  removed(skill): void {
+    const index = this.newcourse.professors.indexOf(skill);
+
+    if (index >= 0) {
+      this.newcourse.professors.splice(index, 1);
     }
   }
 
@@ -131,6 +151,7 @@ export class DetailsComponent implements OnInit {
       this.newexperience.time = this.experience.time;
       this.newexperience.company = this.experience.company;
       this.thisAlumn.experiences.push(this.newexperience);
+      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
       this.newexperience = {company: '', time: undefined};
     }
   }
@@ -143,6 +164,7 @@ export class DetailsComponent implements OnInit {
       this.newcourse.year = this.course.year;
       this.newcourse.modality = this.modalitySelected;
       this.thisAlumn.courses.push(this.newcourse);
+      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
       console.log(this.thisAlumn);
       this.newcourse = {
         name: '',
