@@ -108,14 +108,7 @@
         <input placeholder="Descripción del curso" type="text" name="" id="" [(ngModel)]="course.description"><br>
         <input placeholder="Area del curso" type="text" name="" id="" [(ngModel)]="course.area"><br>
         <input placeholder="Año de realización" type="text" name="" id="" [(ngModel)]="course.year"><br>
-        <mat-form-field>
-            <mat-chip-list #chipList>
-                <mat-chip *ngFor="let skill of skills">{{skill}}</mat-chip>
-            </mat-chip-list>
-            <input #skillInput placeholder="Habilidades"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
-        </mat-form-field>
+        
 
         <select name="" id="" [(ngModel)]="modalitySelected">
             <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
@@ -124,3 +117,14 @@
     </div>
 </div>
 
+<mat-form-field>
+    <mat-chip-list #chipList>
+        <mat-chip  *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"></mat-chip>
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip-list>
+    <input #skillInput placeholder="Habilidades"
+    [matChipInputFor]="chipList"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [matChipInputAddOnBlur]="addOnBlur"
+    (matChipInputTokenEnd)="add($event)">
+</mat-form-field>

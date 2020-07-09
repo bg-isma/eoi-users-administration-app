@@ -6,12 +6,7 @@ import { Course } from 'src/app/Interfaces/course';
 import { Experience } from 'src/app/Interfaces/experience';
 import { Session } from 'src/app/Interfaces/session';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 
 
 
@@ -21,7 +16,12 @@ import {map, startWith} from 'rxjs/operators';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
+
 export class DetailsComponent implements OnInit {
+  addOnBlur = true;
+  selectable = true;
+  removable = true;
+  skills: string[];
   separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
   alumn:any= { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
@@ -84,7 +84,6 @@ export class DetailsComponent implements OnInit {
     birthday: '',
     laborSituation: ''
   }
-  skills: string[];
   year = new Date().getFullYear();
   file: File = null;
   sessionAdmin : Session; 
@@ -93,6 +92,27 @@ export class DetailsComponent implements OnInit {
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
     this.isSomeoneLogged();
+  }
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+    // Add our fruit
+    if (value || '') {
+      this.skills.push(value);
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(skill): void {
+    const index = this.skills.indexOf(skill);
+
+    if (index >= 0) {
+      this.skills.splice(index, 1);
+    }
   }
 
   ngOnInit() {
