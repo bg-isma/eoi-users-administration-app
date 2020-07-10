@@ -90,7 +90,6 @@ export class DetailsComponent implements OnInit {
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
-    this.isSomeoneLogged();
   }
   
   add(event: MatChipInputEvent): void {
@@ -137,14 +136,16 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAlumn()
+    this.loadAlumn();
+    this.isSomeoneLogged();
   }
 
   loadAlumn() {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => { 
-      this.alumn = alumn 
-      this.thisAlumn = alumn
-      this.laborSituationSelected = alumn.laborSituation
+      this.alumn = alumn;
+      this.thisAlumn = alumn;
+      this.laborSituationSelected = alumn.laborSituation;
+      this.alumn.courseImg = alumn.courses.filter(course => course.name == alumn.mainCourse)[0].img;
     })
   }
   addExperience(){

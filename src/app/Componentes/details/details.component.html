@@ -16,7 +16,7 @@
                 <div class="name-age-content">
                     <div>
                         <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                        <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ (year - alumn.birthday.split('/')[2]) || 0 }}</h3>
+                        <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
                     </div>
                     <div></div>
                     <div></div>
