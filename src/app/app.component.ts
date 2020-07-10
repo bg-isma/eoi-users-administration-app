@@ -12,16 +12,12 @@ export class AppComponent {
   isLogin = true;
 
   constructor () {
-
-    console.log(window.location);
-    
-
-    if ( window.location.pathname === '/login' ) {
-      this.isLogin = false;
-    }
   }
 
   ngOnInit(): void {
+    if ( window.location.pathname === '/login' ) {
+      this.isLogin = false;
+    }
     this.user = JSON.parse(window.localStorage.getItem('currentSession')) || { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
   }
 

@@ -145,7 +145,10 @@ export class MasterComponent implements OnInit {
     
   }
 
-  openFilters = () => this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
+  openFilters = () => {
+    this.isFilterOpen == true ? this.state = 'closed' : this.state = 'open'
+    this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
+  }
   onResize = (event) => event.target.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
 
 }

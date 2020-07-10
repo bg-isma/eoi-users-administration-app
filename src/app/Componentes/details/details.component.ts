@@ -7,6 +7,7 @@ import { Experience } from 'src/app/Interfaces/experience';
 import { Session } from 'src/app/Interfaces/session';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
+import { CoursesService } from 'src/app/services/courses.service';
 
 
 
@@ -27,23 +28,19 @@ export class DetailsComponent implements OnInit {
   editMode: boolean = false
   userLogged: boolean = false
   decription: string = '';
-  laborSituations: any[] = [
+  laborSituations: string[] = [
     "Estudiante",
     "Desempleado",
     "Trabajando"
   ]
   modalities: string[] = ["Presencial", "On-line", "Semi-presencial"]
-  courses = [
-    "Desarrollo Web Angular",
-    "Marketing Digital",
-    "Sonido directo y diseño sonoro",
-  ]
+  courses : Course[] ;
   
-  laborSituationSelected = "Estudiante"
+  laborSituationSelected = this.alumn.laborSituation
   modalitySelected = "Presencial"
   courseSelected = "Desarrollo Web Angular"
   name = '' // awdawdsa
-  birthday = '';
+  birthday = '12/07/1999';
   experience: Experience = {
     company: '',
     time: undefined,
@@ -74,21 +71,25 @@ export class DetailsComponent implements OnInit {
     year : '',
     modality : ''
   }
-  thisAlumn: any = {
+  thisAlumn: Alumn = {
     name: '',
     phone : '',
     contactEmail : '',
     city :'',
     description : '',
     birthday: '',
-    laborSituation: ''
+    laborSituation: '',
+    password: this.alumn.password,
+    loginEmail: this.alumn.loginEmail,
+    mainCourse: this.alumn.mainCourse
   }
+  picker = ''
   year = new Date().getFullYear();
   file: File = null;
   sessionAdmin : Session; 
   sessionAlumn : Alumn; 
 
-  constructor( private route : ActivatedRoute, private alumnsService: AlumnsService ) { 
+  constructor( private route : ActivatedRoute, private alumnsService: AlumnsService, private courseService : CoursesService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
   }
   
@@ -138,6 +139,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this.loadAlumn();
     this.isSomeoneLogged();
+    this.loadCourses();
   }
 
   loadAlumn() {
@@ -146,21 +148,27 @@ export class DetailsComponent implements OnInit {
         ...alumn,
         courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
       }
-      this.thisAlumn = {
+      /*this.thisAlumn = {
         ...alumn,
         courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
-      }
+      }*/
       this.laborSituationSelected = alumn.laborSituation
     })
   }
+
+  loadCourses(){
+    this.courseService.getAll()
+      .then( response => this.courses = response)
+      .catch(err => console.log(`Hay un error ${err}`))
+  }
   addExperience(){
-    if (this.experience.time > 0 && this.experience.company.length != 0) {
+    if (this.experience.time != undefined && this.experience.company.length != 0) {
       this.newexperience.time = this.experience.time;
       this.newexperience.company = this.experience.company;
       this.thisAlumn.experiences.push(this.newexperience);
-      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
-      this.newexperience = {company: '', time: undefined};
     }
+    this.experience = {company: '', time: undefined};
+    this.newexperience = {company: '', time: undefined};
   }
   addCourse(){
     if (this.course.name.length != 0) {

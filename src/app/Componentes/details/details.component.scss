@@ -9,7 +9,7 @@
     height: 220px;
     padding-left: 30px;
     padding-bottom: 15px;
-    margin-bottom: 250px;
+    margin-bottom: 320px;
     padding-right: 10px;
 }
 
@@ -27,6 +27,79 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+::ng-deep .mat-select-arrow {
+    color: white;
+}
+
+::ng-deep .mat-select-value {
+    color: white;
+}
+
+::ng-deep div.mat-form-field-infix {
+    border-bottom: 1px solid white;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0px !important;
+    border: none !important;
+    background-color: transparent !important;
+    color: white;
+}
+
+::ng-deep .mat-form-field {
+    padding: 0px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding: 0px !important;
+    padding-bottom: 17px !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    border: none;
+    background-color: transparent;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline:hover {
+    border: none;
+    background-color: transparent;
+}
+
+::ng-deep .mat-form-field-underline {
+    background-color: transparent !important;
+}
+
+::ng-deep .mat-input-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 0px 0px 16px !important;
+    width: 80px !important;
+}
+
+::ng-deep .mat-datepicker-toggle-default-icon {
+    fill: white;
+}
+
+::ng-deep .mat-datepicker-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.input-color-white::placeholder {
+    color: white;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.labor-date-inputs-content {
+    display: flex;
+}
+
 
 .user-info {
     display: flex;
@@ -118,7 +191,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    height: 100px;
+    height: 120px;
     color: white;
 
     h2 {
@@ -212,4 +285,120 @@
     width: 100%;
     object-fit: cover;
     height: 100%;
+}
+
+.courses-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.experience-content ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.experience-list li {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark);
+    border-radius: 2px;
+    margin-top: 16px;
+    height: 60px;
+}
+
+.years-content {
+    display: flex;
+    align-items: center;
+    padding: 0px 16px;
+    color: white;
+    font-size: 0.7rem;
+}
+
+.experience-info {
+    display: flex;
+    align-items: center;
+
+    h2 {
+        color: white;
+        font-size: 1rem;
+        margin: 0px;
+        line-height: 0.7rem;
+        padding-bottom: 12px;
+        font-weight: 700;
+    }
+
+    h3 {
+        color: rgb(216, 216, 216);
+        font-size: 0.7rem;
+        margin: 0px;
+        line-height: 0.8rem;
+    }
+
+}
+
+.company-first-letter {
+    display: flex;
+    border-radius: 2px;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 55px;
+    font-size: 2rem;
+    color: white;
+    font-weight: 300;
+    background-color: var(--blue);
+    margin-left: 7px;
+    margin-top: -20px;
+    margin-right: 7px;
+}
+
+.alumn-info {
+    background-color: #545963;
+    color: white;
+    border-radius: 2px;
+    padding: 0px 16px;
+    height: 20px;
+}
+
+.alumn-textarea {
+    background-color: #545963;
+    color: white;
+    border-radius: 2px;
+    padding: 7px 16px;
+    height: 90px;
+    border: none;
+}
+
+.course-add-content {
+    display: flex;
+    align-items: center;
+
+    h2 {
+        margin-right: 16px;
+    }
+
+    ::ng-deep .mat-select-arrow {
+        color: var(--dark);
+    }
+    
+    ::ng-deep .mat-select-value {
+        color: var(--dark);;
+    }
+    
+    ::ng-deep div.mat-form-field-infix {
+        border-bottom: 1px solid var(--dark);;
+    }
+    
+    ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 0px !important;
+        border: none !important;
+        background-color: transparent !important;
+        color: var(--dark);
+        margin-top: -10px;
+    }
+
+    ::ng-deep .mat-form-field-wrapper {
+        margin-top: -10px;
+    }
+
 }

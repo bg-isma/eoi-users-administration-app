@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if(admin.length == 0 ) console.log("Sorry no eres admin");
     if(admin.length == 1 && admin[0].password === this.dataLogin.password){
       window.localStorage.setItem('currentSession', JSON.stringify(admin[0]));
-      this.router.navigate(['/admin']);
+      window.location.href = '/admin';
     }else {
       console.log("Wrong Password");
     }

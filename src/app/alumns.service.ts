@@ -48,6 +48,13 @@ export class AlumnsService {
 
   // addOne  - Manu
   async addOne(alumn: Alumn): Promise<Alumn> {
+    alumn.phone = '',
+    alumn.contactEmail = alumn.loginEmail,
+    alumn.city = '',
+    alumn.description = '',
+    alumn.birthday = '',
+    alumn.laborSituation = 'Desempleado'
+
     return axios.post(this.url, alumn)
       .then(alumn => alumn.data)
   }

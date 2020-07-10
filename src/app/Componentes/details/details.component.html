@@ -10,14 +10,31 @@
             <div class="user-info">
                 <div class="user-head">
                     <div class="img-main-position">
-                        <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
-                            alt="">
-                            <div class="name-age-content">
-                                <div>
-                                    <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                                    <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}{{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
+                        <label for="photo-file">
+                            <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
+                                alt="">
+                                <input style="display: none;" type="file" id="photo-file">
+                        </label>
+                        <img style="display: none;" src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
+                                alt="">
+                        <div class="name-age-content">
+                            <div>
+                                <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
+                                <h3 class="puto-angular" style="display: none;">{{ alumn.laborSituation || 'Desempleado' }}{{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
+                                <div class="labor-date-inputs-content">
+                                    <mat-form-field>
+                                        <mat-select [(ngModel)]="laborSituationSelected">
+                                          <mat-option [value]="situation" *ngFor="let situation of laborSituations">
+                                            {{ situation }}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <input class="input-color-white"  matInput [matDatepicker]="picker" [value]="alumn.birthday" placeholder="{{alumn.birthday}}">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
                                 </div>
                             </div>
+                        </div>
                     </div>
                     <div></div>
                     <div class="edit-btn-content">
@@ -26,30 +43,60 @@
                 </div>
                 <div class="user-description">
                     <h2>Descripción</h2>
-                    <p>{{ alumn.description }}</p>
+                    <p style="display: none;">{{ alumn.description }}</p>
+                    <textarea class="alumn-textarea" name="" id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="extra-user-info">
                     <div>
                         <img src="assets/call-white-18dp.svg" alt="">
-                        {{ alumn.city }}
+                        <div style="display: none;">{{ alumn.city }}</div>
+                        <input type="text" class="alumn-info">
                     </div>
                     <div>
                         <img src="assets/location_on-white-18dp.svg" alt="">
-                        {{ alumn.phone }}
+                        <div style="display: none;">{{ alumn.phone }}</div>
+                        <input type="text" class="alumn-info">
                     </div>
                     <div>
                         <img src="assets/email-white-18dp.svg" alt="">
-                        {{ alumn.contactEmail }}
+                        <div style="display: none;">{{ alumn.contactEmail }}</div>
+                        <input type="text" class="alumn-info">
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="course-add-content">
+        <h2>Cursos</h2>
+        <mat-form-field>
+            <mat-select name="course-select" id="" [(ngModel)]="courseSelected" #courseRef="ngModel" required>
+                <mat-option [value]="course.name" *ngFor="let course of courses">{{ course.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <div class="courses-content">
         <ul class="courses-list">
             <li *ngFor="let course of alumn.courses">
                 <img src="{{ course.img }}" alt="">
                 <div class="course-name">{{ course.name }}</div>
+            </li>
+        </ul>
+    </div>
+    <h2 class="margin-top">Experiencias</h2>
+    <div class="experience-content">
+        <ul class="experience-list">
+            <li *ngFor="let experience of alumn.experiences">
+                <div class="experience-info">
+                    <div class="company-first-letter">{{ experience.company[0] }}</div>
+                    <div>
+                        <h2>{{ experience.company }}</h2>
+                        <h3>{{ experience.time / 12  }}{{ experience.time < 12 ? ' Meses' : ' Años' }} </h3>
+                    </div>
+                </div>
+                <div></div>
+                <div class="years-content">
+                    2018 - 2019
+                </div>
             </li>
         </ul>
     </div>
@@ -99,11 +146,11 @@
 <div *ngIf="editMode">
     <div>
         <label for="img">
-            <img id="img" [src]="alumn.img" alt="Foto de perfil">
+            <img max-width="250px" max-height="250px" id="img" [src]="alumn.img" alt="Foto de perfil">
             <input type="file" (change)="onFileChange($event)">
         </label>
-        <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
         <h3>Datos del usuario</h3>
+        <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
         <input placeholder="Nombre" type="text" name="name" id="" [(ngModel)]="thisAlumn.name"><br>
         <input placeholder="Año de nacimiento" type="text" name="birthday" id="" [(ngModel)]="thisAlumn.birthday"><br>
         <input placeholder="Descripción" type="text" name="description" id="" [(ngModel)]="thisAlumn.description"><br>
@@ -128,17 +175,12 @@
         <h3>Datos de los cursos</h3>
         <form #myCourseForm="ngForm">
             <mat-form-field>
-                <mat-select name="miselect2" id="miselect2" [(ngModel)]="courseSelected" #courseRef="ngModel" required>
-                    <mat-option [value]="course" *ngFor="let course of courses">{{ course }}</mat-option>
+                <mat-select name="course-select" id="" [(ngModel)]="courseSelected" #courseRef="ngModel">
+                    <mat-option [value]="course.name" *ngFor="let course of courses">{{ course.name }}</mat-option>
                 </mat-select>
-            </mat-form-field><br>
-            <div *ngIf="courseRef.invalid && (courseRef.dirty || courseRef.touched)">
-                <div *ngIf="courseRef.errors.required">
-                    <p>Elige una opción de curso</p>
-                </div>
-            </div>
+            </mat-form-field><br>   
             <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
-            <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours"><br>
+            <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" [ngModelOptions]="{standalone: true}"><br>
             <input placeholder="Descripción del curso" type="text" name="description" id=""
                 [(ngModel)]="course.description"><br>
             <mat-form-field class="example-chip-list">
@@ -146,30 +188,30 @@
                     <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
                         [removable]="removable" (removed)="removed(professor)">
                         {{professor}}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        <mat-icon matChipRemove name ="cancel" *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input placeholder="Profesores:" [matChipInputFor]="chipListProf"
+                    <input placeholder="Profesores:"  name ="chip-profesor" [matChipInputFor]="chipListProf"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="addProf($event)">
                 </mat-chip-list>
             </mat-form-field><br>
-            <input placeholder="Area del curso" type="text" name="area" id="" [(ngModel)]="course.area" /><br>
-            <input placeholder="Año de realización" type="text" name="year" id="" [(ngModel)]="course.year" /><br>
+            <input placeholder="Area del curso" type="text" name="area"  [(ngModel)]="course.area" /><br>
+            <input placeholder="Año de realización" type="text" name="year" [(ngModel)]="course.year" /><br>
             <mat-form-field class="example-chip-list">
                 <mat-chip-list #chipList aria-label="Skill selection">
-                    <mat-chip *ngFor="let skill of newcourse.skills" [selectable]="selectable" [removable]="removable"
+                    <mat-chip *ngFor="let skill of newcourse.skills" name="select-skills" [selectable]="selectable" [removable]="removable"
                         (removed)="remove(skill)">
                         {{skill}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
-                    <input placeholder="Habilidades:" [matChipInputFor]="chipList"
+                    <input placeholder="Habilidades:" [matChipInputFor]="chipList" name= "chip-habilidades"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="add($event)">
                 </mat-chip-list>
             </mat-form-field><br>
 
             <mat-form-field>
-                <mat-select name="" id="" [(ngModel)]="modalitySelected">
+                <mat-select name="modality" id="" [(ngModel)]="modalitySelected">
                     <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
                 </mat-select><br>
             </mat-form-field>

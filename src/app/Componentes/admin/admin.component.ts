@@ -7,6 +7,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { Session } from 'src/app/Interfaces/session';
 import { Router } from "@angular/router"
 import * as xlsx from 'xlsx';
+import { CoursesService } from 'src/app/services/courses.service';
 
 
 
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit {
 
 
   alumns = [];
-  courses: Course[] = [{
+  /*courses: Course[] = [{
     name: "Desarrollo Web Angular",
     hours: 250, 
     img: "https://www.spegc.org/wp-content/uploads/2020/02/desarrolloweb-angular9-cursos2020-marzo-1024x525.jpg",
@@ -51,7 +52,8 @@ export class AdminComponent implements OnInit {
     area : "Audiovisual",
     year : "2020",
     modality : "online"
-  }];
+  }];*/
+  courses: Course[];
 
   default = "";
   newAlumn : Alumn = {
@@ -71,7 +73,7 @@ export class AdminComponent implements OnInit {
   isDraging=false;
 
   session : Session; 
-  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router ) {}
+  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router, private courseService : CoursesService ) {}
 
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
@@ -92,6 +94,7 @@ export class AdminComponent implements OnInit {
   
   ngOnInit(): void { 
     this.session = JSON.parse(window.localStorage.getItem('currentSession')); 
+    this.loadCourses();
   }
 
   onFileChange(event) {
@@ -135,6 +138,12 @@ export class AdminComponent implements OnInit {
         });
       console.log("Estamos añadiendo a la BD");
     }
+  }
+  loadCourses(){
+    this.courseService.getAll()
+      .then( response => this.courses = response)
+      .catch(err => console.log(`Hay un error ${err}`))
+
   }
 
 }
