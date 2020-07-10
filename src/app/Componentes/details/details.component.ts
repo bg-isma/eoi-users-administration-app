@@ -142,10 +142,22 @@ export class DetailsComponent implements OnInit {
 
   loadAlumn() {
     this.alumnsService.getAlumnByID(this.alumnID).then( alumn => { 
+<<<<<<< HEAD
       this.alumn = alumn;
       this.thisAlumn = alumn;
       this.laborSituationSelected = alumn.laborSituation;
       this.alumn.courseImg = alumn.courses.filter(course => course.name == alumn.mainCourse)[0].img;
+=======
+      this.alumn = {
+        ...alumn,
+        courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+      }
+      this.thisAlumn = {
+        ...alumn,
+        courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+      }
+      this.laborSituationSelected = alumn.laborSituation
+>>>>>>> new filters, details css
     })
   }
   addExperience(){

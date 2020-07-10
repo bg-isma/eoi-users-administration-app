@@ -83,53 +83,50 @@ export class MasterComponent implements OnInit {
     Recoge todos los alumnos de la base de datos 
   */
   loadAlumns() {
+    this.alumns = []
     this.alumnsService.getAll(0).then(alumns => { 
       alumns.forEach( (alumn, idx )=> {
-        setTimeout(() => {
-          this.alumns.push({
-            ...alumn,
-            courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
-          })
-        }, idx * 500)
+        this.alumns.push({
+          ...alumn,
+          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+        })
       })
 
     })
   }
 
-  search() {
-    this.alumns = []
-    const newAlumns = []
-    const words = this.searchText.split(' ')
-
+  search = (newAlumns = [], words = this.searchText.split(' '), promises = []) => {
     if (this.searchText !== '') {
       words.forEach( word => {
-        this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { 
-          newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push(alumn) 
-        }))
-        this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { 
-          newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push(alumn) 
-        }))
+        promises.push(this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
+          ...alumn,
+          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+        })})))
+        promises.push(this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
+          ...alumn,
+          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+        })})))
       })
-
-      this.filterAlumns()
-
-    } else {
-      this.loadAlumns()
-    }
+      Promise.all(promises).then( values => this.filterAndFill(newAlumns));
+    } else { this.loadAlumns() }
   }
 
-  filterAlumns() {
-    this.alumns = []
-    this.alumnsService.getAll(0).then(alumns => this.filterAndFill(alumns))
-  }
+  filterAlumns = () => this.alumnsService.getAll(0).then(alumns => {
+    this.filterAndFill(alumns.map( alumn => {
+      return {
+        ...alumn,
+        courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+      }
+    }))
+  })
 
   filterAndFill (newAlumns) {
 
-    if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') {
-      this.alumns = newAlumns
-    } else {
+    this.alumns = []
 
-      if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') {
+    if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') { this.alumns = newAlumns } 
+    else {
+      if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos' && this.courseSelected != 'Todos') {
         this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected  && alumn.laborSituation == this.laborSituationSelected && alumn.mainCourse == this.courseSelected)
       } else if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos')  {
         this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected  && alumn.laborSituation == this.laborSituationSelected)
@@ -144,21 +141,11 @@ export class MasterComponent implements OnInit {
       } else if (this.locationSelected != 'Todos') {
         this.alumns = newAlumns.filter( alumn => alumn.city == this.locationSelected )
       }
-
     }
     
   }
 
-
-  openFilters () {
-    this.isFilterOpen == true ? this.state = 'closed' : this.state = 'open'
-    this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
-    console.log(this.state);
-    
-  }
-
-  onResize(event) {
-    event.target.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
-  }
+  openFilters = () => this.isFilterOpen == true ? this.isFilterOpen = false : this.isFilterOpen = true
+  onResize = (event) => event.target.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
 
 }

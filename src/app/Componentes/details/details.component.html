@@ -1,4 +1,4 @@
-<section class="details-content"  *ngIf="!editMode">
+<section class="details-content" *ngIf="!editMode">
     <div class="user-content">
         <div class="course-info">
             <img src="{{ alumn.courseImg }}" alt="">
@@ -8,23 +8,62 @@
         </div>
         <div class="user-info-content">
             <div class="user-info">
-                <div>
+                <div class="user-head">
                     <div class="img-main-position">
                         <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
                             alt="">
+                            <div class="name-age-content">
+                                <div>
+                                    <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
+                                    <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}{{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
+                                </div>
+                            </div>
                     </div>
-                <div class="name-age-content">
+                    <div></div>
+                    <div class="edit-btn-content">
+                        <button><img src="assets/edit-white-18dp.svg" alt=""></button>
+                    </div>
+                </div>
+                <div class="user-description">
+                    <h2>Descripción</h2>
+                    <p>{{ alumn.description }}</p>
+                </div>
+                <div class="extra-user-info">
                     <div>
-                        <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                        <h3 class="puto-angular">{{ alumn.laborSituation || 'Desempleado' }}, {{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
+                        <img src="assets/call-white-18dp.svg" alt="">
+                        {{ alumn.city }}
                     </div>
-                    <div></div>
-                    <div></div>
+                    <div>
+                        <img src="assets/location_on-white-18dp.svg" alt="">
+                        {{ alumn.phone }}
+                    </div>
+                    <div>
+                        <img src="assets/email-white-18dp.svg" alt="">
+                        {{ alumn.contactEmail }}
+                    </div>
                 </div>
             </div>
-                <div></div>
-            </div>
         </div>
+    </div>
+    <div class="courses-content">
+        <ul class="courses-list">
+            <li *ngFor="let course of alumn.courses">
+                <img src="{{ course.img }}" alt="">
+                <div class="course-name">{{ course.name }}</div>
+            </li>
+            <li *ngFor="let course of alumn.courses">
+                <img src="{{ course.img }}" alt="">
+                <div class="course-name">{{ course.name }}</div>
+            </li>
+            <li *ngFor="let course of alumn.courses">
+                <img src="{{ course.img }}" alt="">
+                <div class="course-name">{{ course.name }}</div>
+            </li>
+            <li *ngFor="let course of alumn.courses">
+                <img src="{{ course.img }}" alt="">
+                <div class="course-name">{{ course.name }}</div>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -36,9 +75,9 @@
     <button *ngIf="!editMode" (click)="enterEditMode()">Editar</button>
 </div>
 
-<div *ngIf="!editMode" >
+<div *ngIf="!editMode">
     <h2>{{alumn.name}}</h2>
-    <p >Descripción: {{alumn.description}}</p>
+    <p>Descripción: {{alumn.description}}</p>
     <ul>
         <li *ngFor="let course of alumn.courses">
             <img height="60px" width="60px" [src]="course.img" alt="Logo del curso">
@@ -51,12 +90,12 @@
             <ul>Profesores que imparten el curso:
                 <li *ngFor="let professor of course.professors">{{professor}}</li>
             </ul>
-            <p >Área del curso: {{course.area}}</p>
-            <p >Año del curso: {{course.year}}</p>
-            <p >Modalidad del curso: {{course.modality}}</p>
+            <p>Área del curso: {{course.area}}</p>
+            <p>Año del curso: {{course.year}}</p>
+            <p>Modalidad del curso: {{course.modality}}</p>
         </li>
     </ul>
-    <ul >
+    <ul>
         <li *ngFor="let experience of alumn.experiences">
             Nombre de la compañia: {{experience.company}}
             Tiempo contratado: {{experience.time}}
@@ -69,11 +108,11 @@
     <p>{{alumn.laborSituation}}</p>
 </div>
 
-<div  *ngIf="editMode">
+<div *ngIf="editMode">
     <div>
         <label for="img">
             <img id="img" [src]="alumn.img" alt="Foto de perfil">
-            <input type="file" (change)="onFileChange($event)" >
+            <input type="file" (change)="onFileChange($event)">
         </label>
         <button *ngIf="editMode" (click)="exitEditMode()">No editar</button>
         <h3>Datos del usuario</h3>
@@ -88,68 +127,65 @@
                 {{situation}}
             </option>
         </select><br>
-        
+
         <!-- -------------- -->
         <input placeholder="Nombre de la empresa" type="text" name="" id="" [(ngModel)]="experience.company"><br>
         <input placeholder="Tiempo trabajado" type="text" name="" id="" [(ngModel)]="experience.time"><br>
         <button (click)="addExperience()">Añadir experiencia</button>
         <button (click)="dataAlumn()">Modificar perfil</button>
     </div>
-    
-    <div  *ngIf="sessionAdmin">
+
+    <div *ngIf="sessionAdmin">
         <h2>Esto lo ve el administrador</h2>
         <h3>Datos de los cursos</h3>
         <form #myCourseForm="ngForm">
-        <mat-form-field>     
-            <mat-select name="miselect2" id="miselect2" [(ngModel)]="courseSelected" #courseRef = "ngModel" required>
-                <mat-option [value]="course" *ngFor="let course of courses">{{ course }}</mat-option>
-            </mat-select>
-        </mat-form-field><br>
-        <div *ngIf="courseRef.invalid && (courseRef.dirty || courseRef.touched)">
-            <div *ngIf="courseRef.errors.required">
-                <p>Elige una opción de curso</p>
-            </div>    
-        </div>
-        <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
-        <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours"><br>
-        <input placeholder="Descripción del curso" type="text" name="description" id="" [(ngModel)]="course.description"><br>
-        <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipListProf aria-label="Professor selection">
-              <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
-                       [removable]="removable" (removed)="removed(professor)">
-                {{professor}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="Profesores:"
-                     [matChipInputFor]="chipListProf"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="addOnBlur"
-                     (matChipInputTokenEnd)="addProf($event)">
-            </mat-chip-list>
-          </mat-form-field><br>
-        <input placeholder="Area del curso" type="text" name="area" id="" [(ngModel)]="course.area" /><br>
-        <input placeholder="Año de realización" type="text" name="year" id="" [(ngModel)]="course.year" /><br>
-        <mat-form-field class="example-chip-list">
-            <mat-chip-list #chipList aria-label="Skill selection">
-              <mat-chip *ngFor="let skill of newcourse.skills" [selectable]="selectable"
-                       [removable]="removable" (removed)="remove(skill)">
-                {{skill}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input placeholder="Habilidades:"
-                     [matChipInputFor]="chipList"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="addOnBlur"
-                     (matChipInputTokenEnd)="add($event)">
-            </mat-chip-list>
-          </mat-form-field><br>
+            <mat-form-field>
+                <mat-select name="miselect2" id="miselect2" [(ngModel)]="courseSelected" #courseRef="ngModel" required>
+                    <mat-option [value]="course" *ngFor="let course of courses">{{ course }}</mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <div *ngIf="courseRef.invalid && (courseRef.dirty || courseRef.touched)">
+                <div *ngIf="courseRef.errors.required">
+                    <p>Elige una opción de curso</p>
+                </div>
+            </div>
+            <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
+            <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours"><br>
+            <input placeholder="Descripción del curso" type="text" name="description" id=""
+                [(ngModel)]="course.description"><br>
+            <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipListProf aria-label="Professor selection">
+                    <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
+                        [removable]="removable" (removed)="removed(professor)">
+                        {{professor}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Profesores:" [matChipInputFor]="chipListProf"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addProf($event)">
+                </mat-chip-list>
+            </mat-form-field><br>
+            <input placeholder="Area del curso" type="text" name="area" id="" [(ngModel)]="course.area" /><br>
+            <input placeholder="Año de realización" type="text" name="year" id="" [(ngModel)]="course.year" /><br>
+            <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Skill selection">
+                    <mat-chip *ngFor="let skill of newcourse.skills" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(skill)">
+                        {{skill}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Habilidades:" [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field><br>
 
-        <mat-form-field>
-        <mat-select name="" id="" [(ngModel)]="modalitySelected">
-            <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
-        </mat-select><br>
-    </mat-form-field>
-        <button (click)="addCourse()">Añadir curso</button>
+            <mat-form-field>
+                <mat-select name="" id="" [(ngModel)]="modalitySelected">
+                    <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
+                </mat-select><br>
+            </mat-form-field>
+            <button (click)="addCourse()">Añadir curso</button>
         </form>
     </div>
 </div>

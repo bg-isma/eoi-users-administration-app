@@ -65,7 +65,9 @@ export class AdminComponent implements OnInit {
  
   alumnos : Alumn[];
   excelAlumn: Alumn;
-  excelAlumnList : Alumn[]; 
+  excelAlumnList = [
+
+  ]; 
   isDraging=false;
 
   session : Session; 

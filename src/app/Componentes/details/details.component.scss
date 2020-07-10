@@ -9,7 +9,7 @@
     height: 220px;
     padding-left: 30px;
     padding-bottom: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 250px;
     padding-right: 10px;
 }
 
@@ -23,14 +23,24 @@
     height: 60px;
 }
 
+.user-head {
+    display: flex;
+    justify-content: space-between;
+}
+
 .user-info {
     display: flex;
+    flex-direction: column;
     margin: 0px 18px;
     margin-right: 30px;
     border-radius: 2px;
     background-color: var(--dark);
-    height: 100%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.img-main-position {
+    display: flex;
 }
 
 .img-main-position img {
@@ -55,6 +65,7 @@
         margin: 0px;
         line-height: 0.9rem;
         padding-bottom: 5px;
+        margin-top: 12px;
     }
 
     h3.puto-angular {
@@ -101,4 +112,104 @@
         margin: 0px;
         line-height: 1rem;
     }
+}
+
+.user-description {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    height: 100px;
+    color: white;
+
+    h2 {
+        margin: 0px;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    p {
+        margin: 0px;
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        font-weight: 300;
+        color: rgb(207, 207, 207);
+    }
+
+}
+
+.extra-user-info {
+    padding: 0px 16px;
+}
+
+.extra-user-info > div {
+    display: flex;
+    align-items: center;
+    margin: 12px 0px;
+    color: rgb(207, 207, 207);
+}
+
+.extra-user-info img {
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    margin-top: -6px;
+}
+
+.edit-btn-content {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+}
+
+.edit-btn-content img {
+    height: 20px;
+    width: 20px;
+}
+
+.edit-btn-content button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    margin-bottom: -8px;
+}
+
+.courses-content {
+    display: flex;
+    height: 200px;
+    overflow: hidden;
+}
+
+.courses-content ul {
+    display: flex;
+    height: 200px;
+}
+
+.courses-list li {
+    width: 300px;
+    margin: 0px 7px;
+    border-radius: 2px;
+    border: 1px solid var(--blue);
+    position: relative;
+}
+
+.course-name {
+    position: absolute;
+    top: 7px;
+    left: 100%;
+    width: max-content;
+    background-color: var(--blue);
+    color: white;
+    display: flex;
+    border-radius: 2px;
+    padding: 3px 7px;
+    margin: 0px;
+    transform: translate(-107%, 0);
+}
+
+.courses-list img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
 }
