@@ -19,12 +19,12 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 
 export class DetailsComponent implements OnInit {
-  addOnBlur = true;
-  selectable = true;
-  removable = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  //addOnBlur = true;
+  //selectable = true;
+  //removable = true;
+  //separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
-  alumn:any= { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
+  alumn: any = { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
   editMode: boolean = false
   userLogged: boolean = false
   decription: string = '';
@@ -33,11 +33,11 @@ export class DetailsComponent implements OnInit {
     "Desempleado",
     "Trabajando"
   ]
-  modalities: string[] = ["Presencial", "On-line", "Semi-presencial"]
+  /*modalities: string[] = ["Presencial", "On-line", "Semi-presencial"]*/
   courses : Course[] ;
   
   laborSituationSelected = this.alumn.laborSituation
-  modalitySelected = "Presencial"
+  /*modalitySelected = "Presencial"*/
   courseSelected = "Desarrollo Web Angular"
   name = '' // awdawdsa
   birthday = '12/07/1999';
@@ -45,7 +45,7 @@ export class DetailsComponent implements OnInit {
     company: '',
     time: undefined,
   }
-  course: Course = {
+  /*course: Course = {
     name: '',
     img: '',
     hours: undefined,
@@ -55,11 +55,12 @@ export class DetailsComponent implements OnInit {
     area : '',
     year : '',
     modality : ''
-  }
+  }*/
   newexperience: Experience = {
     company: '',
     time: 0
   };
+/*
   newcourse: Course = {
     name: '',
     img: '',
@@ -71,6 +72,7 @@ export class DetailsComponent implements OnInit {
     year : '',
     modality : ''
   }
+*/
   thisAlumn: Alumn = {
     name: '',
     phone : '',
@@ -93,6 +95,7 @@ export class DetailsComponent implements OnInit {
     this.alumnID = this.route.snapshot.paramMap.get('id');
   }
   
+/*
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -136,6 +139,7 @@ export class DetailsComponent implements OnInit {
     }
   }
 
+*/
   ngOnInit() {
     this.loadAlumn();
     this.isSomeoneLogged();
@@ -171,6 +175,8 @@ export class DetailsComponent implements OnInit {
     this.newexperience = {company: '', time: undefined};
   }
   addCourse(){
+    
+    /*
     if (this.course.name.length != 0) {
       this.newcourse.name = this.course.name;
       this.newcourse.hours = this.course.hours;
@@ -193,7 +199,8 @@ export class DetailsComponent implements OnInit {
         modality : ''
       }
     }
-  this.modalities = ["Presencial", "On-line", "Semi-presencial"];
+    */
+  /*this.modalities = ["Presencial", "On-line", "Semi-presencial"];*/
   }
   dataAlumn(){
     //console.log(this.thisAlumn);

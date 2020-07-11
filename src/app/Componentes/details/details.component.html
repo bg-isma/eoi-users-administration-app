@@ -180,7 +180,7 @@
                 </mat-select>
             </mat-form-field><br>   
             <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
-            <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" [ngModelOptions]="{standalone: true}"><br>
+          <!-- <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" [ngModelOptions]="{standalone: true}"><br>
             <input placeholder="Descripción del curso" type="text" name="description" id=""
                 [(ngModel)]="course.description"><br>
             <mat-form-field class="example-chip-list">
@@ -215,7 +215,7 @@
                     <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
                 </mat-select><br>
             </mat-form-field>
-            <button (click)="addCourse()">Añadir curso</button>
+            <button (click)="addCourse()">Añadir curso</button> -->
         </form>
     </div>
 </div>

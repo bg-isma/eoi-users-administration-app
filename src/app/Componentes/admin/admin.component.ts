@@ -8,7 +8,8 @@ import { Session } from 'src/app/Interfaces/session';
 import { Router } from "@angular/router"
 import * as xlsx from 'xlsx';
 import { CoursesService } from 'src/app/services/courses.service';
-
+import { MatChipInputEvent } from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -18,42 +19,35 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class AdminComponent implements OnInit {
 
-
   alumns = [];
-  /*courses: Course[] = [{
-    name: "Desarrollo Web Angular",
-    hours: 250, 
-    img: "https://www.spegc.org/wp-content/uploads/2020/02/desarrolloweb-angular9-cursos2020-marzo-1024x525.jpg",
-    description: "Aprendizaje profundo de Angular",
-    skills: ["html", "Css", "Angular", "TypeScript"],
-    professors : ["Jose Luis", "Alcibiades", "Alejandro de Juan", "Fernando Martín"],
-    area : "Desarrollo Web",
-    year : "2020",
-    modality : "online"
-  },
-  {
-    name: "Marketing Digital",
-    hours: 300, 
-    img : "https://d3t4nwcgmfrp9x.cloudfront.net/upload/cinco-errores-comunes-las-empresas-espanolas-marketing-digital.jpg",
-    description: "Conceptos Básicos de Marketing aplicados a la era Digital",
-    skills: ["Diseño", "Redes Sociales"],
-    professors : ["Lola Flores", "Elisabet Cañas"],
-    area : "Marketing y diseño",
-    year : "2020",
-    modality : "presencial"
-  },
-  {
-    name: "Sonido directo y diseño sonoro",
-    hours: 20, 
-    img: "https://blog.edx.org/wp-content/uploads/2018/01/Produccion-musical-.jpg" ,
-    description: "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
-    skills: ["Efectos de sonido", "Pre-producción"],
-    professors : ["Joaquin Pachón"],
-    area : "Audiovisual",
-    year : "2020",
-    modality : "online"
-  }];*/
   courses: Course[];
+  newcourse: Course = {
+    name: '',
+    img: '',
+    hours: undefined,
+    description: '',
+    skills : [],
+    professors : [],
+    area : '',
+    year : '',
+    modality : ''
+  };
+  modalities: string[] = ["Presencial", "On-line", "Semi-presencial"];
+  modalitySelected = "Presencial";
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  removable = true;
+  selectable = true;
+  course: Course = {
+    name: "",
+    img: "",
+    description: "",
+    skills : [],
+    professors : [],
+    area : "",
+    year : "",
+    modality : ""
+  };
 
   default = "";
   newAlumn : Alumn = {
@@ -78,8 +72,8 @@ export class AdminComponent implements OnInit {
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
 
   async createNewAlumn(myForm: NgForm){
-    let course = this.courses.find(course => course.name == this.newAlumn.mainCourse);
-    this.newAlumn.courses.push(course);  
+   let course = this.courses.find(course => course.name == this.newAlumn.mainCourse);
+   this.newAlumn.courses.push(course);  
     let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(this.newAlumn.loginEmail);
     if(myForm.valid && listRepeatedAlumn.length == 0 ){
       this.newAlumn.id = this.generateId();
@@ -145,9 +139,72 @@ export class AdminComponent implements OnInit {
       .catch(err => console.log(`Hay un error ${err}`))
 
   }
+  addCourse(){
+    console.log(this.course);
+    /*if (this.course.name.length != 0) {
+      this.newcourse.name = this.course.name;
+      this.newcourse.hours = this.course.hours;
+      this.newcourse.description = this.course.description;
+      this.newcourse.area = this.course.area;
+      this.newcourse.year = this.course.year;
+      this.newcourse.modality = this.modalitySelected;
+      this.thisAlumn.courses.push(this.newcourse);
+      this.alumnService.updateAlumn(this.alumnID, this.thisAlumn);
+    console.log(this.thisAlumn);*
+      this.newcourse = {
+        name: '',
+        img: '',
+        hours: undefined,
+        description: '',
+        skills : [],
+        professors : [],
+        area : '',
+        year : '',
+        modality : ''
+      }
+      this.modalities = ["Presencial", "On-line", "Semi-presencial"];*/
+    }
 
-}
-
-
-
-
+    add(event: MatChipInputEvent): void {
+      const input = event.input;
+      const value = event.value;
+  
+      if (value || '') {
+        this.newcourse.skills.push(value);
+      }
+  
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+    }
+  
+    remove(skill): void {
+      const index = this.newcourse.skills.indexOf(skill);
+  
+      if (index >= 0) {
+        this.newcourse.skills.splice(index, 1);
+      }
+    }
+    addProf(event: MatChipInputEvent): void {
+      const put = event.input;
+      const valor = event.value;
+  
+      if (valor || '') {
+        this.newcourse.professors.push(valor);
+      }
+  
+      // Reset the input value
+      if (put) {
+        put.value = '';
+      }
+    }
+  //Poder eliminar chips de palabras.
+    removed(skill): void {
+      const index = this.newcourse.professors.indexOf(skill);
+  
+      if (index >= 0) {
+        this.newcourse.professors.splice(index, 1);
+      }
+    }
+  }
