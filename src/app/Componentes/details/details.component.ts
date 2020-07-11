@@ -44,6 +44,8 @@ export class DetailsComponent implements OnInit {
   experience: Experience = {
     company: '',
     time: undefined,
+    startYear: '',
+    endYear: ''
   }
   /*course: Course = {
     name: '',
@@ -58,7 +60,9 @@ export class DetailsComponent implements OnInit {
   }*/
   newexperience: Experience = {
     company: '',
-    time: 0
+    time: 0,
+    startYear: '',
+    endYear: ''
   };
 /*
   newcourse: Course = {
@@ -171,8 +175,10 @@ export class DetailsComponent implements OnInit {
       this.newexperience.company = this.experience.company;
       this.thisAlumn.experiences.push(this.newexperience);
     }
-    this.experience = {company: '', time: undefined};
-    this.newexperience = {company: '', time: undefined};
+    this.experience = {company: '', time: undefined, startYear: '',
+    endYear: ''};
+    this.newexperience = {company: '', time: undefined, startYear: '',
+    endYear: ''};
   }
   addCourse(){
     

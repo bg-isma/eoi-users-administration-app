@@ -29,9 +29,11 @@
                                           </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <input class="input-color-white"  matInput [matDatepicker]="picker" [value]="alumn.birthday" placeholder="{{alumn.birthday}}">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
+                                    <div class="date" style="display: flex;">
+                                        <input class="input-color-white"  matInput [matDatepicker]="picker" [value]="alumn.birthday" placeholder="{{alumn.birthday}}">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -75,14 +77,35 @@
         </mat-form-field>
     </div>
     <div class="courses-content">
-        <ul class="courses-list">
+        <ul class="courses-list" [ngStyle]="{ 'width': (310 * alumn.courses.length + 'px') }">
             <li *ngFor="let course of alumn.courses">
                 <img src="{{ course.img }}" alt="">
                 <div class="course-name">{{ course.name }}</div>
+                <div class="delete-btn">
+                    <button><img src="assets/close-white-18dp.svg" alt=""></button>
+                </div>
+                <div class="cheked">
+                    <div><img src="assets/check-white-18dp.svg" alt=""></div>
+                </div>
             </li>
         </ul>
     </div>
-    <h2 class="margin-top">Experiencias</h2>
+    <div class="experience-add-content">
+        <h2 class="margin-top">Experiencias</h2>
+        <button><img src="assets/add-black-18dp.svg" alt=""></button>
+        <div class="add-experience-panel">
+            <div class="close-btn-main-position">
+                <div class="close-experience-panel-btn"><button><img src="assets/close-white-18dp.svg" alt=""></button></div>
+            </div>
+            <label>Nombre de la compañia</label>
+            <div><input type="text" class="filled-input" [(ngModel)]="experience.company"></div>
+            <label>Tiempo</label>
+            <div><input type="text" [(ngModel)]="experience.time"><span>Meses</span></div>
+            <label>Años</label>
+            <div><input type="text" class="short-input" [(ngModel)]="experience.startYear"><span>a</span><input type="text" class="short-input" [(ngModel)]="experience.endYear"></div>
+            <div><button class="add-experience-btn">Añadir experiencia</button></div>
+        </div>
+    </div>
     <div class="experience-content">
         <ul class="experience-list">
             <li *ngFor="let experience of alumn.experiences">
@@ -97,11 +120,15 @@
                 <div class="years-content">
                     2018 - 2019
                 </div>
+                <div class="delete-btn">
+                    <button><img src="assets/close-white-18dp.svg" alt=""></button>
+                </div>
             </li>
         </ul>
     </div>
 </section>
 
+<!--
 <section class="details-edit-content" *ngIf="editMode">
 
 </section>
@@ -163,9 +190,8 @@
             </option>
         </select><br>
 
-        <!-- -------------- -->
-        <input placeholder="Nombre de la empresa" type="text" name="" id="" [(ngModel)]="experience.company"><br>
-        <input placeholder="Tiempo trabajado" type="text" name="" id="" [(ngModel)]="experience.time"><br>
+        <input placeholder="Nombre de la empresa" type="text" name="" id="" ><br>
+        <input placeholder="Tiempo trabajado" type="text" name="" id="" ><br> -------------------------------------------
         <button (click)="addExperience()">Añadir experiencia</button>
         <button (click)="dataAlumn()">Modificar perfil</button>
     </div>
@@ -215,7 +241,8 @@
                     <option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</option>
                 </mat-select><br>
             </mat-form-field>
-            <button (click)="addCourse()">Añadir curso</button> -->
+            <button (click)="addCourse()">Añadir curso</button>
         </form>
     </div>
 </div>
+-->

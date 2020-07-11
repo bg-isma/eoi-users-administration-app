@@ -1,4 +1,6 @@
 export type Experience = {
     company: string,
-    time: number
+    time: number,
+    startYear: string,
+    endYear: string
 }
