@@ -42,6 +42,7 @@ export class DetailsComponent implements OnInit {
   name = '' // awdawdsa
   birthday = '12/07/1999';
   experience: Experience = {
+    id:'',
     company: '',
     time: undefined,
     startYear: '',
@@ -58,7 +59,10 @@ export class DetailsComponent implements OnInit {
     year : '',
     modality : ''
   }*/
+  randomColor = () => "000000".replace(/0/g, function(){return (~~(Math.random()*16)).toString(16);})
+  generateId = () => '_' + Math.random().toString(36).substr(2, 9);
   newexperience: Experience = {
+    id: this.generateId(),
     company: '',
     time: 0,
     startYear: '',
@@ -77,73 +81,33 @@ export class DetailsComponent implements OnInit {
     modality : ''
   }
 */
-  thisAlumn: Alumn = {
+  thisAlumn: any = {
     name: '',
-    phone : '',
+    phone: '',
     contactEmail : '',
-    city :'',
+    city:'',
     description : '',
     birthday: '',
     laborSituation: '',
     password: this.alumn.password,
     loginEmail: this.alumn.loginEmail,
-    mainCourse: this.alumn.mainCourse
+    mainCourse: this.alumn.mainCourse,
+    courses: []
   }
-  picker = ''
+  picker = '';
   year = new Date().getFullYear();
   file: File = null;
   sessionAdmin : Session; 
   sessionAlumn : Alumn; 
+  isAddExperienceOpen = false;
+  windowWidth = window.innerWidth
 
   constructor( private route : ActivatedRoute, private alumnsService: AlumnsService, private courseService : CoursesService ) { 
     this.alumnID = this.route.snapshot.paramMap.get('id');
   }
-  
-/*
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
 
-    if (value || '') {
-      this.newcourse.skills.push(value);
-    }
+  onResize(event) { this.windowWidth = window.innerWidth }
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  remove(skill): void {
-    const index = this.newcourse.skills.indexOf(skill);
-
-    if (index >= 0) {
-      this.newcourse.skills.splice(index, 1);
-    }
-  }
-  addProf(event: MatChipInputEvent): void {
-    const put = event.input;
-    const valor = event.value;
-
-    if (valor || '') {
-      this.newcourse.professors.push(valor);
-    }
-
-    // Reset the input value
-    if (put) {
-      put.value = '';
-    }
-  }
-
-  removed(skill): void {
-    const index = this.newcourse.professors.indexOf(skill);
-
-    if (index >= 0) {
-      this.newcourse.professors.splice(index, 1);
-    }
-  }
-
-*/
   ngOnInit() {
     this.loadAlumn();
     this.isSomeoneLogged();
@@ -156,83 +120,31 @@ export class DetailsComponent implements OnInit {
         ...alumn,
         courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
       }
-      /*this.thisAlumn = {
+      this.thisAlumn = {
         ...alumn,
         courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
-      }*/
+      }
       this.laborSituationSelected = alumn.laborSituation
     })
   }
 
-  loadCourses(){
-    this.courseService.getAll()
-      .then( response => this.courses = response)
-      .catch(err => console.log(`Hay un error ${err}`))
-  }
-  addExperience(){
-    if (this.experience.time != undefined && this.experience.company.length != 0) {
-      this.newexperience.time = this.experience.time;
-      this.newexperience.company = this.experience.company;
-      this.thisAlumn.experiences.push(this.newexperience);
-    }
-    this.experience = {company: '', time: undefined, startYear: '',
-    endYear: ''};
-    this.newexperience = {company: '', time: undefined, startYear: '',
-    endYear: ''};
-  }
-  addCourse(){
-    
-    /*
-    if (this.course.name.length != 0) {
-      this.newcourse.name = this.course.name;
-      this.newcourse.hours = this.course.hours;
-      this.newcourse.description = this.course.description;
-      this.newcourse.area = this.course.area;
-      this.newcourse.year = this.course.year;
-      this.newcourse.modality = this.modalitySelected;
-      this.thisAlumn.courses.push(this.newcourse);
-      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
-      console.log(this.thisAlumn);
-      this.newcourse = {
-        name: '',
-        img: '',
-        hours: undefined,
-        description: '',
-        skills : [],
-        professors : [],
-        area : '',
-        year : '',
-        modality : ''
+  loadCourses () { this.courseService.getAll().then( response => this.courses = response ).catch(err => console.log(`Hay un error ${err}`)) }
+
+  enterEditMode () {
+    if( (this.sessionAdmin || this.sessionAlumn.id == this.alumn.id) ){
+      if (this.editMode) {
+        this.editMode = false;
+      } else {
+        this.editMode = true;
       }
     }
-    */
-  /*this.modalities = ["Presencial", "On-line", "Semi-presencial"];*/
-  }
-  dataAlumn(){
-    //console.log(this.thisAlumn);
-    this.thisAlumn.laborSituation = this.laborSituationSelected;
-    if(this.file == null ){
-      console.log("File es nullo");
-      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
-    }else{
-      console.log(this.file);
-      this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn, this.file);
-    }
-    this.laborSituations = ["Estudiante", "Desempleado", "Trabajando"];
   }
 
-  enterEditMode (){
-    if( (this.sessionAdmin || this.sessionAlumn.id == this.alumn.id) ){
-      this.editMode = true;
-   }
-  }
-
-  exitEditMode(){
-    this.editMode = false;
-  }
-
-  onFileChange(event) {
-    this.file = event.target.files[0];
+  onFileChange(event) { 
+    this.file = event.target.files[0]; 
+    var reader = new FileReader();
+    reader.onload = (e) => { this.thisAlumn.img = e.target.result };
+    reader.readAsDataURL(this.file)
   }
 
   isSomeoneLogged(){
@@ -245,4 +157,39 @@ export class DetailsComponent implements OnInit {
       console.log(this.sessionAlumn);
     }
   }
+
+  closeAddExperience() { this.isAddExperienceOpen == false ? this.isAddExperienceOpen = true : this.isAddExperienceOpen = false; }
+  
+  addExperience() {
+    if (this.newexperience.time != undefined && this.newexperience.company.length != 0) {
+      this.thisAlumn.experiences.push({...this.newexperience}) 
+      this.newexperience = { id: this.generateId(), company: '', time: undefined, startYear: '', endYear: '' };
+    }
+    this.isAddExperienceOpen = false;
+  }
+  addCourse () {
+    this.thisAlumn.courses.push(this.courses.find(course => course.name == this.courseSelected))
+  }
+
+  deleteExperience (id) { this.thisAlumn.experiences = this.thisAlumn.experiences.filter( experience => experience.id != id) }
+  deleteCourse (name) { this.thisAlumn.courses = this.thisAlumn.courses.filter( course => course.name != name) }
+
+  dataAlumn () {
+    if (this.editMode) {
+      if (this.thisAlumn.birthday != this.alumn.birthday) {
+        this.thisAlumn.birthday = `${this.thisAlumn.birthday.getDay()}/${this.thisAlumn.birthday.getMonth()}/${this.thisAlumn.birthday.getFullYear()}`;
+      }
+      this.thisAlumn.laborSituation = this.laborSituationSelected;
+      if (this.file == null){
+        this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn);
+      } else { this.alumnsService.updateAlumn(this.alumnID, this.thisAlumn, this.file); }
+    }
+    this.enterEditMode()
+  }
+
+  changeMainCourse(name) {
+    this.thisAlumn.mainCourse = name;
+    this.thisAlumn.courseImg = this.courses.find( course => course.name == name ).img
+  }
+
 }

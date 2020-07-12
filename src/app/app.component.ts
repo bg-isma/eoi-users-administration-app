@@ -19,11 +19,12 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    this.login();
     if ( window.location.pathname === '/login' ) { this.isLogin = false; }
     this.user = JSON.parse(window.localStorage.getItem('currentSession')) || { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
   }
 
-  login(){
+  login() {
     let session = JSON.parse(window.localStorage.getItem('currentSession'));
     if(session && Object.keys(session).includes('email') ){
       this.sessionAdmin = session;
@@ -32,5 +33,10 @@ export class AppComponent {
       this.sessionAlumn = session;
       console.log(this.sessionAlumn);
     }
+  }
+
+  logout(){
+    window.localStorage.removeItem('currentSession')
+    window.location.href = '/';
   }
 }

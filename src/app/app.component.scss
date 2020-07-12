@@ -25,6 +25,14 @@ li {
     object-fit: cover;
 }
 
+.user-menu img.close-img {
+    width: 35px;
+    height: 35px;
+    box-shadow: none;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
 .navigation-bar a {
     font-size: 1.5rem;
     font-weight: 400;

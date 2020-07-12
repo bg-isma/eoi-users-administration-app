@@ -87,6 +87,15 @@
 ::ng-deep .mat-datepicker-toggle {
     display: flex;
     align-items: center;
+    margin: 7px 0px !important;
+}
+
+::ng-deep .mat-input-element {
+    padding-top: 0px !important;
+}
+
+::ng-deep .mat-form-field {
+    margin-bottom: 7px;
 }
 
 .input-color-white::placeholder {
@@ -126,6 +135,7 @@
     margin-top: -20px;
     margin-left: -15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--blue);
 }
 
 .name-age-content {
@@ -193,6 +203,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
+    padding-top: 10px;
     height: 120px;
     color: white;
 
@@ -231,10 +242,15 @@
 }
 
 .edit-btn-content {
+    position: absolute;
     display: flex;
     justify-content: flex-end;
     padding: 4px 6px;
     margin-right: 16px;
+    top: 180px;
+    left: 100%;
+    z-index: 4;
+    transform: translate(-155%, 0);
 }
 
 .edit-btn-content img {
@@ -278,6 +294,10 @@
     position: relative;
 }
 
+.courses-list li:first-child {
+    margin-left: 0px;
+}
+
 .course-name {
     position: absolute;
     top: 7px;
@@ -306,6 +326,7 @@
 .experience-content ul {
     display: flex;
     flex-direction: column;
+    padding-bottom: 80px;
 }
 
 .experience-list li {
@@ -389,6 +410,9 @@
 
     h2 {
         margin-right: 16px;
+        margin-bottom: 0px !important;
+        font-weight: 700;
+        color: var(--dark);
     }
 
     ::ng-deep .mat-select-arrow {
@@ -417,10 +441,27 @@
 
 }
 
+.labor-date-inputs-content {
+    align-items: flex-start;
+    height: 55px !important;
+}
+
+::ng-deep .mat-form-field {
+    display: flex;
+    margin-top: -10px !important;
+    height: 35px !important;
+}
+
 .experience-add-content {
     display: flex;
     align-items: center;
     position: relative;
+    margin-top: 16px;
+
+    h2 {
+        margin: 0px;
+    }
+
 }
 
 .experience-add-content img {
@@ -433,7 +474,7 @@
 
 .add-experience-panel {
     position: absolute;
-    top: 16px;
+    top: -180px;
     left: 30px;
     background-color: var(--dark);
     padding: 16px;
@@ -522,6 +563,12 @@
     cursor: pointer;
 }
 
+.margin-top {
+    font-weight: 700;
+    color: var(--dark);
+    margin-top: 10px !important;
+}
+
 .delete-btn {
     position: absolute;
     top: -10px;
@@ -563,6 +610,9 @@
 
 @media (min-width: 600px) {
 
+    .user-description {
+    }
+
     .user-head {
         flex-direction: row;
     }
@@ -582,11 +632,11 @@
 
 }
 
-@media (min-width: 980px) {
+.date {
+    height: 40px;
+}
 
-    .user-content {
-        margin-bottom: 320px;
-    }
+@media (min-width: 980px) {
 
     .details-content {
         width: 980px;

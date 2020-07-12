@@ -91,24 +91,69 @@ export class AdminComponent implements OnInit {
     this.loadCourses();
   }
 
-  onFileChange(event) {
+
+  isLoading = false;
+  isExcellLoaded = false;
+  fileName = '';
+
+  deleteFile() {
+    this.fileName = ''
+    this.isExcellLoaded = false;
+    this.excelAlumnList = [];
+  }
+
+  dragAndDropFile (event) {
+    this.isLoading = true;
+    this.isExcellLoaded = true;
+    this.fileName = event.target.files[0].name
+
     const reader: FileReader = new FileReader();
     reader.readAsBinaryString(event.target.files[0]);
     reader.onload = (e: any) => {
 
       const wb = xlsx.read(e.target.result, {type: 'binary'});
       const ws = wb.Sheets[wb.SheetNames[0]];
-      const data = (xlsx.utils.sheet_to_json(ws, {header: 1}));
-      console.log(data);
-      this.excelAlumnList = data.slice(1).map( fila => {
-          return {
-            name : fila[0],
-            loginEmail: fila[1],
-            password: fila[2].toString(),
-            mainCourse: fila[3],
-            courses : []
-          }
-        
+      let data : any [] = (xlsx.utils.sheet_to_json(ws, {header: 1}));
+      data = data.filter( (row: any[]) => row.length > 0 )
+
+      console.log(event.timeStamp);
+      this.excelAlumnList = data.slice(1).map((fila : any[])=> {
+        return {
+          id: this.generateId(),
+          name: fila[0],
+          loginEmail: fila[1],
+          password: fila[2].toString(),
+          mainCourse: fila[3],
+          courses: [],
+          courseImg: this.courses.find(course => course.name == fila[3]).img
+        }
+      });
+
+      this.isLoading = false;
+    };
+  }
+
+  onFileChange(event) {
+    console.log(event);
+    
+    const reader: FileReader = new FileReader();
+    reader.readAsBinaryString(event[0]);
+    reader.onload = (e: any) => {
+
+      const wb = xlsx.read(e.target.result, {type: 'binary'});
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      let data : any [] = (xlsx.utils.sheet_to_json(ws, {header: 1}));
+      data = data.filter( (row: any[]) => row.length > 0 )
+
+      this.excelAlumnList = data.slice(1).map((fila : any[])=> {
+        return {
+          name: fila[0],
+          loginEmail: fila[1],
+          password: fila[2].toString(),
+          mainCourse: fila[3],
+          courses: [],
+          courseImg: this.courses.find(course => course.name == fila[3]).img
+        }
       });
       console.log(this.excelAlumnList);
     };
@@ -116,7 +161,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAlumn(alumno: Alumn){
-    this.excelAlumnList = this.excelAlumnList.filter(alumn => alumn.name != alumno.name);
+    this.excelAlumnList = this.excelAlumnList.filter(alumn => alumn.id != alumno.id);
   }
 
   async addAlumnToDB(alumno: Alumn){
@@ -139,31 +184,42 @@ export class AdminComponent implements OnInit {
       .catch(err => console.log(`Hay un error ${err}`))
 
   }
-  addCourse(){
-    console.log(this.course);
-    /*if (this.course.name.length != 0) {
+  createNewCourse(){
+    /*
+    console.log(course);
+    if (this.course.name.length != 0) {
       this.newcourse.name = this.course.name;
       this.newcourse.hours = this.course.hours;
       this.newcourse.description = this.course.description;
       this.newcourse.area = this.course.area;
       this.newcourse.year = this.course.year;
       this.newcourse.modality = this.modalitySelected;
-      this.thisAlumn.courses.push(this.newcourse);
-      this.alumnService.updateAlumn(this.alumnID, this.thisAlumn);
-    console.log(this.thisAlumn);*
-      this.newcourse = {
-        name: '',
-        img: '',
-        hours: undefined,
-        description: '',
-        skills : [],
-        professors : [],
-        area : '',
-        year : '',
-        modality : ''
-      }
-      this.modalities = ["Presencial", "On-line", "Semi-presencial"];*/
+      
+      this.courseService.addOne(this.newcourse)
+      .then(
+        newcourse => {
+          this.courses.push(this.newcourse);
+          this.newcourse = {
+            name: '',
+            img: '',
+            hours: undefined,
+            description: '',
+            skills : [],
+            professors : [],
+            area : '',
+            year : '',
+            modality : ''
+          }
+          this.modalities = ["Presencial", "On-line", "Semi-presencial"];
+    
+        }
+      )
+      .catch(
+        err => err = console.log("Hay un error")
+      )
     }
+    */
+  }
 
     add(event: MatChipInputEvent): void {
       const input = event.input;

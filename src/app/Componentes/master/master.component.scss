@@ -370,3 +370,17 @@ div.filters-pc {
     }
     
 }
+
+.get-more-alumns-btn-content {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0px;
+    margin-bottom: 100px;
+}
+
+.get-more-alumns-btn-content button {
+    color: var(--dark);
+    border-top: none;
+    font-weight: 700;
+    cursor: pointer;
+}

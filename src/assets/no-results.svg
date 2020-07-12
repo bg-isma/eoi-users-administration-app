@@ -1,0 +1,55 @@
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 228">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #337ab7;
+      }
+
+      .cls-1 {
+        opacity: 0.15;
+        isolation: isolate;
+      }
+
+      .cls-2, .cls-6 {
+        fill: #82a5bf;
+      }
+
+      .cls-3 {
+        fill: #5f8eb2;
+      }
+
+      .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-6 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <title>no-results</title>
+  <ellipse id="_Trazado_" data-name="&lt;Trazado&gt;" class="cls-1" cx="193.58" cy="217.08" rx="108.83" ry="10.92"/>
+  <rect class="cls-2" x="21" y="2" width="158" height="92" rx="1.88" ry="1.88"/>
+  <rect class="cls-3" x="11" y="76" width="157" height="34" rx="1.88" ry="1.88"/>
+  <rect class="cls-4" y="61" width="35" height="37" rx="1.88" ry="1.88"/>
+  <rect class="cls-5" x="212" width="158" height="92" rx="1.88" ry="1.88"/>
+  <rect class="cls-2" x="214" y="3" width="158" height="92" rx="1.88" ry="1.88"/>
+  <rect class="cls-5" x="39" y="83" width="83" height="6" rx="3" ry="3"/>
+  <rect class="cls-5" x="39" y="92" width="44" height="6" rx="3" ry="3"/>
+  <rect class="cls-5" x="192" y="75" width="23" height="41" rx="1.88" ry="1.88"/>
+  <path class="cls-5" d="M203.88,79H357.13A1.87,1.87,0,0,1,359,80.88v30.25a1.88,1.88,0,0,1-1.88,1.88H203.88a1.88,1.88,0,0,1-1.87-1.87V80.88A1.88,1.88,0,0,1,203.88,79Z"/>
+  <rect class="cls-3" x="204" y="77" width="157" height="34" rx="1.88" ry="1.88"/>
+  <rect class="cls-4" x="194" y="77" width="35" height="37" rx="1.88" ry="1.88"/>
+  <rect class="cls-5" x="237" y="86" width="83" height="6" rx="3" ry="3"/>
+  <rect class="cls-5" x="237" y="95" width="44" height="6" rx="3" ry="3"/>
+  <rect class="cls-6" x="99" y="65" width="158" height="92" rx="1.88" ry="1.88"/>
+  <rect class="cls-3" x="89" y="139" width="157" height="34" rx="1.88" ry="1.88"/>
+  <path class="cls-4" d="M79.88,124h31.25a1.88,1.88,0,0,1,1.88,1.88v33.25a1.87,1.87,0,0,1-1.87,1.87H79.88A1.88,1.88,0,0,1,78,159.13V125.88A1.88,1.88,0,0,1,79.88,124Z"/>
+  <rect class="cls-4" x="171" y="69" width="82" height="12" rx="1.88" ry="1.88"/>
+  <rect class="cls-4" x="72" y="5" width="104" height="12" rx="1.88" ry="1.88"/>
+  <rect class="cls-4" x="302" y="7" width="67" height="12" rx="1.88" ry="1.88"/>
+  <rect class="cls-5" x="118" y="145" width="83" height="6" rx="3" ry="3"/>
+  <rect class="cls-5" x="118" y="154" width="44" height="6" rx="3" ry="3"/>
+</svg>

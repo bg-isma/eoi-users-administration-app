@@ -39,8 +39,8 @@
                     <label for="">Courses</label>
                     <mat-form-field>
                         <mat-select [(ngModel)]="courseSelected">
-                          <mat-option *ngFor="let course of courses" [value]="course">
-                            {{ course }}
+                          <mat-option *ngFor="let course of courses" [value]="course.name">
+                            {{ course.name }}
                           </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -76,8 +76,8 @@
                 <label for="">Cursos</label>
                 <mat-form-field>
                     <mat-select [(ngModel)]="courseSelected">
-                      <mat-option *ngFor="let course of courses" [value]="course">
-                        {{ course }}
+                      <mat-option *ngFor="let course of courses" [value]="course.name">
+                        {{ course.name }}
                       </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -107,7 +107,7 @@
                 <div class="user-info-content">
                     <div class="user-info">
                         <div class="img-main-position">
-                            <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
+                            <img src="{{alumn.img || 'https://api.adorable.io/avatars/face/eyes4/nose3/mouth7/' + randomColor() }}"
                                 alt="">
                         </div>
                         <div class="name-age-content">
@@ -120,5 +120,9 @@
                 </div>
             </a>
         </li>
+        <div *ngIf="alumns.length == 0" class="no-results-content">
+            <img src="assets/no-results.svg" alt="">
+        </div>
     </ul>
+    <div class="get-more-alumns-btn-content" *ngIf="alumns.length == (nAlunms + 20)"><button (click)="getMoreAlums()">Ver más</button></div>
 </section>

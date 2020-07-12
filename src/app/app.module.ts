@@ -20,6 +20,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DndDirective } from './dnd.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     MasterComponent,
     DetailsComponent,
     AdminComponent,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    DndDirective
   ],
   imports: [
     BrowserModule,

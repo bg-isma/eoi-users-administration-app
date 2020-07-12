@@ -43,3 +43,15 @@ app-master {
     flex-direction: column;
     padding-top: 80px;
 }
+
+.no-results-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 150px;
+}
+
+.no-results-content img {
+    width: 60%;
+}

@@ -33,7 +33,7 @@
                 <p>Contraseña mayor de 5 caracteres.</p>
             </div>
         </div>   
-        <label for="course">Curso al que pertenece:</label>
+        <label for="course">Curso del Alumno</label>
         <mat-form-field >
             <mat-select id="course" [(ngModel)]= "newAlumn.mainCourse" name="courseName"  #courseName = "ngModel" required>
               <mat-option *ngFor="let course of courses" [value]="course.name">
@@ -48,17 +48,68 @@
         </div>
         <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
     </form>
+    <h2 class="h2-margin">Crear Curso</h2>
+    <form class="add-course-from">
+        <label for="">Nombre</label>
+        <input placeholder="Nombre del curso" type="text" name="name" id="" [(ngModel)]="course.name" >
+        <label for="">Duración</label>
+        <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" >
+        <label for="">Descripción</label>
+        <input placeholder="Descripción del curso" type="text" name="description" id="" [(ngModel)]="course.description">
+        <label for="">Profesores</label>
+        <div class="chips-content">
+            <mat-form-field class="chip-list">
+                <mat-chip-list #chipListProf aria-label="Professor selection">
+                    <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
+                        [removable]="removable" (removed)="removed(professor)">
+                        {{professor}}
+                        <mat-icon matChipRemove name ="cancel" *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input name ="chip-profesor" [matChipInputFor]="chipListProf"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addProf($event)" />
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+        <label for="">Area</label>
+        <input placeholder="Area del curso" type="text" name="area"  [(ngModel)]="course.area" />
+        <label for="">Skills</label>
+        <div class="chips-content">
+            <mat-form-field class="chip-list">
+                <mat-chip-list #chipList aria-label="Skill selection">
+                    <mat-chip *ngFor="let skill of newcourse.skills" name="select-skills" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(skill)">
+                        {{skill}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input [matChipInputFor]="chipList" name= "chip-habilidades"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+        <label for="">Año</label>
+        <input placeholder="Año de realización" type="text" name="year" [(ngModel)]="course.year" />
+        <label for="">Modalidad</label>
+        <mat-form-field>
+            <mat-select name="modality" id="" [(ngModel)]="modalitySelected">
+                <mat-option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button (click)="createNewCourse()">Añadir curso</button> 
+    </form>
 </div>
-<div class="drop-zone">
+<div class="drop-zone" appDnd (onFileDropped)="onFileChange($event)">
     <label for="img" (dragover)="isDraging = true" (dragleave)="isDraging = false" [ngStyle]="{ 'background-color': isDraging ? '' : 'rgb(221, 221, 221)' }" >
-        <input type="file" multiple="false" accept=".xls,.xlsx,.ods" id="img" (change)="onFileChange($event)" >
+        <input type="file" multiple="false" accept=".xls,.xlsx,.ods" id="img" (change)="dragAndDropFile($event)" #fileDrop>
         <div class="upload-file">
-            <button>Subir archivo</button>
-            <span>Arrastra el archivo aqui</span>
+            <button *ngIf="!isExcellLoaded" (click)="fileDrop.click()">Subir archivo</button>
+            <span style="display: flex;">{{ isExcellLoaded ? fileName : 'Arrastra el archivo aqui' }} <button (click)="deleteFile()" class="delete-file-icon" *ngIf="isExcellLoaded"><img src="assets/close-black-18dp.svg" alt=""></button></span>
         </div>
     </label>
-    <mat-progress-bar mode="query"></mat-progress-bar>
+    <mat-progress-bar mode="query" *ngIf="isLoading"></mat-progress-bar>
 </div>
+
 <h1>Alumnos Cargados</h1>
 <ul class="excel-alumn-list">
     <li *ngFor="let excelAlumn of excelAlumnList">
@@ -85,45 +136,7 @@
             </div>
         </div>
     </li>
+    <div *ngIf="excelAlumnList.length == 0" class="no-results-content">
+        <img src="assets/no-results.svg" alt="">
+    </div>
 </ul>
-
-<!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
-<form>
-    <input placeholder="Nombre del curso" type="text" name="name" id="" [(ngModel)]="course.name" ><br>
-    <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" ><br>
-    <input placeholder="Descripción del curso" type="text" name="description" id=""
-        [(ngModel)]="course.description"><br>
-    <mat-form-field class="example-chip-list">
-        <mat-chip-list #chipListProf aria-label="Professor selection">
-            <mat-chip *ngFor="let professor of newcourse.professors" [selectable]="selectable"
-                [removable]="removable" (removed)="removed(professor)">
-                {{professor}}
-                <mat-icon matChipRemove name ="cancel" *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="Profesores:"  name ="chip-profesor" [matChipInputFor]="chipListProf"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="addProf($event)" />
-        </mat-chip-list>
-    </mat-form-field><br>
-        <input placeholder="Area del curso" type="text" name="area"  [(ngModel)]="course.area" /><br>
-    <input placeholder="Año de realización" type="text" name="year" [(ngModel)]="course.year" /><br>
-    <mat-form-field class="example-chip-list">
-        <mat-chip-list #chipList aria-label="Skill selection">
-            <mat-chip *ngFor="let skill of newcourse.skills" name="select-skills" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(skill)">
-                {{skill}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-            <input placeholder="Habilidades:" [matChipInputFor]="chipList" name= "chip-habilidades"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-    </mat-form-field><br>
-
-    <mat-form-field>
-        <mat-select name="modality" id="" [(ngModel)]="modalitySelected">
-            <mat-option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</mat-option>
-        </mat-select><br>
-    </mat-form-field>
-    <button (click)="addCourse()">Añadir curso</button> 
-</form>

@@ -1,10 +1,14 @@
 <nav class="navigation-bar"  *ngIf="isLogin" >
-    <div class="web-title"><a routerLink="/">SPEGC Alumns</a></div>
+    <div class="web-title"><a routerLink="/">Magec</a></div>
     <div></div>
     <div class="user-menu-content">
         <div class="user-menu">
-            <div><a href="{{ user.id ? ('http://localhost:4200/details/' + user.id) : 'http://localhost:4200/login' }}"><img async src="{{ user.img }}" alt=""></a></div>
-            <div class="menu-btn">
+            <div *ngIf="!sessionAdmin"><a href="{{ user.id ? ('http://localhost:4200/details/' + user.id) : 'http://localhost:4200/login' }}"><img async src="{{ user.img }}" alt=""></a></div>
+            <div *ngIf="sessionAdmin"><img async src="{{ user.img }}" alt=""></div>
+            <div *ngIf="sessionAdmin || sessionAlumn" (click)="logout()">
+                <div><img class="close-img" src="assets/close-white-18dp.svg" alt=""></div>
+            </div>
+            <div *ngIf="!sessionAdmin && !sessionAlumn" class="menu-btn">
                 <div></div>
                 <div class="short"></div>
                 <div class="medium"></div>

@@ -1,36 +1,37 @@
-<section class="details-content" *ngIf="!editMode">
-    <div class="user-content">
+<section class="details-content">
+    <div class="user-content" [ngStyle]="{ 'margin-bottom': editMode ? '315px' : '270px' }" (window:resize)="onResize($event)">
+        <div class="edit-btn-content" *ngIf="sessionAlumn || sessionAdmin">
+            <button (click)="dataAlumn()"><img src="assets/edit-white-18dp.svg" alt=""></button>
+        </div>
         <div class="course-info">
-            <img src="{{ alumn.courseImg }}" alt="">
+            <img src="{{ thisAlumn.courseImg }}" alt="">
             <div class="course-name">
-                <h2>{{ alumn.mainCourse || 'wtf' }}</h2>
+                <h2>{{ thisAlumn.mainCourse }}</h2>
             </div>
         </div>
         <div class="user-info-content">
-            <div class="user-info">
+            <div class="user-info" >
                 <div class="user-head">
                     <div class="img-main-position">
-                        <label for="photo-file">
-                            <img src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
-                                alt="">
-                                <input style="display: none;" type="file" id="photo-file">
+                        <label for="photo-file"  *ngIf="editMode">
+                            <img src="{{ thisAlumn.img || 'https://api.adorable.io/avatars/face/eyes4/nose3/mouth7/' + randomColor()}}" alt="">
+                            <input (change)="onFileChange($event)" style="display: none;" type="file" id="photo-file">
                         </label>
-                        <img style="display: none;" src="{{alumn.img || 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Square_200x200.png' }}"
-                                alt="">
+                        <img *ngIf="!editMode" src="{{ thisAlumn.img || 'https://api.adorable.io/avatars/face/eyes4/nose3/mouth7/' + randomColor()}}" alt="">
                         <div class="name-age-content">
                             <div>
-                                <h2>{{ alumn.name || 'Nombre por defecto' }}</h2>
-                                <h3 class="puto-angular" style="display: none;">{{ alumn.laborSituation || 'Desempleado' }}{{ alumn.birthday ? ', ' + (year - alumn.birthday.split('/')[2]) : ''}}</h3>
-                                <div class="labor-date-inputs-content">
-                                    <mat-form-field>
+                                <h2>{{ alumn.name }}</h2>
+                                <h3 class="puto-angular" *ngIf="!editMode">{{ thisAlumn.laborSituation || 'Desempleado' }}{{ thisAlumn.birthday ? ', ' + (year - thisAlumn.birthday.split('/')[2]) : ''}}</h3>
+                                <div class="labor-date-inputs-content" *ngIf="editMode">
+                                    <mat-form-field >
                                         <mat-select [(ngModel)]="laborSituationSelected">
                                           <mat-option [value]="situation" *ngFor="let situation of laborSituations">
                                             {{ situation }}
                                           </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <div class="date" style="display: flex;">
-                                        <input class="input-color-white"  matInput [matDatepicker]="picker" [value]="alumn.birthday" placeholder="{{alumn.birthday}}">
+                                    <div class="date" style="display: flex;" *ngIf="editMode">
+                                        <input class="input-color-white"  matInput [matDatepicker]="picker" [(ngModel)]="thisAlumn.birthday" placeholder="{{thisAlumn.birthday}}">
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                     </div>
@@ -39,30 +40,28 @@
                         </div>
                     </div>
                     <div></div>
-                    <div class="edit-btn-content">
-                        <button><img src="assets/edit-white-18dp.svg" alt=""></button>
-                    </div>
+                    <div></div>
                 </div>
-                <div class="user-description">
+                <div class="user-description" [ngStyle]="{ 'margin-top': editMode && windowWidth > 900 ? '-25px' : '0px' }">
                     <h2>Descripción</h2>
-                    <p style="display: none;">{{ alumn.description }}</p>
-                    <textarea class="alumn-textarea" name="" id="" cols="30" rows="10"></textarea>
+                    <p  *ngIf="!editMode">{{ thisAlumn.description }}</p>
+                    <textarea class="alumn-textarea"  *ngIf="editMode" [(ngModel)]="thisAlumn.description"></textarea>
                 </div>
                 <div class="extra-user-info">
                     <div>
                         <img src="assets/call-white-18dp.svg" alt="">
-                        <div style="display: none;">{{ alumn.city }}</div>
-                        <input type="text" class="alumn-info">
+                        <div *ngIf="!editMode">{{ thisAlumn.city }}</div>
+                        <input type="text" class="alumn-info"  *ngIf="editMode" [(ngModel)]="thisAlumn.city">
                     </div>
                     <div>
                         <img src="assets/location_on-white-18dp.svg" alt="">
-                        <div style="display: none;">{{ alumn.phone }}</div>
-                        <input type="text" class="alumn-info">
+                        <div *ngIf="!editMode">{{ thisAlumn.phone }}</div>
+                        <input type="text" class="alumn-info"  *ngIf="editMode" [(ngModel)]="thisAlumn.phone">
                     </div>
                     <div>
                         <img src="assets/email-white-18dp.svg" alt="">
-                        <div style="display: none;">{{ alumn.contactEmail }}</div>
-                        <input type="text" class="alumn-info">
+                        <div *ngIf="!editMode">{{ thisAlumn.contactEmail }}</div>
+                        <input type="text" class="alumn-info"  *ngIf="editMode" [(ngModel)]="thisAlumn.contactEmail">
                     </div>
                 </div>
             </div>
@@ -70,45 +69,48 @@
     </div>
     <div class="course-add-content">
         <h2>Cursos</h2>
-        <mat-form-field>
+        <mat-form-field  *ngIf="editMode && this.sessionAdmin">
             <mat-select name="course-select" id="" [(ngModel)]="courseSelected" #courseRef="ngModel" required>
-                <mat-option [value]="course.name" *ngFor="let course of courses">{{ course.name }}</mat-option>
+                <mat-option (click)="addCourse()" [value]="course.name" *ngFor="let course of courses">{{ course.name }}</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <div class="courses-content">
-        <ul class="courses-list" [ngStyle]="{ 'width': (310 * alumn.courses.length + 'px') }">
-            <li *ngFor="let course of alumn.courses">
+        <ul class="courses-list" [ngStyle]="{ 'width': (310 * thisAlumn.courses.length + 'px') }">
+            <li *ngFor="let course of thisAlumn.courses" (click)="changeMainCourse(course.name)">
                 <img src="{{ course.img }}" alt="">
                 <div class="course-name">{{ course.name }}</div>
-                <div class="delete-btn">
-                    <button><img src="assets/close-white-18dp.svg" alt=""></button>
+                <div class="delete-btn"  *ngIf="editMode && this.sessionAdmin">
+                    <button (click)="deleteCourse(course.name)"><img src="assets/close-white-18dp.svg" alt=""></button>
                 </div>
-                <div class="cheked">
+                <div class="cheked" *ngIf="editMode && (course.name == thisAlumn.mainCourse)">
                     <div><img src="assets/check-white-18dp.svg" alt=""></div>
                 </div>
             </li>
+            <div *ngIf="thisAlumn.courses.length == 0" class="no-results-content">
+                <img src="assets/no-results.svg" alt="">
+            </div>
         </ul>
     </div>
     <div class="experience-add-content">
         <h2 class="margin-top">Experiencias</h2>
-        <button><img src="assets/add-black-18dp.svg" alt=""></button>
-        <div class="add-experience-panel">
+        <button (click)="closeAddExperience()" *ngIf="editMode"><img src="assets/add-black-18dp.svg" alt=""></button>
+        <div class="add-experience-panel"  *ngIf="editMode && isAddExperienceOpen">
             <div class="close-btn-main-position">
-                <div class="close-experience-panel-btn"><button><img src="assets/close-white-18dp.svg" alt=""></button></div>
+                <div class="close-experience-panel-btn"><button (click)="closeAddExperience()"><img src="assets/close-white-18dp.svg" alt=""></button></div>
             </div>
             <label>Nombre de la compañia</label>
-            <div><input type="text" class="filled-input" [(ngModel)]="experience.company"></div>
+            <div><input type="text" class="filled-input" [(ngModel)]="newexperience.company"></div>
             <label>Tiempo</label>
-            <div><input type="text" [(ngModel)]="experience.time"><span>Meses</span></div>
+            <div><input type="text" [(ngModel)]="newexperience.time"><span>Meses</span></div>
             <label>Años</label>
-            <div><input type="text" class="short-input" [(ngModel)]="experience.startYear"><span>a</span><input type="text" class="short-input" [(ngModel)]="experience.endYear"></div>
-            <div><button class="add-experience-btn">Añadir experiencia</button></div>
+            <div><input type="text" class="short-input" [(ngModel)]="newexperience.startYear"><span>a</span><input type="text" class="short-input" [(ngModel)]="newexperience.endYear"></div>
+            <div><button (click)="addExperience()" class="add-experience-btn">Añadir experiencia</button></div>
         </div>
     </div>
     <div class="experience-content">
         <ul class="experience-list">
-            <li *ngFor="let experience of alumn.experiences">
+            <li *ngFor="let experience of thisAlumn.experiences">
                 <div class="experience-info">
                     <div class="company-first-letter">{{ experience.company[0] }}</div>
                     <div>
@@ -118,18 +120,21 @@
                 </div>
                 <div></div>
                 <div class="years-content">
-                    2018 - 2019
+                    {{  (experience.startYear + ' - ' + experience.endYear) || '' }}
                 </div>
-                <div class="delete-btn">
-                    <button><img src="assets/close-white-18dp.svg" alt=""></button>
+                <div class="delete-btn"  *ngIf="editMode">
+                    <button (click)="deleteExperience(experience.id)"><img src="assets/close-white-18dp.svg" alt=""></button>
                 </div>
             </li>
+            <div *ngIf="thisAlumn.experiences.length == 0" class="no-results-content">
+                <img src="assets/no-results.svg" alt="">
+            </div>
         </ul>
     </div>
 </section>
 
 <!--
-<section class="details-edit-content" *ngIf="editMode">
+<section class="details-edit-content">
 
 </section>
 
@@ -205,7 +210,7 @@
                     <mat-option [value]="course.name" *ngFor="let course of courses">{{ course.name }}</mat-option>
                 </mat-select>
             </mat-form-field><br>   
-            <!-- Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
+            Los inputs son para cursos de fuera de la EOI, no ?¿ si es así faltaría el nombre del curso-->
           <!-- <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" [ngModelOptions]="{standalone: true}"><br>
             <input placeholder="Descripción del curso" type="text" name="description" id=""
                 [(ngModel)]="course.description"><br>

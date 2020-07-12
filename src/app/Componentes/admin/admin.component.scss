@@ -3,6 +3,10 @@
     padding: 16px;
 }
 
+.h2-margin {
+    margin-top: 16px;
+}
+
 .add-user-from-content form {
     display: flex;
     flex-direction: column;
@@ -14,6 +18,14 @@
 .add-user-from-content input {
     height: 35px;
     background-color: #efefef;
+    padding: 0px 7px;
+}
+
+.add-user-from-content button {
+    background-color: var(--blue);
+    color: white;
+    padding: 7px 0px;
+    border-radius: 2px;
 }
 
 
@@ -22,14 +34,11 @@
     margin: 7px 0px;
 }
 
-.add-from select {
-
-}
-
 .excel-alumn-list {
     display: flex;
     flex-direction: column;
     padding: 0px 16px;
+    margin-bottom: 100px;
 }
 
 .excel-alumn-list li {
@@ -200,4 +209,53 @@ p{
         width: 50%;
     }
 
+}
+
+.upload-file button.delete-file-icon {
+    background-color: transparent;
+    padding: 0px;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+    transform: translateY(1px);
+}
+
+.upload-file button.delete-file-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.add-course-from label {
+    margin: 7px 0px;
+    color: white;
+}
+
+.chip-list input {
+    background-color: transparent;
+}
+
+::ng-deep .mat-select-arrow {
+    color: white;
+}
+
+::ng-deep .mat-select-value {
+    color: white;
+}
+
+::ng-deep div.mat-form-field-infix {
+    border-bottom: 1px solid white;
+}
+
+::ng-deep .chips-content .mat-form-field{
+    margin-top: -20px !important;
+    width: 100% !important;
+    font-size: 0.8rem;
+}
+
+.chips-content {
+    display: flex;
+    height: 40px;
+    color: white;
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlumnsService } from "../../alumns.service";
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { CoursesService } from 'src/app/services/courses.service';
+import { Course } from 'src/app/Interfaces/course';
 
 @Component({
   selector: 'app-master',
@@ -47,12 +49,7 @@ export class MasterComponent implements OnInit {
     "Madrid",
     "Barcelona"
   ]
-  courses = [
-    "Todos",
-    "Desarrollo Web Angular",
-    "Marketing Digital",
-    "Sonido directo y diseño sonoro",
-  ]
+  courses: Course[] = []
   laborSituations = [
     "Todos",
     "Desempleado",
@@ -67,63 +64,89 @@ export class MasterComponent implements OnInit {
   laborSituationSelected = "Todos"
   isFilterBtnDisabled = false;
   state = 'closed'
+    
+  page = 0
+  nAlunms = 0;
 
   year = new Date().getFullYear();
 
-  constructor(private alumnsService: AlumnsService) { 
+  constructor(private alumnsService: AlumnsService, private courseService : CoursesService) { 
     window.innerWidth >= 800 ? this.isFilterBtnDisabled = false : this.isFilterBtnDisabled = true
   }
 
   ngOnInit(): void {
+    this.loadCourses();
+  }
+
+  randomColor = () => "000000".replace(/0/g, function(){return (~~(Math.random()*16)).toString(16);})
+
+  getMoreAlums() {
+    this.page++;
+    this.nAlunms += 20;
     this.loadAlumns()
   }
 
+  loadCourses () { this.courseService.getAll().then( response => { 
+    this.courses = response 
+    this.courses.unshift({
+      name: 'Todos',
+      img: '',
+      hours: 0,
+      description: '',
+      skills: [],
+      professors: [],
+      area: '',
+      year: '',
+      modality: ''
+    })
 
-  /* 
-    Recoge todos los alumnos de la base de datos 
-  */
+    this.loadAlumns();
+  }).catch(err => console.log(`Hay un error ${err}`)) }
+  
   loadAlumns() {
-    this.alumns = []
-    this.alumnsService.getAll(0).then(alumns => { 
-      alumns.forEach( (alumn, idx )=> {
+    this.alumnsService.getAll(this.page).then(alumns => { 
+      alumns.forEach((alumn, idx)=> {
         this.alumns.push({
           ...alumn,
-          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+          courseImg: this.courses.find( course => course.name == alumn.mainCourse ).img
         })
       })
-
     })
   }
 
   search = (newAlumns = [], words = this.searchText.split(' '), promises = []) => {
     if (this.searchText !== '') {
+      this.page = 0;
+      this.nAlunms = 0;
       words.forEach( word => {
-        promises.push(this.alumnsService.getAllByCourse(word, 0).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
+        promises.push(this.alumnsService.getAllByCourse(word, this.page).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
           ...alumn,
-          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+          courseImg: this.courses.find( course => course.name == alumn.mainCourse ).img
         })})))
-        promises.push(this.alumnsService.getAllByName(word, 0).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
+        promises.push(this.alumnsService.getAllByName(word, this.page).then(alumns => alumns.forEach(alumn => { newAlumns.some( actualAlumn => actualAlumn.id == alumn.id) ? true : newAlumns.push({
           ...alumn,
-          courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
+          courseImg: this.courses.find( course => course.name == alumn.mainCourse ).img
         })})))
       })
       Promise.all(promises).then( values => this.filterAndFill(newAlumns));
     } else { this.loadAlumns() }
   }
 
-  filterAlumns = () => this.alumnsService.getAll(0).then(alumns => {
-    this.filterAndFill(alumns.map( alumn => {
-      return {
-        ...alumn,
-        courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
-      }
-    }))
-  })
+  filterAlumns = () => {
+    this.page = 0;
+    this.nAlunms = 0;
+    this.alumnsService.getAll(this.page).then(alumns => {
+      this.filterAndFill(alumns.map( alumn => {
+        return {
+          ...alumn,
+          courseImg: this.courses.find( course => course.name == alumn.mainCourse ).img
+        }
+      }))
+    })
+  }
 
   filterAndFill (newAlumns) {
-
     this.alumns = []
-
     if (this.locationSelected == 'Todos' && this.laborSituationSelected == 'Todos' && this.courseSelected == 'Todos') { this.alumns = newAlumns } 
     else {
       if (this.locationSelected != 'Todos' && this.laborSituationSelected != 'Todos' && this.courseSelected != 'Todos') {
