@@ -1,0 +1,22 @@
+<form [formGroup] = "courseForm" (ngSubmit) = "onSubmit()" novalidate
+    class="courseForm"
+>
+    <div  formGroupName = "courseRequest"  novalidate >
+        <label>Nombre del curso</label>
+        <input  formControlName = "name" /><br>
+        <label>Horas del curso</label>
+        <input  formControlName = "hours" /><br>
+        <label>Descripción</label>
+        <input  formControlName = "description" />
+        <label>Área</label>
+        <input  formControlName = "area" />><br>
+        <label>Año</label>
+        <input  formControlName = "year" />><br>
+        <label>Modalidad</label>
+        <select formControlName="modality">
+            <option *ngFor="let modality of modalities" [value]="modality">{{modality}}</option>
+        </select>
+        
+    </div>
+    <button [disabled]="courseForm.pristine">Añadir curso</button>
+</form>

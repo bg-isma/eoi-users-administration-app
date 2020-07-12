@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, ElementRef, ViewChild} from '@angular/
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { Session } from 'src/app/Interfaces/session';
 import { Router } from "@angular/router"
@@ -65,6 +65,7 @@ export class AdminComponent implements OnInit {
 
   ]; 
   isDraging=false;
+  registeringExistingUser : boolean;
 
   session : Session; 
   constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router, private courseService : CoursesService ) {}
@@ -89,6 +90,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void { 
     this.session = JSON.parse(window.localStorage.getItem('currentSession')); 
     this.loadCourses();
+    this.registeringExistingUser = false;
   }
 
 
@@ -154,7 +156,8 @@ export class AdminComponent implements OnInit {
           password: fila[2].toString(),
           mainCourse: fila[3],
           courses: [],
-          courseImg: this.courses.find(course => course.name == fila[3]).img
+          courseImg: this.courses.find(course => course.name == fila[3]).img, 
+          registeringExistingUser: false
         }
       });
 
@@ -167,7 +170,7 @@ export class AdminComponent implements OnInit {
     this.excelAlumnList = this.excelAlumnList.filter(alumn => alumn.id != alumno.id);
   }
 
-  async addAlumnToDB(alumno: Alumn){
+  async addAlumnToDB(alumno: any){
     let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(alumno.loginEmail);
     if(listRepeatedAlumn.length == 0 ){
       let course = this.courses.find(course => course.name == alumno.mainCourse);
@@ -179,6 +182,8 @@ export class AdminComponent implements OnInit {
           this.deleteAlumn(newAlumn);
         });
       console.log("Estamos añadiendo a la BD");
+    }else {
+      alumno.registeringExistingUser = true;
     }
   }
   loadCourses(){
@@ -188,15 +193,15 @@ export class AdminComponent implements OnInit {
 
   }
   createNewCourse(){
-    /*
-    console.log(course);
+    
+    console.log(this.course);
     if (this.course.name.length != 0) {
       this.newcourse.name = this.course.name;
       this.newcourse.hours = this.course.hours;
       this.newcourse.description = this.course.description;
       this.newcourse.area = this.course.area;
       this.newcourse.year = this.course.year;
-      this.newcourse.modality = this.modalitySelected;
+      //this.newcourse.modality = this.modalitySelected;
       
       this.courseService.addOne(this.newcourse)
       .then(
@@ -221,7 +226,7 @@ export class AdminComponent implements OnInit {
         err => err = console.log("Hay un error")
       )
     }
-    */
+    
   }
 
     add(event: MatChipInputEvent): void {
@@ -266,4 +271,15 @@ export class AdminComponent implements OnInit {
         this.newcourse.professors.splice(index, 1);
       }
     }
+
+    private startsWithAt(control: FormControl) {
+      if (control.value.charAt(0) !== '@') {
+          return {
+              'startsWithAt@': true
+          };
+      }
+
+      return null;
+  }
+
   }

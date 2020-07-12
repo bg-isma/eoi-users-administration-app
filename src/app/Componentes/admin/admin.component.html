@@ -50,12 +50,36 @@
     </form>
     <h2 class="h2-margin">Crear Curso</h2>
     <form class="add-course-from">
-        <label for="">Nombre</label>
-        <input placeholder="Nombre del curso" type="text" name="name" id="" [(ngModel)]="course.name" >
-        <label for="">Duración</label>
-        <input placeholder="Duración del curso" type="text" name="hours" id="" [(ngModel)]="course.hours" >
-        <label for="">Descripción</label>
-        <input placeholder="Descripción del curso" type="text" name="description" id="" [(ngModel)]="course.description">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" id="name" minlength="30" [(ngModel)]="course.name" #nameCourse="ngModel" required>
+        <div *ngIf="nameCourse.invalid && (nameCourse.dirty || nameCourse.touched)">
+            <div *ngIf="nameCourse.errors.required">
+                <p>Se require el Nombre del curso.</p>
+            </div>
+            <div *ngIf="nameCourse.errors.minlength">
+                <p>Nombre de curso mayor de 30 caracteres.</p>
+            </div>
+        </div>    
+        <label for="hours">Número de horas</label>
+        <input type="text" name="hours" id="hours" [(ngModel)]="course.hours" #hoursCourse="ngModel" maxlength="3" pattern="[0-9]+" required>
+        <div *ngIf="hoursCourse.invalid && (hoursCourse.dirty || hoursCourse.touched)">
+            <div *ngIf="hoursCourse.errors.required">
+                <p>Se require la duración del curso.</p>
+            </div>
+            <div *ngIf="hoursCourse.errors.pattern">
+                <p>El formato solo puede ser números.</p>
+            </div>
+        </div>  
+        <label for="description">Descripción</label>
+        <input type="text" name="description" id="description" [(ngModel)]="course.description" minlength="70" required>
+        <div *ngIf="nameCourse.invalid && (nameCourse.dirty || nameCourse.touched)">
+            <div *ngIf="nameCourse.errors.required">
+                <p>Se require una descripción del curso.</p>
+            </div>
+            <div *ngIf="nameCourse.errors.minlength">
+                <p>Descripción mínima de 70 caracteres.</p>
+            </div>
+        </div>
         <label for="">Profesores</label>
         <div class="chips-content">
             <mat-form-field class="chip-list">
@@ -71,8 +95,8 @@
                 </mat-chip-list>
             </mat-form-field>
         </div>
-        <label for="">Area</label>
-        <input placeholder="Area del curso" type="text" name="area"  [(ngModel)]="course.area" />
+        <label for="area">Área del curso</label>
+        <input type="text" name="area" id="area" [(ngModel)]="course.area" />
         <label for="">Skills</label>
         <div class="chips-content">
             <mat-form-field class="chip-list">
@@ -88,11 +112,11 @@
                 </mat-chip-list>
             </mat-form-field>
         </div>
-        <label for="">Año</label>
-        <input placeholder="Año de realización" type="text" name="year" [(ngModel)]="course.year" />
+        <label for="year">Año de realización</label>
+        <input type="text" name="year" id="year" [(ngModel)]="course.year" />
         <label for="">Modalidad</label>
         <mat-form-field>
-            <mat-select name="modality" id="" [(ngModel)]="modalitySelected">
+            <mat-select name="modality" id="" [(ngModel)]="course.modality">
                 <mat-option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -132,6 +156,9 @@
                 <div>
                     <button class="delete" (click)="deleteAlumn(excelAlumn)">Eliminar</button>
                     <button class="create" (click)="addAlumnToDB(excelAlumn)">Crear</button>
+                    <div *ngIf="excelAlumn.registeringExistingUser">
+                        <p>Alumno creado previamente.</p>
+                    </div>
                 </div>
             </div>
         </div>

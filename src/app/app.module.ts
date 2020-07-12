@@ -21,6 +21,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DndDirective } from './dnd.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CourseFormComponent } from './Componentes/course-form/course-form.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DndDirective } from './dnd.directive';
     DetailsComponent,
     AdminComponent,
     EmailValidatorDirective,
-    DndDirective
+    DndDirective,
+    CourseFormComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { DndDirective } from './dnd.directive';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
