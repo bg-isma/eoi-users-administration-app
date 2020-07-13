@@ -1,7 +1,7 @@
 <div class="add-user-from-content" *ngIf="session">
     <h2>Crear Alumno</h2>
     <form #myForm="ngForm" class="add-from">
-        <label for="name">Nombre del Alumno</label>
+        <label for="name">Nombre y apellido del Alumno</label>
         <input id="name" type="text" [(ngModel)]="newAlumn.name" name="name" #name="ngModel" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ]{2,}\s[a-zA-ZáéíóúÁÉÍÓÚ]{4,}\s*[a-zA-ZáéíóúÁÉÍÓÚ]*$" required>
         <div *ngIf="name.invalid && (name.dirty || name.touched)">
             <div *ngIf="name.errors.required">

@@ -448,8 +448,16 @@
 
 ::ng-deep .mat-form-field {
     display: flex;
-    margin-top: -10px !important;
     height: 35px !important;
+}
+
+::ng-deep mat-form-field.form-add-course {
+    margin-bottom: -10px !important;
+}
+
+::ng-deep mat-form-field.form-laborsituation-change {
+    margin-top: -10px !important;
+    width: 110px !important;
 }
 
 .experience-add-content {
@@ -609,9 +617,6 @@
 }
 
 @media (min-width: 600px) {
-
-    .user-description {
-    }
 
     .user-head {
         flex-direction: row;

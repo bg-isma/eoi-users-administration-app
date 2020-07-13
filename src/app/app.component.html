@@ -3,8 +3,8 @@
     <div></div>
     <div class="user-menu-content">
         <div class="user-menu">
-            <div *ngIf="!sessionAdmin"><a href="{{ user.id ? ('http://localhost:4200/details/' + user.id) : 'http://localhost:4200/login' }}"><img async src="{{ user.img }}" alt=""></a></div>
-            <div *ngIf="sessionAdmin"><img async src="{{ user.img }}" alt="" routerLink="admin"></div>
+            <div *ngIf="!sessionAdmin"><a href="{{ user.id ? ('http://localhost:4200/details/' + user.id) : 'http://localhost:4200/login' }}"><img async src="{{ user.img || 'https://api.adorable.io/avatars/face/eyes4/nose3/mouth7/' + randomColor() }}" alt=""></a></div>
+            <div *ngIf="sessionAdmin"><img async src="{{ user.img || 'https://api.adorable.io/avatars/face/eyes4/nose3/mouth7/' + randomColor() }}" alt=""></div>
             <div *ngIf="sessionAdmin || sessionAlumn" (click)="logout()">
                 <div><img class="close-img" src="assets/close-white-18dp.svg" alt=""></div>
             </div>

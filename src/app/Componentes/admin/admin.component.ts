@@ -134,7 +134,9 @@ export class AdminComponent implements OnInit {
   }
 
   onFileChange(event) {
-    console.log(event);
+    this.isLoading = true;
+    this.isExcellLoaded = true;
+    this.fileName = event[0].name
     
     const reader: FileReader = new FileReader();
     reader.readAsBinaryString(event[0]);
@@ -155,7 +157,8 @@ export class AdminComponent implements OnInit {
           courseImg: this.courses.find(course => course.name == fila[3]).img
         }
       });
-      console.log(this.excelAlumnList);
+
+      this.isLoading = false;
     };
    
   }

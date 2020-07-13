@@ -15,6 +15,7 @@ export class AppComponent {
   user = { id: '', img: "https://image.flaticon.com/icons/svg/2742/2742473.svg" }
   isLogin = true;
 
+  randomColor = () => "000000".replace(/0/g, function(){return (~~(Math.random()*16)).toString(16);})
   constructor () {
   }
 

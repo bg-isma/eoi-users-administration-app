@@ -24,7 +24,7 @@ export class DetailsComponent implements OnInit {
   //removable = true;
   //separatorKeysCodes: number[] = [ENTER, COMMA];
   alumnID = ''
-  alumn: any = { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: ''  }
+  alumn: any = { id: '', name: '', password: '', mainCourse: '', loginEmail: '', birthday: '', experiences: []  }
   editMode: boolean = false
   userLogged: boolean = false
   decription: string = '';
@@ -41,24 +41,7 @@ export class DetailsComponent implements OnInit {
   courseSelected = "Desarrollo Web Angular"
   name = '' // awdawdsa
   birthday = '12/07/1999';
-  experience: Experience = {
-    id:'',
-    company: '',
-    time: undefined,
-    startYear: '',
-    endYear: ''
-  }
-  /*course: Course = {
-    name: '',
-    img: '',
-    hours: undefined,
-    description: '',
-    skills : [],
-    professors : [],
-    area : '',
-    year : '',
-    modality : ''
-  }*/
+
   randomColor = () => "000000".replace(/0/g, function(){return (~~(Math.random()*16)).toString(16);})
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
   newexperience: Experience = {
@@ -68,31 +51,20 @@ export class DetailsComponent implements OnInit {
     startYear: '',
     endYear: ''
   };
-/*
-  newcourse: Course = {
-    name: '',
-    img: '',
-    hours: undefined,
-    description: '',
-    skills : [],
-    professors : [],
-    area : '',
-    year : '',
-    modality : ''
-  }
-*/
+
   thisAlumn: any = {
     name: '',
     phone: '',
     contactEmail : '',
     city:'',
-    description : '',
+    description : 'Describete para que podamos saber algo mas sobre ti',
     birthday: '',
     laborSituation: '',
     password: this.alumn.password,
     loginEmail: this.alumn.loginEmail,
     mainCourse: this.alumn.mainCourse,
-    courses: []
+    courses: [],
+    experiences: []
   }
   picker = '';
   year = new Date().getFullYear();
@@ -124,6 +96,12 @@ export class DetailsComponent implements OnInit {
         ...alumn,
         courseImg: alumn.courses.find( course => course.name == alumn.mainCourse ).img
       }
+
+      if (this.alumn.experiences == undefined) {
+        this.alumn.experiences = []
+        this.thisAlumn.experiences = []
+      }
+
       this.laborSituationSelected = alumn.laborSituation
     })
   }
@@ -168,7 +146,9 @@ export class DetailsComponent implements OnInit {
     this.isAddExperienceOpen = false;
   }
   addCourse () {
-    this.thisAlumn.courses.push(this.courses.find(course => course.name == this.courseSelected))
+    if (!this.thisAlumn.courses.some( course => course.name == this.courseSelected)) {
+      this.thisAlumn.courses.push(this.courses.find(course => course.name == this.courseSelected))
+    }
   }
 
   deleteExperience (id) { this.thisAlumn.experiences = this.thisAlumn.experiences.filter( experience => experience.id != id) }
