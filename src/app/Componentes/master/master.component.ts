@@ -65,7 +65,7 @@ export class MasterComponent implements OnInit {
   isFilterBtnDisabled = false;
   state = 'closed'
     
-  page = 0
+  page = 1;
   nAlunms = 0;
 
   year = new Date().getFullYear();
@@ -133,7 +133,7 @@ export class MasterComponent implements OnInit {
   }
 
   filterAlumns = () => {
-    this.page = 0;
+    this.page = 1;
     this.nAlunms = 0;
     this.alumnsService.getAll(this.page).then(alumns => {
       this.filterAndFill(alumns.map( alumn => {

@@ -771,6 +771,54 @@
       "description": "",
       "birthday": "",
       "laborSituation": "Desempleado"
+    },
+    {
+      "name": "Isma bolita G",
+      "id": "_7a4k1foey",
+      "password": "123456",
+      "loginEmail": "ismaaa@hotmail.com",
+      "mainCourse": "Sonido directo y diseño sonoro",
+      "courses": [
+        {
+          "name": "Marketing Digital",
+          "hours": 300,
+          "img": "https://d3t4nwcgmfrp9x.cloudfront.net/upload/cinco-errores-comunes-las-empresas-espanolas-marketing-digital.jpg",
+          "description": "Conceptos Básicos de Marketing aplicados a la era Digital",
+          "skills": [
+            "Diseño",
+            "Redes Sociales"
+          ],
+          "professors": [
+            "Lola Flores",
+            "Elisabet Cañas"
+          ],
+          "area": "Marketing y diseño",
+          "year": "2020",
+          "modality": "presencial"
+        },
+        {
+          "name": "Sonido directo y diseño sonoro",
+          "hours": 20,
+          "img": "https://blog.edx.org/wp-content/uploads/2018/01/Produccion-musical-.jpg",
+          "description": "Conocer los fundamentos del sonido directo, profundizando en la figura del diseñador sonoro",
+          "skills": [
+            "Efectos de sonido",
+            "Pre-producción"
+          ],
+          "professors": [
+            "Joaquin Pachón"
+          ],
+          "area": "Audiovisual",
+          "year": "2020",
+          "modality": "online"
+        }
+      ],
+      "phone": "",
+      "contactEmail": "ismaaa@hotmail.com",
+      "city": "",
+      "description": "",
+      "birthday": "",
+      "laborSituation": "Desempleado"
     }
   ],
   "administrators": [
