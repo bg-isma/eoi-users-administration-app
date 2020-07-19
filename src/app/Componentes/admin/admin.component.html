@@ -50,8 +50,7 @@
     </form>
 
 
-    <h2 class="h2-margin">Crear Curso</h2>
-<<<<<<< HEAD
+    <!--<h2 class="h2-margin">Crear Curso</h2>
     <form class="add-course-from">
         <label for="name">Nombre</label>
         <input type="text" name="name" id="name" minlength="30" [(ngModel)]="course.name" #nameCourse="ngModel" required>  
@@ -60,15 +59,6 @@
          
         <label for="description">Descripción</label>
         <input type="text" name="description" id="description" [(ngModel)]="course.description"  required>
-=======
-    <form class="add-course-from" [formGroup]="createCourseFrom">
-        <label for="">Nombre</label>
-        <input placeholder="Nombre del curso" type="text" formControlName="name" id="" [(ngModel)]="course.name" >
-        <label for="">Duración</label>
-        <input placeholder="Duración del curso" type="text" formControlName="duration" id="" [(ngModel)]="course.hours" >
-        <label for="">Descripción</label>
-        <input placeholder="Descripción del curso" type="text" formControlName="description" id="" [(ngModel)]="course.description">
->>>>>>> cambios de ultima hora
         <label for="">Profesores</label>
         <div class="chips-content">
             <mat-form-field class="chip-list">
@@ -101,33 +91,21 @@
                 </mat-chip-list>
             </mat-form-field>
         </div>
-<<<<<<< HEAD
         <label for="year">Año de realización</label>
         <input type="text" name="year" id="year" [(ngModel)]="course.year" />
         <label for="">Modalidad</label>
         <mat-form-field>
             <mat-select name="modality" id="" [(ngModel)]="course.modality">
-=======
-        <label for="">Año</label>
-        <input placeholder="Año de realización" type="text" formControlName="year" [(ngModel)]="course.year" />
-        <label for="">Modalidad</label>
-        <mat-form-field>
-            <mat-select formControlName="modality" id="" [(ngModel)]="modalitySelected">
->>>>>>> cambios de ultima hora
                 <mat-option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</mat-option>
             </mat-select>
         </mat-form-field>
         <button (click)="createNewCourse()">Añadir curso</button> 
     </form>
-</div>
-<<<<<<< HEAD
+</div>-->
 <div>
-    <h2>Crear curso desde componente course-form</h2>
+    <h2 class="h2-margin">Crear curso desde componente course-form</h2>
     <app-course-form></app-course-form>
 </div>
-=======
-
->>>>>>> 0e6c2010c73d252b5ccf0131f04d9016fbcc5f0a
 <div class="drop-zone" appDnd (onFileDropped)="onFileChange($event)">
     <label for="img" (dragover)="isDraging = true" (dragleave)="isDraging = false" [ngStyle]="{ 'background-color': isDraging ? '' : 'rgb(221, 221, 221)' }" >
         <input type="file" multiple="false" accept=".xls,.xlsx,.ods" id="img" (change)="dragAndDropFile($event)" #fileDrop>

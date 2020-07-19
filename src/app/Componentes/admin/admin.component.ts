@@ -20,7 +20,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 export class AdminComponent implements OnInit {
 
   alumns = [];
-  courses: Course[];
+  courses: Course[] = [];
   newcourse: Course = {
     name: '',
     img: '',
@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
     year : '',
     modality : ''
   };
-  modalities: string[] = ["Presencial", "On-line", "Semi-presencial"];
+ /* modalities: string[] = ["Presencial", "On-line", "Semi-presencial"];
   modalitySelected = "Presencial";
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
     area : "",
     year : "",
     modality : ""
-  };
+  };*/
 
   default = "";
   newAlumn : Alumn = {
@@ -197,7 +197,7 @@ export class AdminComponent implements OnInit {
       .catch(err => console.log(`Hay un error ${err}`))
   }
 
-  createNewCourse(){
+  /*createNewCourse(){
     
     console.log(this.course);
     if (this.course.name.length != 0) {
@@ -256,8 +256,8 @@ export class AdminComponent implements OnInit {
       if (index >= 0) {
         this.newcourse.skills.splice(index, 1);
       }
-    }
-    addProf(event: MatChipInputEvent): void {
+    }*/
+   /* addProf(event: MatChipInputEvent): void {
       const put = event.input;
       const valor = event.value;
   
@@ -269,14 +269,14 @@ export class AdminComponent implements OnInit {
       if (put) {
         put.value = '';
       }
-    }
+    }*/
   //Poder eliminar chips de palabras.
-    removed(skill): void {
+  /*  removed(skill): void {
       const index = this.newcourse.professors.indexOf(skill);
   
       if (index >= 0) {
         this.newcourse.professors.splice(index, 1);
       }
-    }
+    }*/
 
   }

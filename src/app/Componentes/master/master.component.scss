@@ -59,18 +59,6 @@ input {
     flex-direction: column;
     width: 100%;
     padding: 0px;
-
-    ::ng-deep .mat-select-arrow {
-        color: white;
-    }
-    
-    ::ng-deep .mat-select-value {
-        color: white;
-    }
-    
-    ::ng-deep div.mat-form-field-infix {
-        border-bottom: 1px solid white;
-    }
 }
 
 

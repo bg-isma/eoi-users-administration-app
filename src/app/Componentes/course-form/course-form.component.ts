@@ -94,7 +94,8 @@ export class CourseFormComponent implements OnInit {
   }
   private revert(){
     //Restablece el objeto en blanco. 
-    //this.courseForm.reset({course : new Course()});
+    // this.courseForm.reset({course : new Course()});
+    this.courseForm.reset();
     this.skills.controls = [];
     this.professors.controls = [];
   }

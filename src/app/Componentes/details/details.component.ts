@@ -8,8 +8,7 @@ import { Session } from 'src/app/Interfaces/session';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { CoursesService } from 'src/app/services/courses.service';
-
-
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -44,12 +43,13 @@ export class DetailsComponent implements OnInit {
 
   randomColor = () => "000000".replace(/0/g, function(){return (~~(Math.random()*16)).toString(16);})
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
-  newexperience: Experience = {
+  newexperience: any = {
     id: this.generateId(),
     company: '',
     time: 0,
     startYear: '',
-    endYear: ''
+    endYear: '',
+    isYear: false
   };
 
   thisAlumn: any = {
@@ -140,6 +140,12 @@ export class DetailsComponent implements OnInit {
   
   addExperience() {
     if (this.newexperience.time != undefined && this.newexperience.company.length != 0) {
+      if (this.newexperience.time >= 12) {
+        this.newexperience.isYear = true;
+        this.newexperience.time = Math.floor(this.newexperience.time / 12) 
+      } else {
+        this.newexperience.isYear = false;
+      }
       this.thisAlumn.experiences.push({...this.newexperience}) 
       this.newexperience = { id: this.generateId(), company: '', time: undefined, startYear: '', endYear: '' };
     }

@@ -115,7 +115,7 @@
                     <div class="company-first-letter">{{ experience.company[0] }}</div>
                     <div>
                         <h2>{{ experience.company }}</h2>
-                        <h3>{{ experience.time / 12  }}{{ experience.time < 12 ? ' Meses' : ' Años' }} </h3>
+                        <h3>{{ experience.time }}{{ experience.isYear ? ' Años' : ' Meses'}} </h3>
                     </div>
                 </div>
                 <div></div>

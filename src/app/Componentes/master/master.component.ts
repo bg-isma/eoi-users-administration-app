@@ -105,7 +105,7 @@ export class MasterComponent implements OnInit {
   
   loadAlumns() {
     this.alumnsService.getAll(this.page).then(alumns => { 
-      alumns.forEach((alumn, idx)=> {
+      alumns.forEach((alumn, idx) => {
         this.alumns.push({
           ...alumn,
           courseImg: this.courses.find( course => course.name == alumn.mainCourse ).img
@@ -129,7 +129,10 @@ export class MasterComponent implements OnInit {
         })})))
       })
       Promise.all(promises).then( values => this.filterAndFill(newAlumns));
-    } else { this.loadAlumns() }
+    } else {
+       this.alumns = []
+       this.loadAlumns() 
+    }
   }
 
   filterAlumns = () => {
