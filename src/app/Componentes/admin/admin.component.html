@@ -48,6 +48,7 @@
         </div>
         <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
     </form>
+    <!--
     <h2 class="h2-margin">Crear Curso</h2>
     <form class="add-course-from">
         <label for="name">Nombre</label>
@@ -99,11 +100,16 @@
         </mat-form-field>
         <button (click)="createNewCourse()">Añadir curso</button> 
     </form>
+    -->
 </div>
+<<<<<<< HEAD
 <div>
     <h2>Crear curso desde componente course-form</h2>
     <app-course-form></app-course-form>
 </div>
+=======
+
+>>>>>>> 0e6c2010c73d252b5ccf0131f04d9016fbcc5f0a
 <div class="drop-zone" appDnd (onFileDropped)="onFileChange($event)">
     <label for="img" (dragover)="isDraging = true" (dragleave)="isDraging = false" [ngStyle]="{ 'background-color': isDraging ? '' : 'rgb(221, 221, 221)' }" >
         <input type="file" multiple="false" accept=".xls,.xlsx,.ods" id="img" (change)="dragAndDropFile($event)" #fileDrop>

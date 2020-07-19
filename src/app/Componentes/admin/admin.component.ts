@@ -82,10 +82,10 @@ export class AdminComponent implements OnInit {
       this.alumnService.addOne(this.newAlumn)
       .then( newAlumn => {
         this.alumns.push(newAlumn);
-        this.newAlumn = { name:"", id: "", password: "", loginEmail: "", mainCourse:""};
+        this.newAlumn = { name:"", id: "", password: "", loginEmail: "", mainCourse:"", courses: []};
         myForm.reset();
       });
-    }  
+    }
   }
   
   ngOnInit(): void { 
@@ -187,12 +187,13 @@ export class AdminComponent implements OnInit {
       alumno.registeringExistingUser = true;
     }
   }
+
   loadCourses(){
     this.courseService.getAll()
       .then( response => this.courses = response)
       .catch(err => console.log(`Hay un error ${err}`))
-
   }
+
   createNewCourse(){
     
     console.log(this.course);
