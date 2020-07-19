@@ -21,8 +21,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DndDirective } from './dnd.directive';
+<<<<<<< HEAD
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourseFormComponent } from './Componentes/course-form/course-form.component'
+=======
+import { ReactiveFormsModule } from "@angular/forms";
+>>>>>>> cambios de ultima hora
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { CourseFormComponent } from './Componentes/course-form/course-form.compo
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+<<<<<<< HEAD
     ReactiveFormsModule,
+=======
+    ReactiveFormsModule
+>>>>>>> cambios de ultima hora
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

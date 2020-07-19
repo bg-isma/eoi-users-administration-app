@@ -2,8 +2,8 @@
     <h2>Crear Alumno</h2>
     <form #myForm="ngForm" class="add-from">
         <label for="name">Nombre y apellido del Alumno</label>
-        <input id="name" type="text" [(ngModel)]="newAlumn.name" name="name" #name="ngModel" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ]{2,}\s[a-zA-ZáéíóúÁÉÍÓÚ]{4,}\s*[a-zA-ZáéíóúÁÉÍÓÚ]*$" required>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+        <input id="name" type="text" [(ngModel)]="newAlumn.name" name="name" #name="ngModel" pattern="^[a-zA-ZáéíóúÁÉÍÓÚ]{2,}\s[a-zA-ZáéíóúÁÉÍÓÚ]{4,}\s*[a-zA-ZáéíóúÁÉÍÓÚ]*$" required placeholder="Nombre Apellido">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" >
             <div *ngIf="name.errors.required">
                 <p>Se require el campo Nombre.</p>
             </div>
@@ -13,7 +13,7 @@
         </div>
 
         <label for="email">Correo</label>
-        <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" appEmailValidator>
+        <input id="email" type="text" [(ngModel)]="newAlumn.loginEmail" name="loginEmail" #loginEmail="ngModel" appEmailValidator placeholder="Correo">
         
         <div *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">
             <div *ngIf="loginEmail.errors.cus_required">
@@ -22,9 +22,9 @@
             <div *ngIf="loginEmail.errors.shouldMatchPattern">
                 <p>Email debe tener un formato de dominio válido</p>
             </div>
-        </div>  
+        </div>
         <label for="pass">Contraseña</label>
-        <input id="pass" type="password" minlength="5" [(ngModel)]="newAlumn.password" name="password" #password="ngModel" required>
+        <input id="pass" type="password" minlength="5" [(ngModel)]="newAlumn.password" name="password" #password="ngModel" required placeholder="Contraseña">
         <div *ngIf="password.invalid && (password.dirty || password.touched)"> 
             <div *ngIf="password.errors.required">
                 <p>Se require el campo contraseña.</p>
@@ -48,8 +48,10 @@
         </div>
         <button (click)="createNewAlumn(myForm)">Dar de Alta</button>
     </form>
-    <!--
+
+
     <h2 class="h2-margin">Crear Curso</h2>
+<<<<<<< HEAD
     <form class="add-course-from">
         <label for="name">Nombre</label>
         <input type="text" name="name" id="name" minlength="30" [(ngModel)]="course.name" #nameCourse="ngModel" required>  
@@ -58,6 +60,15 @@
          
         <label for="description">Descripción</label>
         <input type="text" name="description" id="description" [(ngModel)]="course.description"  required>
+=======
+    <form class="add-course-from" [formGroup]="createCourseFrom">
+        <label for="">Nombre</label>
+        <input placeholder="Nombre del curso" type="text" formControlName="name" id="" [(ngModel)]="course.name" >
+        <label for="">Duración</label>
+        <input placeholder="Duración del curso" type="text" formControlName="duration" id="" [(ngModel)]="course.hours" >
+        <label for="">Descripción</label>
+        <input placeholder="Descripción del curso" type="text" formControlName="description" id="" [(ngModel)]="course.description">
+>>>>>>> cambios de ultima hora
         <label for="">Profesores</label>
         <div class="chips-content">
             <mat-form-field class="chip-list">
@@ -79,7 +90,7 @@
         <div class="chips-content">
             <mat-form-field class="chip-list">
                 <mat-chip-list #chipList aria-label="Skill selection">
-                    <mat-chip *ngFor="let skill of newcourse.skills" name="select-skills" [selectable]="selectable" [removable]="removable"
+                    <mat-chip *ngFor="let skill of newcourse.skills" formControlName="skills" [selectable]="selectable" [removable]="removable"
                         (removed)="remove(skill)">
                         {{skill}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
@@ -90,17 +101,24 @@
                 </mat-chip-list>
             </mat-form-field>
         </div>
+<<<<<<< HEAD
         <label for="year">Año de realización</label>
         <input type="text" name="year" id="year" [(ngModel)]="course.year" />
         <label for="">Modalidad</label>
         <mat-form-field>
             <mat-select name="modality" id="" [(ngModel)]="course.modality">
+=======
+        <label for="">Año</label>
+        <input placeholder="Año de realización" type="text" formControlName="year" [(ngModel)]="course.year" />
+        <label for="">Modalidad</label>
+        <mat-form-field>
+            <mat-select formControlName="modality" id="" [(ngModel)]="modalitySelected">
+>>>>>>> cambios de ultima hora
                 <mat-option [value]="modality" *ngFor="let modality of modalities">{{ modality }}</mat-option>
             </mat-select>
         </mat-form-field>
         <button (click)="createNewCourse()">Añadir curso</button> 
     </form>
-    -->
 </div>
 <<<<<<< HEAD
 <div>

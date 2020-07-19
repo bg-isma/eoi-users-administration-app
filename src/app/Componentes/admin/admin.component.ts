@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlumnsService } from '../../alumns.service';
 import { Alumn } from '../../Interfaces/alumn'
 import { Course } from 'src/app/Interfaces/course';
@@ -9,7 +9,7 @@ import { Router } from "@angular/router"
 import * as xlsx from 'xlsx';
 import { CoursesService } from 'src/app/services/courses.service';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -27,7 +27,9 @@ export class AdminComponent implements OnInit {
     hours: undefined,
     description: '',
     skills : [],
-    professors : [],
+    professors : [
+      `wadaw`
+    ],
     area : '',
     year : '',
     modality : ''
@@ -55,7 +57,7 @@ export class AdminComponent implements OnInit {
     id: "",
     password: "",
     loginEmail: "",
-    mainCourse: "", 
+    mainCourse: "Desarrollo Web Angular", 
     courses : []
   }; 
  
@@ -68,10 +70,11 @@ export class AdminComponent implements OnInit {
   registeringExistingUser : boolean;
 
   session : Session; 
-  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router, private courseService : CoursesService ) {}
+
+  constructor(private alumnService: AlumnsService, private loginService :LoginService, private router: Router, private courseService : CoursesService ) {
+}
 
   generateId = () => '_' + Math.random().toString(36).substr(2, 9);
-
   async createNewAlumn(myForm: NgForm){
    let course = this.courses.find(course => course.name == this.newAlumn.mainCourse);
    this.newAlumn.courses.push(course);  
@@ -275,15 +278,5 @@ export class AdminComponent implements OnInit {
         this.newcourse.professors.splice(index, 1);
       }
     }
-
-    private startsWithAt(control: FormControl) {
-      if (control.value.charAt(0) !== '@') {
-          return {
-              'startsWithAt@': true
-          };
-      }
-
-      return null;
-  }
 
   }

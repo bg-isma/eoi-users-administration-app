@@ -228,7 +228,7 @@ p{
 }
 
 .add-course-from label {
-    margin: 7px 0px;
+    margin: 12px 0px;
     color: white;
 }
 
@@ -256,6 +256,6 @@ p{
 
 .chips-content {
     display: flex;
-    height: 40px;
+    height: max-content;
     color: white;
 }

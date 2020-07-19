@@ -49,12 +49,12 @@
                 </div>
                 <div class="extra-user-info">
                     <div>
-                        <img src="assets/call-white-18dp.svg" alt="">
+                        <img src="assets/location_on-white-18dp.svg" alt="">
                         <div *ngIf="!editMode">{{ thisAlumn.city || 'No a seleccionado ciudad' }}</div>
                         <input type="text" class="alumn-info" *ngIf="editMode" [(ngModel)]="thisAlumn.city" placeholder="ciudad">
                     </div>
                     <div>
-                        <img src="assets/location_on-white-18dp.svg" alt="">
+                        <img src="assets/call-white-18dp.svg" alt="">
                         <div *ngIf="!editMode">{{ thisAlumn.phone || 'No tiene teléfono se comunica con señales de humo' }}</div>
                         <input type="text" class="alumn-info"  *ngIf="editMode" [(ngModel)]="thisAlumn.phone" placeholder="000 000 000">
                     </div>

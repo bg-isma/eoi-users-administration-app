@@ -27,7 +27,7 @@
         <section class="filters-content">
             <div class="filters" [@openClose]="state">
                 <div class="selects-content">
-                    <label for="">Location</label>
+                    <label for="">Localización</label>
                     <mat-form-field >
                         <mat-select [(ngModel)]="locationSelected">
                           <mat-option *ngFor="let location of locations" [value]="location">
@@ -36,7 +36,7 @@
                         </mat-select>
                     </mat-form-field>
     
-                    <label for="">Courses</label>
+                    <label for="">Cursos</label>
                     <mat-form-field>
                         <mat-select [(ngModel)]="courseSelected">
                           <mat-option *ngFor="let course of courses" [value]="course.name">
@@ -45,7 +45,7 @@
                         </mat-select>
                     </mat-form-field>
     
-                    <label for="">laborSituation</label>
+                    <label for="">Situación Laboral</label>
                     <mat-form-field>
                         <mat-select  class="select md-no-underline" [(ngModel)]="laborSituationSelected">
                           <mat-option *ngFor="let laborSituation of laborSituations" [value]="laborSituation">
@@ -65,7 +65,7 @@
         </div>
         <div class="filters-pc">
             <div class="filters-content-pc">
-                <label for="">Localizacion</label>
+                <label for="">Localización</label>
                 <mat-form-field >
                     <mat-select [(ngModel)]="locationSelected">
                       <mat-option *ngFor="let location of locations" [value]="location">
@@ -81,7 +81,7 @@
                       </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <label for="">Situacion Laboral</label>
+                <label for="">Situación Laboral</label>
                 <mat-form-field>
                     <mat-select  class="select md-no-underline" [(ngModel)]="laborSituationSelected">
                       <mat-option *ngFor="let laborSituation of laborSituations" [value]="laborSituation">
