@@ -78,6 +78,7 @@ export class AdminComponent implements OnInit {
     let listRepeatedAlumn = await this.alumnService.isRepeatedAlumn(this.newAlumn.loginEmail);
     if(myForm.valid && listRepeatedAlumn.length == 0 ){
       this.newAlumn.id = this.generateId();
+      console.log(this.newAlumn)
       this.alumnService.addOne(this.newAlumn)
       .then( newAlumn => {
         this.alumns.push(newAlumn);
@@ -201,8 +202,10 @@ export class AdminComponent implements OnInit {
       this.newcourse.description = this.course.description;
       this.newcourse.area = this.course.area;
       this.newcourse.year = this.course.year;
-      //this.newcourse.modality = this.modalitySelected;
-      
+      this.newcourse.modality = this.modalitySelected;
+      console.log("admin.ts")
+      console.log(this.newcourse)
+
       this.courseService.addOne(this.newcourse)
       .then(
         newcourse => {

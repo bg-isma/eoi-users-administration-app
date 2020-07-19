@@ -6,7 +6,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class CoursesService {
-  url = "http://localhost:3000/courses";
+  url = "http://localhost:3000/Courses";
   constructor() { }
 
   getAll(): Promise<Course[]> {
@@ -16,10 +16,9 @@ export class CoursesService {
   }
 
   async addOne(course: Course): Promise<Course> {
-
-    return axios.post(this.url, course)
+    return axios.post(`${this.url}`, course)
       .then(course => course.data)
+      .catch(err => console.log(`Hay un error ${err}`));
   }
 
 }
-
