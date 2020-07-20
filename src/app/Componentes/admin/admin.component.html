@@ -104,7 +104,7 @@
 </div>-->
 <div>
     <h2 class="h2-margin">Crear curso desde componente course-form</h2>
-    <app-course-form></app-course-form>
+    <app-course-form (notifyAdmin)="addCourseFromChild($event)" ></app-course-form>
 </div>
 <div class="drop-zone" appDnd (onFileDropped)="onFileChange($event)">
     <label for="img" (dragover)="isDraging = true" (dragleave)="isDraging = false" [ngStyle]="{ 'background-color': isDraging ? '' : 'rgb(221, 221, 221)' }" >

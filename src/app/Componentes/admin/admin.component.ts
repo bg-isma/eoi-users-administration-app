@@ -197,6 +197,9 @@ export class AdminComponent implements OnInit {
       .catch(err => console.log(`Hay un error ${err}`))
   }
 
+  addCourseFromChild(course : Course ){
+    this.courses.push(course);
+  }
   /*createNewCourse(){
     
     console.log(this.course);

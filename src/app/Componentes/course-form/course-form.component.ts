@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { CourseRequest } from 'src/app/Interfaces/course-request';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
@@ -27,8 +27,9 @@ export class CourseFormComponent implements OnInit {
     professors : [],
     area : "",
     year : "",
-    modality : ""
+    modality : "Presencial"
   };
+  @Output() notifyAdmin = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private courseService : CoursesService ) { 
     this.courseForm = this.createFormGroupWithBuilder(formBuilder);
@@ -62,7 +63,7 @@ export class CourseFormComponent implements OnInit {
         ]],
         area :['',[
           Validators.required,
-          Validators.minLength(10)
+          Validators.minLength(4)
         ]] ,
         year :['',[
           Validators.required,
@@ -89,12 +90,14 @@ export class CourseFormComponent implements OnInit {
         // Make sure to create a deep copy of the form-model
         const curso: Course = Object.assign({}, this.courseForm.value.course);
        this.courseService.addOne(curso)
-          .then( result => this.revert());
+          .then( result => {
+            this.revert();
+            this.notifyAdmin.emit(curso);
+          });
         
   }
   private revert(){
     //Restablece el objeto en blanco. 
-    // this.courseForm.reset({course : new Course()});
     this.courseForm.reset();
     this.skills.controls = [];
     this.professors.controls = [];
@@ -122,7 +125,7 @@ export class CourseFormComponent implements OnInit {
     if ((value || '').trim()) {
       const control = <FormArray>this.courseForm.get('course.skills');
       control.push(this.initProfessor(value.trim()));
-      console.log(control);
+
     }
 
     // Reset the input value
@@ -141,7 +144,7 @@ export class CourseFormComponent implements OnInit {
     if ((valor || '').trim()) {
       const control = <FormArray>this.courseForm.get('course.professors');
       control.push(this.initSkill(valor.trim()));
-      console.log(control);
+
     }
 
     // Reset the input value
