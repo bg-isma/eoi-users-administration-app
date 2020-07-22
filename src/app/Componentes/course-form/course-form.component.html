@@ -1,100 +1,101 @@
-<form [formGroup] = "courseForm" (ngSubmit) = "onSubmit()" 
-    class="courseForm">
-    <div  formGroupName = "course" >
-        <label>Nombre del curso</label>
-        <input  formControlName = "name" /><br>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)">
-            <div *ngIf="name.errors.required">
-                <p>Se require el Nombre del curso.</p>
+<div class="add-course-from-content">
+    <form [formGroup] = "courseForm" (ngSubmit) = "onSubmit()"  class="add-from">
+        <div  formGroupName = "course" >
+            <label>Nombre del curso</label>
+            <input  formControlName = "name" placeholder="Nombre Curso"/>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div *ngIf="name.errors.required">
+                    <p>Se require el Nombre del curso.</p>
+                </div>
+                <div *ngIf="name.errors.minlength">
+                    <p>Nombre de curso mayor de 20 caracteres.</p>
+                </div>
             </div>
-            <div *ngIf="name.errors.minlength">
-                <p>Nombre de curso mayor de 20 caracteres.</p>
+            <label>Horas del curso</label>
+            <input  formControlName = "hours" placeholder="Horas"/>
+            <div *ngIf="hours.invalid && (hours.dirty || hours.touched)">
+                <div *ngIf="hours.errors.required">
+                    <p>Se require la duración del curso.</p>
+                </div>
+                <div *ngIf="hours.errors.pattern">
+                    <p>El formato solo puede ser números.</p>
+                </div>
+                <div *ngIf="hours.errors.maxlength">
+                    <p>El número de horas máximas del curso es 999 horas.</p>
+                </div>
             </div>
-        </div>
-        <label>Horas del curso</label>
-        <input  formControlName = "hours"/><br>
-        <div *ngIf="hours.invalid && (hours.dirty || hours.touched)">
-            <div *ngIf="hours.errors.required">
-                <p>Se require la duración del curso.</p>
+            <label>Descripción</label>
+            <input  formControlName = "description" placeholder="Descripcion"/>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                <div *ngIf="description.errors.required">
+                    <p>Se require descripción del curso.</p>
+                </div>
+                <div *ngIf="description.errors.minlength">
+                    <p>Número mínimo de caracteres es de 30.</p>
+                </div>
+                <div *ngIf="description.errors.maxlength">
+                    <p>Número máximo de caracteres de la descripción 120.</p>
+                </div>
             </div>
-            <div *ngIf="hours.errors.pattern">
-                <p>El formato solo puede ser números.</p>
-            </div>
-            <div *ngIf="hours.errors.maxlength">
-                <p>El número de horas máximas del curso es 999 horas.</p>
-            </div>
-        </div>
-        <label>Descripción</label>
-        <input  formControlName = "description"/>
-        <div *ngIf="description.invalid && (description.dirty || description.touched)">
-            <div *ngIf="description.errors.required">
-                <p>Se require descripción del curso.</p>
-            </div>
-            <div *ngIf="description.errors.minlength">
-                <p>Número mínimo de caracteres es de 30.</p>
-            </div>
-            <div *ngIf="description.errors.maxlength">
-                <p>Número máximo de caracteres de la descripción 120.</p>
-            </div>
-        </div>
-        <label>Área</label>
-        <input  formControlName = "area"/><br>
-        <div *ngIf="area.invalid && (area.dirty || area.touched)">
-            <div *ngIf="area.errors.required">
-                <p>Se require área del curso.</p>
-            </div>
-            <div *ngIf="area.errors.minlength">
-                <p>Número mínimo de caracteres es de 4.</p>
-            </div>
-        </div>    
-        <label>Año</label>
-        <input  formControlName = "year" required/><br>
-        <div *ngIf="year.invalid && (year.dirty || year.touched)">
-            <div *ngIf="year.errors.required">
-                <p>Se require año del curso.</p>
-            </div>
-            <div *ngIf="year.errors.pattern">
-                <p>Debes poner un año apartir del 2000.</p>
-            </div>
-        </div>   
-        <label>Modalidad</label>
-        <mat-form-field>
-            <mat-select formControlName="modality">
-                <mat-option *ngFor="let modality of modalities" [value]="modality">{{modality}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <label >Habilidades</label>
-        <div class="chips-content">
-            <mat-form-field class="chip-list">
-                <mat-chip-list #chipList aria-label="Skill selection" >
-                    <mat-chip *ngFor="let skill of skills.controls; let i=index;" name="select-skills" [selectable]="selectable" [removable]="removable"
-                        (removed)="remove(courseForm, i)">
-                        {{ skill.value }}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                    <input [matChipInputFor]="chipList" name= "chip-habilidades"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>   
-                <mat-error>Incluye al menos una habilidad.</mat-error>
+            <label>Área</label>
+            <input  formControlName = "area" placeholder="Área"/>
+            <div *ngIf="area.invalid && (area.dirty || area.touched)">
+                <div *ngIf="area.errors.required">
+                    <p>Se require área del curso.</p>
+                </div>
+                <div *ngIf="area.errors.minlength">
+                    <p>Número mínimo de caracteres es de 4.</p>
+                </div>
+            </div>    
+            <label>Año</label>
+            <input  formControlName = "year" placeholder="Año de realización"/>
+            <div *ngIf="year.invalid && (year.dirty || year.touched)">
+                <div *ngIf="year.errors.required">
+                    <p>Se require año del curso.</p>
+                </div>
+                <div *ngIf="year.errors.pattern">
+                    <p>Debes poner un año apartir del 2000.</p>
+                </div>
+            </div>   
+            <label>Modalidad</label>
+            <mat-form-field>
+                <mat-select formControlName="modality">
+                    <mat-option *ngFor="let modality of modalities" [value]="modality">{{modality}}</mat-option>
+                </mat-select>
             </mat-form-field>
-        </div>   
-        <label for="">Profesores</label>
-        <div class="chips-content">
-            <mat-form-field class="chip-list">
-                <mat-chip-list #chipListProf aria-label="Professor selection" >
-                    <mat-chip *ngFor="let professor of professors.controls;let i=index" [selectable]="selectable"
-                        [removable]="removable" (removed)="removed(courseForm, i)">
-                        {{professor.value}}
-                        <mat-icon matChipRemove name ="cancel" *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                    <input name ="chip-profesor" [matChipInputFor]="chipListProf"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="addProf($event)" />
-                </mat-chip-list>
-                <mat-error>Incluye al menos un profesor.</mat-error>
-            </mat-form-field>
-        </div>    
-    <button type="submit" [disabled]="!courseForm.valid" >Añadir curso</button>
-</form>
+        </div>
+        <label >Habilidades</label>
+            <div class="chips-content">
+                <mat-form-field class="chip-list">
+                    <mat-chip-list #chipList aria-label="Skill selection" >
+                        <mat-chip *ngFor="let skill of skills.controls; let i=index;" name="select-skills" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(courseForm, i)">
+                            {{ skill.value }}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input [matChipInputFor]="chipList" name= "chip-habilidades"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>   
+                    <mat-error>Incluye al menos una habilidad.</mat-error>
+                </mat-form-field>
+            </div>   
+            <label for="">Profesores</label>
+            <div class="chips-content">
+                <mat-form-field class="chip-list">
+                    <mat-chip-list #chipListProf aria-label="Professor selection" >
+                        <mat-chip *ngFor="let professor of professors.controls;let i=index" [selectable]="selectable"
+                            [removable]="removable" (removed)="removed(courseForm, i)">
+                            {{professor.value}}
+                            <mat-icon matChipRemove name ="cancel" *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input name ="chip-profesor" [matChipInputFor]="chipListProf"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addProf($event)" />
+                    </mat-chip-list>
+                    <mat-error>Incluye al menos un profesor.</mat-error>
+                </mat-form-field>
+            </div>    
+        <button type="submit" [disabled]="!courseForm.valid" >Añadir curso</button>
+    </form>
+</div>  

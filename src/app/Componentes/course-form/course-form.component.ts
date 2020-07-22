@@ -135,7 +135,6 @@ export class CourseFormComponent implements OnInit {
   }
   remove(form,index: number): void {
     form.get('course.skills').removeAt(index);
-    console.log(form);
   }
   addProf(event: MatChipInputEvent): void {
     const put = event.input;
@@ -154,7 +153,6 @@ export class CourseFormComponent implements OnInit {
   }
   removed(form,index : number): void {
     form.get('course.professors').removeAt(index);
-    console.log(form);
   }
 
 }

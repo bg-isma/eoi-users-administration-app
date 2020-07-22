@@ -1,3 +1,60 @@
-/*.courseForm{
-    margin-top: 100px;
-}*/
+.h2-margin {
+    margin-top: 16px;
+}
+
+.add-course-from-content form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark);
+    padding: 16px;
+    border-radius: 2px;
+}
+.add-course-from-content input {
+    width: -webkit-fill-available;
+    height: 35px;
+    background-color: #efefef;
+    padding: 0px 7px;
+}
+
+.add-course-from-content button {
+    background-color: var(--blue);
+    color: white;
+    padding: 7px 0px;
+    border-radius: 2px;
+}
+.add-from label {
+    color: white;
+    margin: 7px 0px;
+    display: flex;
+}
+
+.chip-list input {
+    background-color: transparent;
+}
+
+::ng-deep .mat-select-arrow {
+    color: white;
+}
+
+::ng-deep .mat-select-value {
+    color: white;
+}
+
+::ng-deep div.mat-form-field-infix {
+    border-bottom: 1px solid white;
+}
+
+::ng-deep .chips-content .mat-form-field{
+    margin-top: -20px !important;
+    width: 100% !important;
+    font-size: 0.8rem;
+}
+
+.chips-content {
+    display: flex;
+    height: max-content;
+    color: white;
+}
+p{
+    color: rgb(228, 8, 8);
+}
